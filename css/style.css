@@ -95,6 +95,13 @@ footer {
     color: darkgray;
 }
 
+.info {
+    height: 400px;
+    width: 80%;
+    border: groove lightgray;
+    margin: 40px auto;
+}
+
 .store {
     display: block;
     width: 90%;
@@ -102,16 +109,17 @@ footer {
 }
 
 .store_filter {
-    display: table;
+    display: block;
     border-top: inset gray thick;
     border-bottom: inset gray thick;
     height: 120px;
-    width: 100%;
+    width: 40%;
     text-align: center;
+    float: left;
 }
 
 .store_filter .slider {
-    width: 40%;
+    width: 15%;
     height: 25px;
     background: #d3d3d3;
     outline: none;
@@ -119,17 +127,16 @@ footer {
     transition: opacity .2s;
     float: left;
     margin-left: 50px;
-    display: table-cell;
 }
+
+.store_filter h3 {}
 
 .store_filter button {
     float: right;
     margin-right: 50px;
-    display: table-cell;
 }
 
 .store_filter p {
-    display: table-cell;
     float: left;
     margin: 0;
     padding: 5px;
