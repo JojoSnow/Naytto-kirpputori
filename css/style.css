@@ -1,4 +1,4 @@
-.header_main {
+header {
     width: 100%;
     height: 65px;
     display: block;
@@ -8,9 +8,9 @@
 
 .header_items {
     display: block;
-    width: 85%;
-    margin: 0 auto;
+    width: 90%;
     height: 100%;
+    margin: 0 auto;
 }
 
 .navbar {
@@ -25,6 +25,14 @@
 
 .navbar a li {
     display: table-cell;
+}
+
+.navbar_link_active {
+    color: gray;
+}
+
+.navbar_link_inactive {
+    color: black;
 }
 
 .header_logo {
@@ -49,4 +57,24 @@
     margin: 15px;
     background: transparent;
     border: none;
+}
+
+footer {
+    width: 100%;
+    height: 225px;
+    display: block;
+    background-color: white;
+    border-top: ridge lightgray thin;
+    text-align: center;
+    object-position: center;
+}
+
+.footer_items {
+    display: table;
+    margin: auto;
+}
+
+.footer_items #copyright {
+    display: block;
+    color: darkgray;
 }
