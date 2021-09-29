@@ -4,7 +4,7 @@ const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
 
-
+// creating object of the listing
 function createListingObject(index) {
     const listing = {};
     listing.id = 'listing' + index;
@@ -17,7 +17,7 @@ function createListingObject(index) {
     listing.city = 'Kolari';
     listing.img = ['empty', 'empty', 'empty'];
     listing.payMethod = ['MobilePay', ' käteinen'];
-    listing.price = '5' + ' €';
+    listing.price = '5 €';
     listing.contact = ['Sähköposti'];
     listing.shape = 'käytetty';
 
@@ -26,8 +26,9 @@ function createListingObject(index) {
     index++;
 }
 
+// showing the listings on the page
 function createListing(index) {
-    const listingList = document.getElementById('store');
+    const listingList = document.getElementById('store'); // change to appropiate div
     
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
@@ -35,6 +36,7 @@ function createListing(index) {
         const listingImg = document.createElement('img');
         const priceP = document.createElement('p');
         const dateP = document.createElement('p');
+        const expandBtn = document.createElement('input');
 
         listingDiv.id = 'listing' + index;
         listingDiv.className = 'listing-div';
@@ -46,7 +48,7 @@ function createListing(index) {
         titleP.className = 'listing-name';
         listingDiv.appendChild(titleP);
 
-        listingImg.src = listingArray[index].img;
+        listingImg.src = listingArray[index].img[0];
         listingImg.alt = 'kuva'
         listingImg.id = 'img' + index;
         listingImg.className = 'listing-img'
@@ -64,11 +66,21 @@ function createListing(index) {
         dateP.className = 'listing-date';
         listingDiv.appendChild(dateP);
 
+        expandBtn.type = 'button'
+        expandBtn.value = 'Lisää'
+        expandBtn.className = 'expand-btn';
+        listingDiv.appendChild(expandBtn);
+
         index++;
     }
+    // clicks without clicking on the page. why?
+    document.querySelectorAll('.expand-btn').forEach(btn => btn.addEventListener('click', expandListing(0)));
 }
 
+// expanding the wanted listing
 function expandListing(index) {
+    console.log('click')
+
     const listingDiv = document.getElementById('listing' + index);
 
     const expandDiv = document.createElement('div');
@@ -98,10 +110,12 @@ function expandListing(index) {
     const br1 = document.createElement('br');
     expandDiv.appendChild(br1);
 
-    const descNode = document.createTextNode(listingArray[index].desc);
-    descP.className = 'listing-desc';
-    descP.appendChild(descNode);
-    expandDiv.appendChild(descNode);
+    if (listingArray[index].desc !== '') {
+        const descNode = document.createTextNode(listingArray[index].desc);
+        descP.className = 'listing-desc';
+        descP.appendChild(descNode);
+        expandDiv.appendChild(descNode);
+    }
 
     listingUl.className = 'listing-list';
     expandDiv.appendChild(listingUl);
@@ -146,4 +160,3 @@ function expandListing(index) {
 
 createListingObject(objectIndex);
 createListing(listingIndex);
-expandListing(0);
