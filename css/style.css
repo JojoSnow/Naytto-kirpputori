@@ -1,5 +1,17 @@
+:root {
+    --medium-border: #a0a0a0;
+    --lightest-bg: #fdfdfd;
+    --light-bg: #f4f4f4;
+}
+
 * {
     box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--lightest-bg);
 }
 
 header {
@@ -126,3 +138,14 @@ footer {
 .store_listing {
     display: block;
 }
+
+/* LISTING ITEM */
+
+.listing {
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px 30px;
+    border: 1px solid var(--medium-border);
+    background-color: var(--light-bg);
+}
+

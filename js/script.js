@@ -15,20 +15,21 @@ function createListingObject(index) {
     listing.category = 'Huonekalut';
     listing.address = 'Aikakuja 10';
     listing.city = 'Kolari';
-    listing.img = ['empty', 'empty', 'empty'];
+    listing.img = ['./img/empty.jpg', './img/empty.jpg', './img/empty.jpg'];
     listing.payMethod = ['MobilePay', ' käteinen'];
     listing.price = '5 €';
     listing.contact = ['Sähköposti'];
     listing.shape = 'käytetty';
+    listing.show = 'create';
 
     listingArray.push(listing);
 
-    index++;
+    objectIndex++;
 }
 
-// showing the listings on the page
+// shows the listings on the page
 function createListing(index) {
-    const listingList = document.getElementById('store'); // change to appropiate div
+    const listingList = document.getElementById('store-listing');
     
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
@@ -39,13 +40,13 @@ function createListing(index) {
         const expandBtn = document.createElement('input');
 
         listingDiv.id = 'listing' + index;
-        listingDiv.className = 'listing-div';
+        listingDiv.className = 'listing';
         listingList.appendChild(listingDiv);
 
-        const nameNode = document.createTextNode(listingArray[index].title);
-        titleP.appendChild(nameNode);
+        const titleNode = document.createTextNode(listingArray[index].title);
+        titleP.appendChild(titleNode);
         titleP.id = 'name' + index;
-        titleP.className = 'listing-name';
+        titleP.className = 'listing-title';
         listingDiv.appendChild(titleP);
 
         listingImg.src = listingArray[index].img[0];
@@ -73,90 +74,103 @@ function createListing(index) {
 
         index++;
     }
-    // clicks without clicking on the page. why?
-    document.querySelectorAll('.expand-btn').forEach(btn => btn.addEventListener('click', expandListing(0)));
+    document.querySelectorAll('.expand-btn').forEach(btn => btn.addEventListener('click', expandListing));
 }
 
-// expanding the wanted listing
-function expandListing(index) {
-    console.log('click')
+// expanding the clicked listing
+function expandListing(event) {
+    const targetId = event.target.parentElement.getAttribute('id');
 
-    const listingDiv = document.getElementById('listing' + index);
+    const listingDiv = document.getElementById(targetId);
 
-    const expandDiv = document.createElement('div');
-    const listingUl = document.createElement('ul');
-    const descP = document.createElement('p');
-    const categoryLi = document.createElement('li');
-    const shapeLi = document.createElement('li');
-    const addressLi = document.createElement('li');
-    const cityLi = document.createElement('li');
-    const payMethodLi = document.createElement('li');
-    const nameLi = document.createElement('li');
-    const contactLi = document.createElement('li');
-    
+    for (let x = 0; listingArray.length > x; x++) {
+        if (listingArray[x].show === 'create' && targetId === listingArray[x].id) {
+            const expandDiv = document.createElement('div');
+            const listingUl = document.createElement('ul');
+            const descP = document.createElement('p');
+            const categoryLi = document.createElement('li');
+            const shapeLi = document.createElement('li');
+            const addressLi = document.createElement('li');
+            const cityLi = document.createElement('li');
+            const payMethodLi = document.createElement('li');
+            const nameLi = document.createElement('li');
+            const contactLi = document.createElement('li');
+            
 
-    expandDiv.id = 'listing-expand' + index;
-    expandDiv.class = 'listing-expand';
-    listingDiv.appendChild(expandDiv);
+            expandDiv.id = 'listing-expand' + x;
+            expandDiv.class = 'listing-expand';
+            listingDiv.appendChild(expandDiv);
 
-    for (let i = 0; listingArray[index].img.length > i; i++) {
-        const listingExpandImg = document.createElement('img');
-        listingExpandImg.src = listingArray[index].img[i];
-        listingExpandImg.alt = 'kuva';
-        listingExpandImg.className = 'listing-expand-img';
-        expandDiv.appendChild(listingExpandImg);
+            for (let i = 0; listingArray[x].img.length > i; i++) {
+                const listingExpandImg = document.createElement('img');
+                listingExpandImg.src = listingArray[x].img[i];
+                listingExpandImg.alt = 'kuva';
+                listingExpandImg.className = 'listing-expand-img';
+                expandDiv.appendChild(listingExpandImg);
+            }
+
+            const br1 = document.createElement('br');
+            expandDiv.appendChild(br1);
+
+            if (listingArray[x].desc !== '') {
+                const descNode = document.createTextNode(listingArray[x].desc);
+                descP.className = 'listing-desc';
+                descP.appendChild(descNode);
+                expandDiv.appendChild(descNode);
+            }
+
+            listingUl.className = 'listing-list';
+            expandDiv.appendChild(listingUl);
+
+            const categoryNode = document.createTextNode('Kategoria: ' + listingArray[x].category);
+            categoryLi.className = 'listing-list-item';
+            categoryLi.appendChild(categoryNode);
+            listingUl.appendChild(categoryLi);
+
+            const shapeNode = document.createTextNode('Kunto: ' + listingArray[x].shape);
+            shapeLi.className = 'listing-list-item';
+            shapeLi.appendChild(shapeNode);
+            listingUl.appendChild(shapeLi);
+
+            if (listingArray[x].address !== '') {
+                const addressNode = document.createTextNode('Osoite: ' + listingArray[x].address);
+                addressLi.className = 'listing-list-item';
+                addressLi.appendChild(addressNode);
+                listingUl.appendChild(addressLi);
+            }
+
+            const cityNode = document.createTextNode('Kaupunki: ' + listingArray[x].city);
+            cityLi.className = 'listing-list-item';
+            cityLi.appendChild(cityNode);
+            listingUl.appendChild(cityLi);
+
+            const payMethodNode = document.createTextNode('Maksutapa: ' + listingArray[x].payMethod);
+            payMethodLi.className = 'listing-list-item';
+            payMethodLi.appendChild(payMethodNode);
+            listingUl.appendChild(payMethodLi);
+
+            const nameNode = document.createTextNode('Listauksen tekijä: ' + listingArray[x].name);
+            nameLi.className = 'listing-list-item';
+            nameLi.appendChild(nameNode);
+            listingUl.appendChild(nameLi);
+
+            const contactNode = document.createTextNode('Yhteydenotto: ' + listingArray[x].contact);
+            contactLi.className = 'listing-list-item';
+            contactLi.appendChild(contactNode);
+            listingUl.appendChild(contactLi);
+
+            listingArray[x].show = 'hide';
+
+        } else if (listingArray[x].show === 'hide' && targetId === listingArray[x].id) {
+            event.target.nextSibling.style.display = 'none';
+            listingArray[x].show = 'show';
+        } else if (listingArray[x].show === 'show' && targetId === listingArray[x].id) {
+            event.target.nextSibling.style.display = 'block';
+            listingArray[x].show = 'hide';
+        }
     }
-
-    const br1 = document.createElement('br');
-    expandDiv.appendChild(br1);
-
-    if (listingArray[index].desc !== '') {
-        const descNode = document.createTextNode(listingArray[index].desc);
-        descP.className = 'listing-desc';
-        descP.appendChild(descNode);
-        expandDiv.appendChild(descNode);
-    }
-
-    listingUl.className = 'listing-list';
-    expandDiv.appendChild(listingUl);
-
-    const categoryNode = document.createTextNode('Kategoria: ' + listingArray[index].category);
-    categoryLi.className = 'listing-list-item';
-    categoryLi.appendChild(categoryNode);
-    listingUl.appendChild(categoryLi);
-
-    const shapeNode = document.createTextNode('Kunto: ' + listingArray[index].shape);
-    shapeLi.className = 'listing-list-item';
-    shapeLi.appendChild(shapeNode);
-    listingUl.appendChild(shapeLi);
-
-    if (listingArray[index].address !== '') {
-        const addressNode = document.createTextNode('Osoite: ' + listingArray[index].address);
-        addressLi.className = 'listing-list-item';
-        addressLi.appendChild(addressNode);
-        listingUl.appendChild(addressLi);
-    }
-
-    const cityNode = document.createTextNode('Kaupunki: ' + listingArray[index].city);
-    cityLi.className = 'listing-list-item';
-    cityLi.appendChild(cityNode);
-    listingUl.appendChild(cityLi);
-
-    const payMethodNode = document.createTextNode('Maksutapa: ' + listingArray[index].payMethod);
-    payMethodLi.className = 'listing-list-item';
-    payMethodLi.appendChild(payMethodNode);
-    listingUl.appendChild(payMethodLi);
-
-    const nameNode = document.createTextNode('Listauksen tekijä: ' + listingArray[index].name);
-    nameLi.className = 'listing-list-item';
-    nameLi.appendChild(nameNode);
-    listingUl.appendChild(nameLi);
-
-    const contactNode = document.createTextNode('Yhteydenotto: ' + listingArray[index].contact);
-    contactLi.className = 'listing-list-item';
-    contactLi.appendChild(contactNode);
-    listingUl.appendChild(contactLi);
 }
 
+createListingObject(objectIndex);
 createListingObject(objectIndex);
 createListing(listingIndex);
