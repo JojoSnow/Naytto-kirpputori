@@ -1,0 +1,52 @@
+.header_main {
+    width: 100%;
+    height: 65px;
+    display: block;
+    background-color: white;
+    border-bottom: groove gray thin;
+}
+
+.header_items {
+    display: block;
+    width: 85%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.navbar {
+    display: table;
+}
+
+.navbar a {
+    float: left;
+    margin: 15px;
+    text-decoration: none;
+}
+
+.navbar a li {
+    display: table-cell;
+}
+
+.header_logo {
+    float: left;
+}
+
+.header_logo h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    float: left;
+    margin: 0 15px;
+}
+
+.header_logo img {
+    float: left;
+}
+
+.registration {
+    float: right;
+}
+
+.registration button {
+    margin: 15px;
+    background: transparent;
+    border: none;
+}
