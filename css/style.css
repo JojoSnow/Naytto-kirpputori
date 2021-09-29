@@ -82,3 +82,47 @@ footer {
     display: block;
     color: darkgray;
 }
+
+.store {
+    display: block;
+    width: 90%;
+    margin: auto;
+}
+
+.store_filter {
+    display: table;
+    border-top: inset gray thick;
+    border-bottom: inset gray thick;
+    height: 120px;
+    width: 100%;
+    text-align: center;
+}
+
+.store_filter .slider {
+    width: 40%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    float: left;
+    margin-left: 50px;
+    display: table-cell;
+}
+
+.store_filter button {
+    float: right;
+    margin-right: 50px;
+    display: table-cell;
+}
+
+.store_filter p {
+    display: table-cell;
+    float: left;
+    margin: 0;
+    padding: 5px;
+}
+
+.store_listing {
+    display: block;
+}
