@@ -51,43 +51,55 @@
 
         <div class="store_items">
 
-            <div class="store_filter">
+            <div class="store_upper">
+                <div class="store_filter">
 
-                <p><b>Suodattimet</b></p>
+                    <p class="yip">Suodattimet</p>
 
-                <div class="divSlider">
+                    <div class="divFilters">
 
-                    <input type="range" min="5" max="1000" value="250" id="priceRanger">
+                        <div class="divSlider">
 
-                    <p class="sliderText" id="sliderPrice">250 e</p>
+                            <input type="range" min="5" max="1000" value="250" id="priceRanger">
 
+                            <p class="sliderText" id="sliderPrice">250 e</p>
+
+                        </div>
+
+                        <div class="divCheckbox">
+
+                            <input class="storeCheckBox" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                            <p class="checkboxText">Ilmainen</p>
+
+                        </div>
+
+                        <div class="divSearch">
+
+                            <button>Hae</button>
+
+                        </div>
+                    </div>
                 </div>
 
-                <div class="divCheckbox">
+                <div class="store_counter">
 
-                    <input class="storeCheckBox" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                    <p class="checkboxText">Ilmainen</p>
-
-                </div>
-
-                <div class="divSearch">
-
-                    <button>Hae</button>
+                    <h1>Hieno teksti</h1>
 
                 </div>
-
             </div>
 
-            <div class="store_categories">
-                <li>Kategoriat</li>
-                <li><button>Huonekalut</button></li>
-                <li><button>Koneet</button></li>
-                <li><button>Vaatteet</button></li>
-                <li><button>Lamput</button></li>
-            </div>
+            <div class="store_bottom">
+                <div class="store_categories">
+                    <li>Kategoriat</li>
+                    <li><button>Huonekalut</button></li>
+                    <li><button>Koneet</button></li>
+                    <li><button>Vaatteet</button></li>
+                    <li><button>Lamput</button></li>
+                </div>
 
-            <div id="store_listing" class="store_listing">
+                <div id="store_listing" class="store_listing">
 
+                </div>
             </div>
 
         </div>
@@ -96,11 +108,8 @@
 
 
     <!--you should do this with margin in css-->
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
+    <!--Nopein tapa laittaa välimatkaa, halusin nähä footerin kauempaa-->
+    <div class="giveth_ground_to_noble_body_thy_peasant_footer"></div>
 
     <footer>
 
@@ -117,7 +126,7 @@
         </div>
 
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/registration.js"></script>
 
