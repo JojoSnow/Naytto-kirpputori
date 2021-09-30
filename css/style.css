@@ -14,9 +14,10 @@ body {
     background-color: var(--lightest-bg);
 }
 
+/* Header */
+
 header {
     width: 100%;
-    height: 65px;
     display: block;
     background-color: white;
     border-bottom: groove gray thin;
@@ -24,7 +25,7 @@ header {
 
 .header_items {
     display: block;
-    width: 90%;
+    width: 75%;
     height: 100%;
     margin: 0 auto;
 }
@@ -65,15 +66,19 @@ header {
     float: left;
 }
 
+/* Registration */
+
 .registration {
     float: right;
 }
 
-.registration button {
+.regButton {
     margin: 15px;
     background: transparent;
     border: none;
 }
+
+/* Footer */
 
 footer {
     width: 100%;
@@ -102,23 +107,38 @@ footer {
     margin: 40px auto;
 }
 
+/* Storefront */
+
 .store {
-    display: block;
     width: 90%;
     margin: auto;
 }
 
-.store_filter {
-    display: block;
-    border-top: inset gray thick;
-    border-bottom: inset gray thick;
-    height: 120px;
-    width: 40%;
-    text-align: center;
-    float: left;
+.store_upper {
+    display: flex;
+    width: 100%;
 }
 
-.store_filter .slider {
+.store_filter {
+    display: inline-block;
+    border: black 1px solid;
+    background-color: #dddddd;
+    text-align: center;
+    padding: 2px;
+    padding-bottom: 0;
+    border-top-left-radius: 1em;
+}
+
+.divFilters {
+    display: inline-block;
+}
+
+.yip {
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.slider {
     width: 15%;
     height: 25px;
     background: #d3d3d3;
@@ -126,24 +146,85 @@ footer {
     opacity: 0.7;
     transition: opacity .2s;
     float: left;
-    margin-left: 50px;
 }
 
-.store_filter h3 {}
-
-.store_filter button {
+.sliderText {
     float: right;
-    margin-right: 50px;
+    margin: 0;
 }
 
-.store_filter p {
+.divSlider {
+    display: block;
     float: left;
+    padding: 10px;
+}
+
+.divCheckbox {
+    display: block;
+    float: left;
+    padding: 10px;
+}
+
+.checkboxText {
+    float: right;
     margin: 0;
-    padding: 5px;
+}
+
+.storeCheckBox {
+    float: left;
+}
+
+.divSearch {
+    display: block;
+    float: right;
+    padding: 10px;
+}
+
+.store_counter {
+    display: inline-block;
+    border: 1px black solid;
+}
+
+.store_bottom {
+    display: flex;
+}
+
+.store_categories {
+    display: inline-block;
+    text-align: center;
+    background-color: #a0a0a0;
+    border: 1px black solid;
+}
+
+.store_categories li {
+    list-style-type: none;
+}
+
+.store_categories button {
+    float: left;
+    border: none;
+    height: 4em;
+    width: 10em;
+    margin: 0 auto;
+    border-bottom: 1px gray solid;
+    font-size: large;
+    background-color: white;
+}
+
+.store_categories button:hover {
+    transition-duration: 0.2s;
+    background-color: gray;
 }
 
 .store_listing {
-    display: block;
+    display: inline-block;
+    padding: 10px;
+    width: 100%;
+    border: black 1px solid;
+}
+
+.giveth_ground_to_noble_body_thy_peasant_footer {
+    margin: 800px;
 }
 
 /* LOGIN & REGISTRATION */
