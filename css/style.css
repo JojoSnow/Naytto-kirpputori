@@ -7,6 +7,7 @@
     --highlight-light: #35b4c5;
     --highlight-medium: #009baf;
     --highlight-dark: #058c9e;
+    --logo: #3cc3d4;
 }
 
 * {
@@ -67,7 +68,7 @@ header {
 
 .header_logo h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color:#3cc3d4;
+    color: var(--logo);
     float: left;
     margin: 0 15px;
 }
