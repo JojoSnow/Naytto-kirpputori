@@ -5,28 +5,50 @@ let objectIndex = 0;
 let listingIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
-const closeBtn = document.getElementById('close-btn');
+const regBtn = document.getElementById('regis-btn')
+const loginCloseBtn = document.getElementById('login-close-btn');
+const regCloseBtn = document.getElementById('reg-close-btn');
 
 loginBtn.addEventListener('click', openLogin);
-closeBtn.addEventListener('click', closeLogin);
-window.addEventListener('click', clickOutside);
+regBtn.addEventListener('click', openReg);
+loginCloseBtn.addEventListener('click', closeLogin);
+regCloseBtn.addEventListener('click', closeReg);
+window.addEventListener('click', clickOutsideLogin);
+window.addEventListener('click', clickOutsideReg);
 
+// login functions
 function openLogin() {
     const loginModal = document.getElementById('login-modal');
-
     loginModal.style.display = 'block';
 }
 
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
-
     loginModal.style.display = 'none';
 }
 
-function clickOutside(event) {
+function clickOutsideLogin(event) {
     const loginModal = document.getElementById('login-modal');
     if (event.target === loginModal) {
         loginModal.style.display = 'none';
+    }
+}
+
+// registration functions
+function openReg() {
+    const regModal = document.getElementById('reg-modal');
+    regModal.style.display = 'block';
+}
+
+function closeReg() {
+    const regModal = document.getElementById('reg-modal');
+    regModal.style.display = 'none';
+}
+
+function clickOutsideReg(event) {
+    const regModal = document.getElementById('reg-modal');
+    if (event.target === regModal) {
+        regModal.style.display = 'none';
     }
 }
 
