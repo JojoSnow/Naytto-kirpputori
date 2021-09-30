@@ -27,8 +27,8 @@
 
             <div class="registration">
 
-                <button class="regButton" id="buttonLog">Kirjaudu sisään</button>
-                <button class="regButton" id="buttonReg">Rekisteröidy</button>
+                <button id="login-btn" class="regButton">Kirjaudu sisään</button>
+                <button id="regis-btn" class="regButton">Rekisteröidy</button>
 
             </div>
 
@@ -44,6 +44,63 @@
         </div>
 
     </header>
+
+    <section id="login-modal" class="modal">
+        <div id="login-content" class="modal-content">
+
+            <div class="modal-header">
+                <span id="login-close-btn" class="modal-close-btn">&times;</span>
+                <h2>Kirjaudu sisään</h2>
+            </div>
+
+            <div class="modal-main">
+                <form id="login-form" class="modal-form">
+                    <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus</label><br>
+                    <input type="text" name="login-username" id="input-login-name" class="modal-text-input"><br>
+
+                    <label for="login-password" id="login-password" class="modal-label">Salasana</label><br>
+                    <input type="password" name="login-password" id="input-login-password" class="modal-text-input"><br>
+
+                    <input type="submit" value="Kirjaudu" id="input-login-btn" class="modal-btn">
+                </form>
+                <p id="forgot-password" class="modal-question">Unohditko salasanasi?</p>
+                <p id="not-registered" class="modal-question">Etkö ole rekisteröitynyt?</p>
+            </div>
+
+            <div class="modal-footer">
+                <p class="login-cr">&copy; Tukiainen & Mieskolainen</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reg-modal" class="modal">
+        <div id="reg-content" class="modal-content">
+
+            <div id="reg-header" class="modal-header">
+                <span id="reg-close-btn" class="modal-close-btn">&times;</span>
+                <h2>Rekisteröidy</h2>
+            </div>
+
+            <div class="modal-main">
+                <form id="reg-form" class="modal-form">
+                    <label for="reg-username" id="reg-name" class="modal-label">Nimi</label><br>
+                    <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input"><br>
+
+                    <label for="reg-email" id="reg-email" class="modal-label">Sähköposti</label><br>
+                    <input type="email" name="reg-email" id="input-reg-email" class="modal-text-input"><br>
+
+                    <label for="reg-password" id="reg-password" class="modal-label">Salasana</label><br>
+                    <input type="password" name="reg-password" id="input-reg-password" class="modal-text-input"><br>
+
+                    <input type="submit" value="Rekisteröidy" id="input-reg-btn" class="modal-btn">
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
+            </div>
+        </div>
+    </section>
 
     <section class="info"></section>
 
@@ -111,9 +168,6 @@
 
     </section>
 
-
-    <!--you should do this with margin in css-->
-    <!--Nopein tapa laittaa välimatkaa, halusin nähä footerin kauempaa-->
     <div class="giveth_ground_to_noble_body_thy_peasant_footer"></div>
 
     <footer>
@@ -126,7 +180,7 @@
 
             </div>
 
-            <p id="copyright">Copyright: ja sen semmosia</p>
+            <p id="copyright">&copy; Tukiainen & Mieskolainen</p>
 
         </div>
 

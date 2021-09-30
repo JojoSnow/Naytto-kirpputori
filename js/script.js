@@ -4,6 +4,54 @@ const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
 
+const loginBtn = document.getElementById('login-btn');
+const regBtn = document.getElementById('regis-btn')
+const loginCloseBtn = document.getElementById('login-close-btn');
+const regCloseBtn = document.getElementById('reg-close-btn');
+
+loginBtn.addEventListener('click', openLogin);
+regBtn.addEventListener('click', openReg);
+loginCloseBtn.addEventListener('click', closeLogin);
+regCloseBtn.addEventListener('click', closeReg);
+window.addEventListener('click', clickOutsideLogin);
+window.addEventListener('click', clickOutsideReg);
+
+// login functions
+function openLogin() {
+    const loginModal = document.getElementById('login-modal');
+    loginModal.style.display = 'block';
+}
+
+function closeLogin() {
+    const loginModal = document.getElementById('login-modal');
+    loginModal.style.display = 'none';
+}
+
+function clickOutsideLogin(event) {
+    const loginModal = document.getElementById('login-modal');
+    if (event.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+}
+
+// registration functions
+function openReg() {
+    const regModal = document.getElementById('reg-modal');
+    regModal.style.display = 'block';
+}
+
+function closeReg() {
+    const regModal = document.getElementById('reg-modal');
+    regModal.style.display = 'none';
+}
+
+function clickOutsideReg(event) {
+    const regModal = document.getElementById('reg-modal');
+    if (event.target === regModal) {
+        regModal.style.display = 'none';
+    }
+}
+
 // creating object of the listing
 function createListingObject(index) {
     const listing = {};
@@ -27,7 +75,7 @@ function createListingObject(index) {
     objectIndex++;
 }
 
-// shows the listings on the page
+// creates the listings for the page
 function createListing(index) {
     const listingList = document.getElementById('store_listing');
     
@@ -68,7 +116,6 @@ function createListing(index) {
         listingDiv.appendChild(dateP);
 
         expandBtn.type = 'button'
-        expandBtn.value = 'Lisää'
         expandBtn.className = 'expand-btn';
         listingDiv.appendChild(expandBtn);
 
@@ -160,13 +207,15 @@ function expandListing(event) {
             listingUl.appendChild(contactLi);
 
             listingArray[x].show = 'hide';
-
+            event.target.style.backgroundImage = 'url(../img/icons/angle-up-solid.svg)';
         } else if (listingArray[x].show === 'hide' && targetId === listingArray[x].id) {
             event.target.nextSibling.style.display = 'none';
             listingArray[x].show = 'show';
+            event.target.style.backgroundImage = 'url(../img/icons/angle-down-solid.svg)';
         } else if (listingArray[x].show === 'show' && targetId === listingArray[x].id) {
             event.target.nextSibling.style.display = 'block';
             listingArray[x].show = 'hide';
+            event.target.style.backgroundImage = 'url(../img/icons/angle-up-solid.svg)';
         }
     }
 }

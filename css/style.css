@@ -2,6 +2,10 @@
     --medium-border: #a0a0a0;
     --lightest-bg: #fdfdfd;
     --light-bg: #f4f4f4;
+    --light-text: #f1f1f1;
+    --medium-text: #858585;
+    --highlight-light: #48c7d8;
+    --highlight-medium: #009baf;
 }
 
 * {
@@ -76,6 +80,7 @@ header {
     margin: 15px;
     background: transparent;
     border: none;
+    cursor: pointer;
 }
 
 /* Footer */
@@ -244,7 +249,106 @@ footer {
     margin: 800px;
 }
 
-/* LISTING ITEM */
+/* LOGIN & REGISTRATION */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba( 0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: var(--light-bg);
+    margin: 20% auto;
+    padding: 0 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
+}
+
+.modal-header {
+    padding: 10px;
+    border-bottom: 1px solid var(--medium-border);
+}
+
+.modal-header h2 {
+    font-size: 28px;
+    margin: 15px 0;
+}
+
+.modal-close-btn {
+    color: var(--medium-text);
+    float: right;
+    font-size: 30px;
+}
+
+.modal-close-btn:hover, .modal-close-btn:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-main {
+    padding-top: 10px;
+}
+
+.modal-label {
+    font-size: 20px;
+}
+
+.modal-text-input {
+    font-size: 16px;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: var(--lightest-bg);
+    border: 1px ridge var(--medium-border);
+}
+
+.modal-text-input:focus {
+    border-color: var(--highlight-light);
+}
+
+.modal-btn {
+    color: var(--light-text);
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 0.5px solid var(--medium-border);
+    background-color: var(--highlight-light);
+}
+
+.modal-btn:hover {
+    cursor: pointer;
+    background-color: var(--highlight-medium);
+    color: var(--light-text);
+}
+
+.modal-question {
+    text-transform: none;
+}
+
+.modal-question:hover {
+    color: var(--highlight-medium);
+    cursor: pointer;
+}
+
+.modal-footer {
+    color: var(--medium-text);
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid var(--medium-border);
+}
+
+/* LISTING */
 
 .listing {
     width: 98%;
@@ -253,3 +357,13 @@ footer {
     border: 1px solid var(--medium-border);
     background-color: var(--light-bg);
 }
+
+.expand-btn {
+    background-image: url(../img/icons/angle-down-solid.svg);
+    background-color: var(--light-bg);
+    border: none;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
