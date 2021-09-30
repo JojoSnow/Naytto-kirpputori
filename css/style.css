@@ -6,6 +6,8 @@
     --medium-text: #858585;
     --highlight-light: #35b4c5;
     --highlight-medium: #009baf;
+    --highlight-dark: #058c9e;
+    --logo: #3cc3d4;
 }
 
 * {
@@ -44,6 +46,10 @@ header {
     text-decoration: none;
 }
 
+.navbar a:hover {
+    color: var(--highlight-dark);
+}
+
 .navbar a li {
     display: table-cell;
 }
@@ -62,6 +68,7 @@ header {
 
 .header_logo h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: var(--logo);
     float: left;
     margin: 0 15px;
 }
@@ -80,6 +87,10 @@ header {
     margin: 15px;
     background: transparent;
     border: none;
+}
+
+.regButton:hover {
+    color: var(--highlight-dark);
     cursor: pointer;
 }
 
@@ -217,7 +228,7 @@ footer {
     margin: 800px;
 }
 
-/* LOGIN & REGISTRATION */
+/* LOGIN & REGISTRATION MODALS */
 
 .modal {
     display: none;
@@ -235,7 +246,7 @@ footer {
     background-color: var(--light-bg);
     margin: 20% auto;
     padding: 0 10px;
-    width: 300px;
+    width: 325px;
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
 }

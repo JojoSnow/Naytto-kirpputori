@@ -1,5 +1,3 @@
-
-
 const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
