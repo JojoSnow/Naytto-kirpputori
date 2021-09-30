@@ -4,6 +4,32 @@ const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
 
+const loginBtn = document.getElementById('login-btn');
+const closeBtn = document.getElementById('close-btn');
+
+loginBtn.addEventListener('click', openLogin);
+closeBtn.addEventListener('click', closeLogin);
+window.addEventListener('click', clickOutside);
+
+function openLogin() {
+    const loginModal = document.getElementById('login-modal');
+
+    loginModal.style.display = 'block';
+}
+
+function closeLogin() {
+    const loginModal = document.getElementById('login-modal');
+
+    loginModal.style.display = 'none';
+}
+
+function clickOutside(event) {
+    const loginModal = document.getElementById('login-modal');
+    if (event.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+}
+
 // creating object of the listing
 function createListingObject(index) {
     const listing = {};
