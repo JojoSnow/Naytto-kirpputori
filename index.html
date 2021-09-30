@@ -123,60 +123,57 @@
 
         <div class="store_items">
 
-            <div class="store_upper">
-                <div class="store_filter">
+            <div class="store_filter">
 
-                    <p class="yip">Suodattimet</p>
+                <h2>Suodattimet</h2>
 
-                    <div class="divFilters">
+                <div class="divFilters">
 
-                        <div class="divSlider">
+                    <div class="divSlider">
 
-                            <input type="range" min="5" max="1000" value="250" id="priceRanger">
+                        <input type="range" min="5" max="1000" value="250" id="priceRanger">
+                        <p id="sliderPrice">250 e</p>
 
-                            <p class="sliderText" id="sliderPrice">250 e</p>
-
-                        </div>
-
-                        <div class="divCheckbox">
-
-                            <input class="storeCheckBox" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                            <p class="checkboxText">Ilmainen</p>
-
-                        </div>
-
-                        <div class="divSearch">
-
-                            <button>Hae</button>
-
-                        </div>
                     </div>
-                </div>
 
-                <div class="store_counter">
+                    <div class="divCheckbox">
 
-                    <div class="counter_texts">
+                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                        <p>Ilmainen</p>
 
-                        <p id="listingCounterAll">Ilmoituksia: 0</p>
-                        <p id="listingCounterFree">Ilmaisia: 0</p>
+                    </div>
+
+                    <div class="divCategories">
+
+                        <select name="categories" id="store_select">Kategoriat
+                            <option value="Huonekalut">Huonekalut</option>
+                            <option value="Huonekalut">Koneet</option>
+                            <option value="Huonekalut">Vaatteet</option>
+                            <option value="Huonekalut">Lamput</option>
+                        </select>
+
+                    </div>
+
+                    <div class="divSearch">
+
+                        <button>Hae</button>
 
                     </div>
                 </div>
             </div>
 
-            <div class="store_bottom">
-                <div class="store_categories">
-                    <li>Kategoriat</li>
-                    <li><button>Huonekalut</button></li>
-                    <li><button>Koneet</button></li>
-                    <li><button>Vaatteet</button></li>
-                    <li><button>Lamput</button></li>
-                    <li><button onclick="createListing()">Ämpärit</button></li>
-                </div>
+            <div class="store_counter">
 
-                <div id="store_listing" class="store_listing">
+                <div class="counter_texts">
+
+                    <p id="listingCounterAll">Ilmoituksia: 0</p>
+                    <p id="listingCounterFree">Ilmaisia: 0</p>
 
                 </div>
+            </div>
+
+            <div id="store_listing" class="store_listing">
+
             </div>
 
         </div>

@@ -144,45 +144,24 @@ footer {
     margin: auto;
 }
 
-.store_upper {
-    display: flex;
-    width: 100%;
-}
-
 .store_filter {
-    display: block;
+    display: flex;
     border: black 1px solid;
+    border-radius: 5px;
     background-color: #dddddd;
     text-align: center;
     padding: 2px;
-    padding-bottom: 0;
-    border-top-left-radius: 1em;
-    float: left;
-    flex: 0.5;
+    margin: 25px;
+}
+
+.store_filter h2 {
+    margin: 0 auto;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .divFilters {
     display: inline-block;
-}
-
-.yip {
-    margin: 0 auto;
-    font-weight: bold;
-}
-
-.slider {
-    width: 15%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
-    float: left;
-}
-
-.sliderText {
-    float: right;
-    margin: 0;
 }
 
 .divSlider {
@@ -191,18 +170,33 @@ footer {
     padding: 10px;
 }
 
+.divSlider input {
+    width: 30%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    float: left;
+}
+
+.divSlider p {
+    float: right;
+    margin: 0;
+}
+
 .divCheckbox {
     display: block;
     float: left;
     padding: 10px;
 }
 
-.checkboxText {
+.divCheckbox p {
     float: right;
     margin: 0;
 }
 
-.storeCheckBox {
+.divCheckbox input {
     float: left;
 }
 
@@ -212,12 +206,19 @@ footer {
     padding: 6px;
 }
 
+.store_filter select {}
+
+.store_filter option {}
+
+.store_filter select:hover {
+    transition-duration: 0.2s;
+    background-color: gray;
+}
+
 .store_counter {
     display: block;
-    border: 1px black solid;
-    float: right;
-    width: 60%;
-    flex: 1.4;
+    border-bottom: 1px black solid;
+    width: 100%;
 }
 
 .counter_texts {
@@ -228,46 +229,13 @@ footer {
 .counter_texts p {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0 auto;
-    display: table;
     margin: 5px;
-}
-
-.store_bottom {
-    display: flex;
-}
-
-.store_categories {
-    display: inline-block;
-    text-align: center;
-    background-color: #a0a0a0;
-    border: 1px black solid;
-}
-
-.store_categories li {
-    list-style-type: none;
-}
-
-.store_categories button {
-    float: left;
-    border: none;
-    height: 4em;
-    width: 10em;
-    margin: 0 auto;
-    border-bottom: 1px gray solid;
-    font-size: large;
-    background-color: white;
-}
-
-.store_categories button:hover {
-    transition-duration: 0.2s;
-    background-color: gray;
 }
 
 .store_listing {
     display: block;
     padding: 3px;
     width: 100%;
-    border: black 1px solid;
 }
 
 .giveth_ground_to_noble_body_thy_peasant_footer {
@@ -391,4 +359,3 @@ footer {
     width: 25px;
     height: 25px;
 }
-
