@@ -29,7 +29,7 @@ function createListingObject(index) {
 
 // shows the listings on the page
 function createListing(index) {
-    const listingList = document.getElementById('store-listing');
+    const listingList = document.getElementById('store_listing');
     
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
