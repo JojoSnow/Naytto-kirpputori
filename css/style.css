@@ -6,6 +6,7 @@
     --medium-text: #858585;
     --highlight-light: #35b4c5;
     --highlight-medium: #009baf;
+    --highlight-dark: #058c9e;
 }
 
 * {
@@ -44,6 +45,10 @@ header {
     text-decoration: none;
 }
 
+.navbar a:hover {
+    color: var(--highlight-dark);
+}
+
 .navbar a li {
     display: table-cell;
 }
@@ -62,6 +67,7 @@ header {
 
 .header_logo h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#3cc3d4;
     float: left;
     margin: 0 15px;
 }
@@ -80,6 +86,10 @@ header {
     margin: 15px;
     background: transparent;
     border: none;
+}
+
+.regButton:hover {
+    color: var(--highlight-dark);
     cursor: pointer;
 }
 
