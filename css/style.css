@@ -76,6 +76,7 @@ header {
     margin: 15px;
     background: transparent;
     border: none;
+    cursor: pointer;
 }
 
 /* Footer */
@@ -244,13 +245,20 @@ footer {
 .modal-content {
     background-color: #f4f4f4;
     margin: 20% auto;
-    padding: 20px;
+    padding: 0 10px;
     width: 300px;
+    text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
 }
 
 .modal-header {
-    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--medium-border);
+}
+
+.modal-header h2 {
+    font-size: 28px;
+    margin: 15px 0;
 }
 
 .modal-close-btn {
@@ -265,8 +273,48 @@ footer {
     cursor: pointer;
 }
 
+.modal-main {
+    padding-top: 10px;
+}
+
+.modal-label {
+    font-size: 20px;
+}
+
+.modal-text-input {
+    font-size: 16px;
+    width: 90%;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: #fdfdfd;
+    border: 1px ridge var(--medium-border);
+}
+
+.modal-text-input:focus {
+    border-color: #48c7d8;
+}
+
+.modal-btn {
+    color: #f1f1f1;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 0.5px solid var(--medium-border);
+    background-color: #48c7d8;
+}
+
+.modal-btn:hover {
+    cursor: pointer;
+    background-color: #009baf;
+    color: #f1f1f1;
+}
+
 .modal-footer {
+    color: #858585;
     text-align: center;
+    padding: 10px;
+    border-top: 1px solid var(--medium-border);
 }
 
 /* LISTING */

@@ -75,7 +75,7 @@ function createListingObject(index) {
     objectIndex++;
 }
 
-// shows the listings on the page
+// creates the listings for the page
 function createListing(index) {
     const listingList = document.getElementById('store-listing');
     
