@@ -156,3 +156,12 @@ footer {
     background-color: var(--light-bg);
 }
 
+.expand-btn {
+    background-image: url(../img/icons/angle-down-solid.svg);
+    background-color: var(--light-bg);
+    border: none;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+

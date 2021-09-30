@@ -68,7 +68,6 @@ function createListing(index) {
         listingDiv.appendChild(dateP);
 
         expandBtn.type = 'button'
-        expandBtn.value = 'Lisää'
         expandBtn.className = 'expand-btn';
         listingDiv.appendChild(expandBtn);
 
@@ -160,13 +159,15 @@ function expandListing(event) {
             listingUl.appendChild(contactLi);
 
             listingArray[x].show = 'hide';
-
+            event.target.style.backgroundImage = 'url(../img/icons/angle-up-solid.svg)';
         } else if (listingArray[x].show === 'hide' && targetId === listingArray[x].id) {
             event.target.nextSibling.style.display = 'none';
             listingArray[x].show = 'show';
+            event.target.style.backgroundImage = 'url(../img/icons/angle-down-solid.svg)';
         } else if (listingArray[x].show === 'show' && targetId === listingArray[x].id) {
             event.target.nextSibling.style.display = 'block';
             listingArray[x].show = 'hide';
+            event.target.style.backgroundImage = 'url(../img/icons/angle-up-solid.svg)';
         }
     }
 }
