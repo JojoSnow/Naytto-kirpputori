@@ -144,7 +144,7 @@ function createListingObject(index) {
 // creates the listings for the page
 function createListing(index) {
     const listingList = document.getElementById('store_listing');
-    
+
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
         const titleP = document.createElement('p');
@@ -208,7 +208,7 @@ function expandListing(event) {
             const payMethodLi = document.createElement('li');
             const nameLi = document.createElement('li');
             const contactLi = document.createElement('li');
-            
+
 
             expandDiv.id = 'listing-expand' + x;
             expandDiv.class = 'listing-expand';
