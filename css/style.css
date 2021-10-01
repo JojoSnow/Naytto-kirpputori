@@ -159,6 +159,17 @@ footer {
     margin: auto;
 }
 
+.add-listing-btn {
+    color: var(--light-text);
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 0.5px solid var(--medium-border);
+    border-radius: 5px;
+    background-color: var(--highlight-light);
+    float: right;
+}
+
 .store_filter {
     display: block;
     border: black 4px double;
@@ -293,8 +304,8 @@ footer {
     margin: 800px;
 }
 
-/* LOGIN & REGISTRATION MODALS */
-
+/* MODALS */
+/* Registration & Login */
 .modal {
     display: none;
     position: fixed;
@@ -314,6 +325,7 @@ footer {
     width: 325px;
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
+    border-radius: 10px;
 }
 
 .modal-header {
@@ -367,6 +379,7 @@ footer {
     padding: 10px 20px;
     font-size: 18px;
     border: 0.5px solid var(--medium-border);
+    border-radius: 5px;
     background-color: var(--highlight-light);
 }
 
@@ -392,7 +405,58 @@ footer {
     border-top: 1px solid var(--medium-border);
 }
 
-/* LISTING */
+/* Add listing */
+
+.add-listing-content {
+    background-color: var(--light-bg);
+    margin: 2% auto;
+    padding: 0 10px;
+    width: 60%;
+    text-align: center;
+    box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
+    border-radius: 10px;
+}
+
+.add-listing-main {
+    text-align: left;
+    margin: 10px;
+    padding: 10px 50px;
+}
+
+.listing-input {
+    font-size: 16px;
+    text-align: start;
+    width: 80%;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: var(--lightest-bg);
+    border: 1px ridge var(--medium-border);
+}
+
+.listing-input:focus {
+    border-color: var(--highlight-light);
+}
+
+#listing-price {
+    width: 70px;
+}
+
+.listing-select {
+    font-size: 16px;
+    width: 30%;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: var(--lightest-bg);
+    border: 1px ridge var(--medium-border);
+}
+
+#listing-email, #listing-phone {
+    display: none;
+}
+
+/* STORE LISTING */
 
 .listing {
     width: 98%;

@@ -55,7 +55,7 @@
 
             <div class="modal-main">
                 <form id="login-form" class="modal-form">
-                    
+
                     <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus</label><br>
                     <input type="text" name="login-username" id="input-login-name" class="modal-text-input"><br>
 
@@ -84,6 +84,7 @@
 
             <div class="modal-main">
                 <form id="reg-form" class="modal-form">
+
                     <label for="reg-username" id="reg-name" class="modal-label">Nimi</label><br>
                     <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input"><br>
 
@@ -126,13 +127,84 @@
         </div>
     </section>
 
-    <button id="add-listing-btn" class="add-listing-btn">Lisää ilmoitus</button>
-    <section id="add-listing" class="add-listing"></section>
+    
+    <section id="add-listing-modal" class="modal">
+        <div id="add-listing-content" class="add-listing-content">
+
+            <div id="add-listing-header" class="modal-header">
+                <span id="listing-close-btn" class="modal-close-btn">&times;</span>
+                <h2>Tuotteen listaus</h2>
+            </div>
+            
+            <div id="add-listing-main" class="add-listing-main">
+                <form id="add-listing-form" class="add-listing-form">
+
+                    <label for="listing-name" class="modal-label">Nimi:</label><br>
+                    <input type="text" name="listing-name" id="listing-name" class="listing-input"><br>
+
+                    <label for="listing-price" class="modal-label">Hinta:</label><br>
+                    <input type="text" id="listing-price" class="listing-input"><br>
+
+                    <label for="listing-desc" class="modal-label">Kuvaus:</label><br>
+                    <textarea name="" id="listing-desc" class="listing-input"></textarea><br>
+
+                    <label for="listing-cond" class="modal-label">Kunto:</label><br>
+                    <select name="listing-cond" id="listing-cond" class="listing-select">
+                        <option value="empty">Valitse...</option>
+                        <option value="one">One</option>
+                        <option value="two">Two</option>
+                        <option value="three">Three</option>
+                    </select><br>
+
+                    <label for="listing-categ" class="modal-label">Kategoria:</label><br>
+                    <select name="listing-categ" id="listing-categ" class="listing-select">
+                        <option value="empty">Valitse...</option>
+                        <option value="uno">Uno</option>
+                        <option value="dos">Dos</option>
+                        <option value="tres">Tres</option>
+                    </select><br>
+
+                    <!--how to add pictures?-->
+
+                    <label for="listing-payment" class="modal-label">Maksutapa:</label><br>
+                    <input type="text" name="listing-payment" id="listing-payment" class="listing-input"><br>
+
+                    <label for="listing-address" class="modal-label">Osoite:</label><br>
+                    <input type="text" name="listing-address" id="listing-address" class="listing-input"><br>
+
+                    <label for="listing-city" class="modal-label">Kaupunki:</label><br>
+                    <select name="listing-city" id="listing-city" class="listing-select">
+                        <option value="empty">Valitse...</option>
+                        <option value="one">Yksi</option>
+                        <option value="kaksi">Kaksi</option>
+                        <option value="kolme">Kolme</option>
+                    </select><br>
+
+                    <label for="listing-contact" class="modal-label">Yhteydenotto:</label><br>
+                    <select name="listing-contact" id="listing-contact" class="listing-select">
+                        <option value="empty">Valitse...</option>
+                        <option value="email">Sähköposti</option>
+                        <option value="phone">Puhelin</option>
+                    </select><br>
+                    <input type="email" name="listing-email" id="listing-email" class="listing-input"><br>
+                    <input type="text" name="listing-phone" id="listing-phone" class="listing-input">
+
+                    <input type="submit" value="Listaus valmis" id="submit-listing" class="modal-btn">
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <p class="listing-cr">&copy; Tukiainen & Mieskolainen</p>
+            </div>
+        </div>
+    </section>
 
     <section class="store">
 
         <div class="store_items">
 
+            <button id="add-listing-btn" class="add-listing-btn">Lisää ilmoitus</button>
+            
             <div class="store_filter">
 
                 <h2>Suodattimet</h2>
