@@ -8,6 +8,8 @@ const regBtn = document.getElementById('regis-btn')
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 const addListingBtn = document.getElementById('add-listing-btn');
+const addListingCloseBtn = document.getElementById('listing-close-btn');
+const addListingSelect = document.getElementById('listing-contact');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
@@ -16,6 +18,9 @@ regCloseBtn.addEventListener('click', closeReg);
 window.addEventListener('click', clickOutsideLogin);
 window.addEventListener('click', clickOutsideReg);
 addListingBtn.addEventListener('click', openAddListing);
+addListingCloseBtn.addEventListener('click', closeAddListing);
+window.addEventListener('click', clickOutsideAddListing);
+addListingSelect.addEventListener('click', contactSelect);
 
 // login functions
 function openLogin() {
@@ -53,7 +58,7 @@ function clickOutsideReg(event) {
     }
 }
 
-//sliding for info images
+//sliding for info images -- make it actually slide
 function showSlides() {
     let slides = document.querySelectorAll('.slides');
     for (let i = 0; i < slides.length; i++) {
@@ -67,23 +72,43 @@ function showSlides() {
     setTimeout(showSlides, 7000);
 }
 
-// creating listing
+// listing functions
 function openAddListing() {
-    const listingSect = document.getElementById('add-listing');
+    const listingModal = document.getElementById('add-listing-modal');
+    listingModal.style.display = 'block';
+}
 
-    const addListingDiv = createElement('div');
-    listingSect.appendChild(addListingDiv);
+function closeAddListing() {
+    const listingModal = document.getElementById('add-listing-modal');
+    listingModal.style.display = 'none';
+}
 
-    const addListingForm = createElement('form');
-    addListingDiv.appendChild(addListingForm);
+function clickOutsideAddListing(event) {
+    const listingModal = document.getElementById('add-listing-modal');
+    if (event.target === listingModal) {
+        listingModal.style.display = 'none';
+    }
+}
 
+<<<<<<< HEAD
     const nameLabel = createElement('label');
 
+=======
+function contactSelect() {
+    const contactValue = document.getElementById('listing-contact').value;
 
-    const nameInput = createElement('input');
-    const descLabel = createElement('label');
-    const descInput = createElement('input');
-    const cateSelect = createElement('select');
+    if (contactValue === 'email') {
+        document.getElementById('listing-email').style.display = 'block';
+        document.getElementById('listing-phone').style.display = 'none';
+    } else if (contactValue === 'phone') {
+        document.getElementById('listing-phone').style.display = 'block';
+        document.getElementById('listing-email').style.display = 'none';
+    } else if (contactValue === 'empty') {
+        document.getElementById('listing-phone').style.display = 'none';
+        document.getElementById('listing-email').style.display = 'none';
+    }
+>>>>>>> 0317e7c824e23a91782744be86b2219b5e3d2990
+
 }
 
 // creating object of the listing
