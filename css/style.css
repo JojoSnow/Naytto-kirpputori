@@ -166,9 +166,10 @@ footer {
     text-align: center;
     padding: 2px;
     margin: 25px auto;
-    height: 160px;
+    height: 200px;
     width: 100%;
     max-width: 600px;
+    min-width: 420px;
 }
 
 .store_filter label {
@@ -191,8 +192,7 @@ footer {
 
 .divCheckbox {
     display: block;
-    height: 30px;
-    padding-left: 10px;
+    padding: 15px;
 }
 
 .divCheckbox input {
@@ -211,6 +211,10 @@ footer {
     width: 100%;
     height: 60px;
     padding-left: 10px;
+}
+
+.divFilters div {
+    padding: 15px;
 }
 
 .divSlider {
@@ -255,7 +259,13 @@ footer {
 
 .divSearch button {
     width: 60px;
+    height: 40px;
     margin: 4px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+    color: var(--lightest-bg);
+    background-color: #ff4c4c;
 }
 
 .store_counter {
@@ -264,19 +274,17 @@ footer {
     width: 100%;
 }
 
-.counter_texts {
-    display: block;
-    padding: 3px;
-}
-
-.counter_texts p {
+.store_counter p {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0 auto;
     margin: 5px;
+    padding-bottom: 3px;
+    font-size: larger;
+    display: inline;
 }
 
 .store_listing {
-    display: block;
+    display: inline-block;
     padding: 3px;
     width: 100%;
 }
