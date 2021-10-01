@@ -7,6 +7,7 @@ const loginBtn = document.getElementById('login-btn');
 const regBtn = document.getElementById('regis-btn')
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
+const addListingBtn = document.getElementById('add-listing-btn');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
@@ -14,6 +15,7 @@ loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
 window.addEventListener('click', clickOutsideLogin);
 window.addEventListener('click', clickOutsideReg);
+addListingBtn.addEventListener('click', openAddListing);
 
 // login functions
 function openLogin() {
@@ -63,6 +65,25 @@ function showSlides() {
     }
     slides[slideIndex - 1].style.display = 'block';
     setTimeout(showSlides, 7000);
+}
+
+// creating listing
+function openAddListing() {
+    const listingSect = document.getElementById('add-listing');
+
+    const addListingDiv = createElement('div');
+    listingSect.appendChild(addListingDiv);
+
+    const addListingForm = createElement('form');
+    addListingDiv.appendChild(addListingForm);
+
+    const nameLabel = createElement('label');
+    
+
+    const nameInput = createElement('input');
+    const descLabel = createElement('label');
+    const descInput = createElement('input');
+    const cateSelect = createElement('select');
 }
 
 // creating object of the listing
