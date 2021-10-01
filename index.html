@@ -127,36 +127,68 @@
 
                 <h2>Suodattimet</h2>
 
+
+                <div class="divCheckbox">
+
+                    <div>
+                        <label for="free_checkbox">Ilmainen:</label>
+                        <input type="checkbox" id="free_checkbox" name="free_checkbox" value="1">
+                    </div>
+
+                    <div>
+                        <label for="used_checkbox">Käytetty:</label>
+                        <input type="checkbox" id="used_checkbox" name="used_checkbox" value="1">
+                    </div>
+
+                    <div>
+                        <label for="fin_checkbox">Suomalainen:</label>
+                        <input type="checkbox" id="fin_checkbox" name="fin_checkbox" value="1">
+                    </div>
+
+                    <div>
+                        <label for="test_checkbox">Testi:</label>
+                        <input type="checkbox" id="test_checkbox" name="test_checkbox" value="1">
+                    </div>
+                    <div>
+                        <label for="over_checkbox">Pitkä ylimääräinen testi:</label>
+                        <input type="checkbox" id="over_checkbox" name="over_checkbox" value="1">
+                    </div>
+
+                </div>
+
                 <div class="divFilters">
 
                     <div class="divSlider">
 
-                        <input type="range" min="5" max="1000" value="250" id="priceRanger">
-                        <p id="sliderPrice">250 e</p>
-
-                    </div>
-
-                    <div class="divCheckbox">
-
-                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                        <p>Ilmainen</p>
+                        <form action="">
+                            <label for="price">Hinta:</label><br>
+                            <input type="text" id="price" name="price"><br>
+                            <select name="highOrLow" id="priceSelect">
+                                <option value="0">Halvempi kuin...</option>
+                                <option value="1">Kalliimpi kuin...</option>
+                            </select>
+                        </form>
 
                     </div>
 
                     <div class="divCategories">
 
-                        <select name="categories" id="store_select">Kategoriat
-                            <option value="Huonekalut">Huonekalut</option>
-                            <option value="Huonekalut">Koneet</option>
-                            <option value="Huonekalut">Vaatteet</option>
-                            <option value="Huonekalut">Lamput</option>
+                        <label for="categories">Kategoriat:</label><br>
+                        <select name="categories" id="store_select">
+                            <option value="0">Null</option>
+                            <option value="1">Huonekalut</option>
+                            <option value="2">Koneet</option>
+                            <option value="3">Vaatteet</option>
+                            <option value="4">Lamput</option>
                         </select>
 
                     </div>
 
                     <div class="divSearch">
 
-                        <button>Hae</button>
+                        <div>
+                            <button>Hae</button>
+                        </div>
 
                     </div>
                 </div>
