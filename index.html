@@ -131,9 +131,6 @@
 
             <div class="store_filter">
 
-                <h2>Suodattimet</h2>
-
-
                 <div class="divCheckbox">
 
                     <div>
@@ -167,8 +164,10 @@
                     <div class="divSlider">
 
                         <form action="">
-                            <label for="price">Hinta:</label><br>
-                            <input type="text" id="price" name="price"><br>
+                            <div>
+                                <input type="text" id="price" name="price">
+                                <p>€</p>
+                            </div>
                             <select name="highOrLow" id="priceSelect">
                                 <option value="0">Halvempi kuin...</option>
                                 <option value="1">Kalliimpi kuin...</option>
@@ -178,16 +177,14 @@
                     </div>
 
                     <div class="divCategories">
-
-                        <label for="categories">Kategoriat:</label><br>
                         <select name="categories" id="store_select">
-                            <option value="0">Null</option>
+                            <option value="0">Kategoriat</option>
                             <option value="1">Huonekalut</option>
                             <option value="2">Koneet</option>
                             <option value="3">Vaatteet</option>
                             <option value="4">Lamput</option>
-                        </select>
 
+                        </select>
                     </div>
 
                     <div class="divSearch">
