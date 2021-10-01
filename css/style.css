@@ -305,6 +305,78 @@ footer {
     width: 100%;
 }
 
+/* LISTING */
+
+.listing {
+    display: block;
+    width: 75%;
+    margin: 40px auto;
+    padding: 20px 30px;
+    border: 1px solid var(--medium-border);
+    background-color: var(--light-bg);
+    max-width: 600px;
+    min-width: 380px;
+}
+
+.listing-title {
+    font-family: fantasy;
+    font-size: xx-large;
+    text-transform: capitalize;
+    display: inline;
+    border-bottom: black 1px solid;
+}
+
+.listing-img {
+    width: 200px;
+    max-height: 120px;
+    float: right;
+    object-fit: cover;
+    margin: 10px;
+}
+
+.listing-price {
+    font-size: x-large;
+    display: block;
+    margin: 10px;
+}
+
+.listing-date {
+    display: block;
+    margin: 10px;
+}
+
+.expand-btn {
+    background-image: url(../img/icons/angle-down-solid.svg);
+    background-color: var(--light-bg);
+    border: none;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.listing-expand {
+    border: 1px red solid;
+}
+
+.listing-expand-img {
+    border: 1px yellow solid;
+}
+
+.listing-desc {
+    border: 1px green solid;
+    font-size: large;
+}
+
+.listing-list {
+    display: block;
+    border: 1px blue solid;
+}
+
+.listing-list-item {
+    border: 1px black solid;
+    margin: 8px;
+}
+
 .giveth_ground_to_noble_body_thy_peasant_footer {
     margin: 800px;
 }
@@ -406,23 +478,4 @@ footer {
     text-align: center;
     padding: 10px;
     border-top: 1px solid var(--medium-border);
-}
-
-/* LISTING */
-
-.listing {
-    width: 98%;
-    margin: 10px auto;
-    padding: 20px 30px;
-    border: 1px solid var(--medium-border);
-    background-color: var(--light-bg);
-}
-
-.expand-btn {
-    background-image: url(../img/icons/angle-down-solid.svg);
-    background-color: var(--light-bg);
-    border: none;
-    background-repeat: no-repeat;
-    width: 25px;
-    height: 25px;
 }

@@ -78,7 +78,7 @@ function openAddListing() {
     addListingDiv.appendChild(addListingForm);
 
     const nameLabel = createElement('label');
-    
+
 
     const nameInput = createElement('input');
     const descLabel = createElement('label');
@@ -112,7 +112,7 @@ function createListingObject(index) {
 // creates the listings for the page
 function createListing(index) {
     const listingList = document.getElementById('store_listing');
-    
+
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
         const titleP = document.createElement('p');
@@ -176,7 +176,7 @@ function expandListing(event) {
             const payMethodLi = document.createElement('li');
             const nameLi = document.createElement('li');
             const contactLi = document.createElement('li');
-            
+
 
             expandDiv.id = 'listing-expand' + x;
             expandDiv.class = 'listing-expand';
@@ -197,7 +197,7 @@ function expandListing(event) {
                 const descNode = document.createTextNode(listingArray[x].desc);
                 descP.className = 'listing-desc';
                 descP.appendChild(descNode);
-                expandDiv.appendChild(descNode);
+                expandDiv.appendChild(descP);
             }
 
             listingUl.className = 'listing-list';
