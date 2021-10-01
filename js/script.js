@@ -10,6 +10,7 @@ const regCloseBtn = document.getElementById('reg-close-btn');
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
 const addListingSelect = document.getElementById('listing-contact');
+const addListingImgBtn = document.getElementById('listing-img');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
@@ -21,6 +22,7 @@ addListingBtn.addEventListener('click', openAddListing);
 addListingCloseBtn.addEventListener('click', closeAddListing);
 window.addEventListener('click', clickOutsideAddListing);
 addListingSelect.addEventListener('click', contactSelect);
+addListingImgBtn.addEventListener('change', addListingImg);
 
 // login functions
 function openLogin() {
@@ -88,6 +90,16 @@ function clickOutsideAddListing(event) {
     if (event.target === listingModal) {
         listingModal.style.display = 'none';
     }
+}
+
+function addListingImg() {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        // localStorage.setItem('recent-image', reader.result);
+    });
+
+    reader.readAsDataURL(this.files[0]);
 }
 
 function contactSelect() {
