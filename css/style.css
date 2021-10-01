@@ -172,6 +172,7 @@ footer {
 
 .add-listing-btn:hover {
     background-color: var(--highlight-dark);
+    cursor: pointer;
 }
 
 .store_filter {
