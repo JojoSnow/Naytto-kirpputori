@@ -160,13 +160,28 @@ footer {
 }
 
 .store_filter {
-    display: flex;
-    border: black 1px solid;
-    border-radius: 5px;
+    display: block;
+    border: black 4px double;
     background-color: #dddddd;
     text-align: center;
     padding: 2px;
-    margin: 25px;
+    margin: 25px auto;
+    height: 200px;
+    width: 100%;
+    max-width: 600px;
+    min-width: 420px;
+}
+
+.store_filter label {
+    float: left;
+}
+
+.store_filter input {
+    float: left;
+}
+
+.store_filter select {
+    float: left;
 }
 
 .store_filter h2 {
@@ -175,59 +190,82 @@ footer {
     text-decoration: none;
 }
 
+.divCheckbox {
+    display: block;
+    padding: 15px;
+}
+
+.divCheckbox input {
+    height: 20px;
+    width: 20px;
+}
+
+.divCheckbox div {
+    min-width: 100px;
+    float: left;
+}
+
 .divFilters {
-    display: inline-block;
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    height: 60px;
+    padding-left: 10px;
+}
+
+.divFilters div {
+    padding: 15px;
 }
 
 .divSlider {
     display: block;
     float: left;
-    padding: 10px;
+    flex: 1;
 }
 
 .divSlider input {
-    width: 30%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    transition: opacity .2s;
-    float: left;
+    width: 40%;
+    max-width: 80px;
 }
 
-.divSlider p {
-    float: right;
-    margin: 0;
+.divSlider select {
+    width: 60%;
+    max-width: 180px;
+    min-width: 120px;
 }
 
-.divCheckbox {
-    display: block;
-    float: left;
+.divCategories {
+    flex: 1;
     padding: 10px;
 }
 
-.divCheckbox p {
-    float: right;
-    margin: 0;
-}
-
-.divCheckbox input {
-    float: left;
+.divCategories select {
+    width: 100px;
+    height: 25px;
+    text-align: center;
 }
 
 .divSearch {
     display: block;
     float: right;
-    padding: 6px;
+    flex: 1;
 }
 
-.store_filter select {}
+.divSearch div {
+    position: block;
+}
 
-.store_filter option {}
+/* Nappii pitää jotenki saada ala oikealle */
 
-.store_filter select:hover {
-    transition-duration: 0.2s;
-    background-color: gray;
+.divSearch button {
+    width: 60px;
+    height: 40px;
+    margin: 4px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+    color: var(--lightest-bg);
+    background-color: #ff4c4c;
 }
 
 .store_counter {
@@ -236,19 +274,17 @@ footer {
     width: 100%;
 }
 
-.counter_texts {
-    display: block;
-    padding: 3px;
-}
-
-.counter_texts p {
+.store_counter p {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0 auto;
     margin: 5px;
+    padding-bottom: 3px;
+    font-size: larger;
+    display: inline;
 }
 
 .store_listing {
-    display: block;
+    display: inline-block;
     padding: 3px;
     width: 100%;
 }
