@@ -3,6 +3,7 @@
     --lightest-bg: #fdfdfd;
     --light-bg: #f4f4f4;
     --dark-bg: #585858;
+    --darker-bg: #333333;
     --light-text: #f1f1f1;
     --medium-text: #858585;
     --highlight-light: #35b4c5;
@@ -24,8 +25,7 @@ body {
 #container {
     position: relative;
     min-height: 100vh;
-    padding-bottom: 300px;
-    /* Add if you want the footer further way */
+    padding-bottom: 150px; /* Add if you want the footer further way */
 }
 
 /* Header */
@@ -147,13 +147,14 @@ header {
 
 .add-listing-btn {
     color: var(--light-text);
-    margin: 20px auto;
+    margin: 30px auto;
     padding: 10px 20px;
     font-size: 18px;
     border: 0.5px solid var(--medium-border);
     border-radius: 5px;
     background-color: var(--highlight-light);
     float: right;
+    clear: both;
 }
 
 .add-listing-btn:hover {
@@ -481,6 +482,7 @@ header {
     padding: 10px 20px;
     font-size: 18px;
     border: 0.5px solid var(--medium-border);
+    border-radius: 5px;
     background-color: var(--highlight-light);
 }
 
@@ -506,7 +508,7 @@ header {
     border-top: 1px solid var(--medium-border);
 }
 
-/* Add listing */
+/* Add listing modal */
 
 .add-listing-content {
     background-color: var(--light-bg);
@@ -564,10 +566,15 @@ header {
 .custom-file-input {
     color: var(--light-bg);
     border: 1px solid var(--medium-text);
+    border-radius: 5px;
     background-color: var(--dark-bg);
     display: inline-block;
     padding: 5px 10px;
     margin: 10px;
+}
+
+.custom-file-input:hover {
+    background-color: var(--darker-bg);
     cursor: pointer;
 }
 
@@ -594,19 +601,21 @@ header {
 
 footer {
     width: 100%;
+    height: 80px;
     background-color: white;
     border-top: ridge lightgray thin;
-    text-align: left;
+    text-align: center;
     position: absolute;
     bottom: 0;
 }
 
 .footer_items {
-    margin-left: 20px;
+    width: 60%;
+    margin: 0 auto;
 }
 
 .footer_links {
-    float: left;
+    float: right;
 }
 
 .footer-link-list {
@@ -637,7 +646,6 @@ footer {
 #copyright {
     font-size: 13px;
     color: darkgray;
-    padding-right: 10px;
-    margin: 60px 8px 8px 0;
-    float: right;
+    margin: 55px 8px 10px 8px;
+    float: left;
 }
