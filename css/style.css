@@ -3,6 +3,7 @@
     --lightest-bg: #fdfdfd;
     --light-bg: #f4f4f4;
     --dark-bg: #585858;
+    --darker-bg: #333333;
     --light-text: #f1f1f1;
     --medium-text: #858585;
     --highlight-light: #35b4c5;
@@ -476,6 +477,7 @@ header {
     padding: 10px 20px;
     font-size: 18px;
     border: 0.5px solid var(--medium-border);
+    border-radius: 5px;
     background-color: var(--highlight-light);
 }
 
@@ -501,7 +503,7 @@ header {
     border-top: 1px solid var(--medium-border);
 }
 
-/* Add listing */
+/* Add listing modal */
 
 .add-listing-content {
     background-color: var(--light-bg);
@@ -559,10 +561,15 @@ header {
 .custom-file-input {
     color: var(--light-bg);
     border: 1px solid var(--medium-text);
+    border-radius: 5px;
     background-color: var(--dark-bg);
     display: inline-block;
     padding: 5px 10px;
     margin: 10px;
+}
+
+.custom-file-input:hover {
+    background-color: var(--darker-bg);
     cursor: pointer;
 }
 
