@@ -1,10 +1,12 @@
 const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
+let userIndex = 0;
 let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
-const regBtn = document.getElementById('regis-btn')
+const regBtn = document.getElementById('regis-btn');
+const regModalBtn = document.getElementById('input-reg-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 const addListingBtn = document.getElementById('add-listing-btn');
@@ -23,6 +25,7 @@ addListingCloseBtn.addEventListener('click', closeAddListing);
 window.addEventListener('click', clickOutsideAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
+regModalBtn.addEventListener('click', createRegUser);
 
 // login functions
 function openLogin() {
@@ -58,6 +61,19 @@ function clickOutsideReg(event) {
     if (event.target === regModal) {
         regModal.style.display = 'none';
     }
+}
+
+// creates an array of user to localStorage
+function createRegUser() {
+    const regName = document.getElementById('input-reg-name').value;
+    const regEmail = document.getElementById('input-reg-email').value;
+    const regPassword = document.getElementById('input-reg-password').value;
+
+    let user = [regName, regEmail, regPassword];
+
+    createStorageArray(user);
+
+    userIndex++;
 }
 
 //sliding for info images -- make it actually slide
@@ -118,14 +134,14 @@ function contactSelect() {
 
 }
 
-// creating object of the listing
+// creates an object of the listing
 function createListingObject(index) {
     const listing = {};
     listing.id = 'listing' + index;
     listing.title = 'ruskea tuoli';
     listing.name = 'Maija Meikäläinen'
     listing.date = '10.01.2020';
-    listing.desc = 'ruskea, puinen \n haku';
+    listing.desc = 'ruskea, puinen, haku';
     listing.category = 'Huonekalut';
     listing.address = 'Aikakuja 10';
     listing.city = 'Kolari';
@@ -139,6 +155,15 @@ function createListingObject(index) {
     listingArray.push(listing);
 
     objectIndex++;
+}
+
+// testing - not working yet
+function createStorageArray(item) {
+    localStorage.setItem(item[2], JSON.stringify(item));
+
+    let testArray = localStorage.getItem(item[2]);
+
+    console.log('testing storage object: ' + testArray);
 }
 
 // creates the listings for the page
