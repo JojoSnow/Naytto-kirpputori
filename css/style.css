@@ -496,8 +496,6 @@ footer {
     text-align: center;
     padding: 10px;
     border-top: 1px solid var(--medium-border);
-<<<<<<< HEAD
-=======
 }
 
 /* Add listing */
@@ -568,5 +566,4 @@ footer {
     background-repeat: no-repeat;
     width: 25px;
     height: 25px;
->>>>>>> 0317e7c824e23a91782744be86b2219b5e3d2990
 }
