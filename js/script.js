@@ -215,10 +215,20 @@ function expandListing(event) {
             listingDiv.appendChild(expandDiv);
 
             for (let i = 0; listingArray[x].img.length > i; i++) {
+                const listingExpandBigImg = document.createElement('img');
+                if (i == 0) {
+                    listingExpandBigImg.src = listingArray[x].img[0];
+                    listingExpandBigImg.alt = 'kuva';
+                    listingExpandBigImg.className = 'listing-expand-img-main';
+                    expandDiv.appendChild(listingExpandBigImg);
+                }
                 const listingExpandImg = document.createElement('img');
                 listingExpandImg.src = listingArray[x].img[i];
                 listingExpandImg.alt = 'kuva';
-                listingExpandImg.className = 'listing-expand-img';
+                listingExpandImg.className = 'listing-expand-img-small';
+                listingExpandImg.addEventListener('click', function () {
+                    listingExpandBigImg.src = listingExpandImg.src;
+                });
                 expandDiv.appendChild(listingExpandImg);
             }
 
