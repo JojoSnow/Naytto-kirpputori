@@ -267,25 +267,19 @@ function createDescP(x, div) {
     descHeading.appendChild(descHeadingNode);
     div.appendChild(descHeading);
 
-    if (listingArray[x].desc == '') {
-        const descP = document.createElement('p');
-        const descNode = document.createTextNode("Tällä tuotteella ei ole lisätietoja");
+    const descP = document.createElement('p');
+    const descNodeEmpty = document.createTextNode("Tällä tuotteella ei ole lisätietoja");
+    const descNode = document.createTextNode(listingArray[x].desc);
 
-        descP.id = 'desc' + x;
-        descP.className = 'listing-desc';
+    descP.id = 'desc' + x;
+    descP.className = 'listing-desc';
 
+    if (listingArray[x].desc == '')
+        descP.appendChild(descNodeEmpty);
+    else
         descP.appendChild(descNode);
-        div.appendChild(descP);
-    } else {
-        const descP = document.createElement('p');
-        const descNode = document.createTextNode(listingArray[x].desc);
 
-        descP.id = 'desc' + x;
-        descP.className = 'listing-desc';
-
-        descP.appendChild(descNode);
-        div.appendChild(descP);
-    }
+    div.appendChild(descP);
 }
 
 function createDateP(x, div) {
@@ -388,7 +382,12 @@ function createListingUl(x, div) {
     listingUl.appendChild(contactLi);
 }
 
+//Listauksen testailuja CSS
 createListingObject(objectIndex);
 createListingObject(objectIndex);
+createListingObject(objectIndex);
+createListingObject(objectIndex);
+createListingObject(objectIndex);
+
 createListing(listingIndex);
 showSlides();
