@@ -2,6 +2,7 @@
     --medium-border: #a0a0a0;
     --lightest-bg: #fdfdfd;
     --light-bg: #f4f4f4;
+    --dark-bg: #585858;
     --light-text: #f1f1f1;
     --medium-text: #858585;
     --highlight-light: #35b4c5;
@@ -92,28 +93,6 @@ header {
 .regButton:hover {
     color: var(--highlight-dark);
     cursor: pointer;
-}
-
-/* Footer */
-
-footer {
-    width: 100%;
-    height: 225px;
-    display: block;
-    background-color: white;
-    border-top: ridge lightgray thin;
-    text-align: center;
-    object-position: center;
-}
-
-.footer_items {
-    display: table;
-    margin: auto;
-}
-
-.footer_items #copyright {
-    display: block;
-    color: darkgray;
 }
 
 /* INFO */
@@ -424,7 +403,7 @@ footer {
 
 .modal-content {
     background-color: var(--light-bg);
-    margin: 20% auto;
+    margin: 15% auto;
     padding: 0 10px;
     width: 325px;
     text-align: center;
@@ -558,6 +537,20 @@ footer {
     display: none;
 }
 
+.listing-file {
+    display: none;
+}
+
+.custom-file-input {
+    color: var(--light-bg);
+    border: 1px solid var(--medium-text);
+    background-color: var(--dark-bg);
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
 /* STORE LISTING */
 
 .listing {
@@ -575,4 +568,31 @@ footer {
     background-repeat: no-repeat;
     width: 25px;
     height: 25px;
+}
+
+
+
+
+
+
+/* Footer - stays at the bottom */
+
+footer {
+    width: 100%;
+    height: 225px;
+    display: block;
+    background-color: white;
+    border-top: ridge lightgray thin;
+    text-align: center;
+    object-position: center;
+}
+
+.footer_items {
+    display: table;
+    margin: auto;
+}
+
+.footer_items #copyright {
+    display: block;
+    color: darkgray;
 }
