@@ -595,37 +595,48 @@ footer {
     width: 100%;
     background-color: white;
     border-top: ridge lightgray thin;
-    text-align: center;
+    text-align: left;
     position: absolute;
     bottom: 0;
 }
 
 .footer_items {
-    display: table;
-    margin: auto;
+    margin-left: 20px;
+}
+
+.footer_links {
+    float: left;
 }
 
 .footer-link-list {
     list-style-type: none;
     padding: 0;
+    margin: 15px 0 5px 0;
 }
 
 .footer-link-item {
-    padding: 5px;
+    display: inline-block;
+    margin: 1px 5px;
 }
 
-.footer-link-item a {
+.footer-link-item a img {
+    width: 20px;
+}
+
+#footer-about {
     text-decoration: none;
     color: var(--dark-bg);
 }
 
-.footer-link-item a:hover {
+#footer-about:hover {
     color: var(--highlight-medium);
     cursor: pointer;
 }
 
-.footer_items #copyright {
+#copyright {
     font-size: 13px;
     color: darkgray;
-    padding: 10px;
+    padding-right: 10px;
+    margin: 60px 8px 8px 0;
+    float: right;
 }
