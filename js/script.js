@@ -259,7 +259,6 @@ function createTitleP(x, div, type) {
     const titleP = document.createElement('p');
     const titleNode = document.createTextNode(listingArray[x].title);
 
-    titleP.appendChild(titleNode);
     titleP.id = 'name' + x;
     switch (type) {
         case 0:
@@ -267,14 +266,15 @@ function createTitleP(x, div, type) {
             break;
         case 1:
             titleP.className = 'listing-expand-title';
-            break;
     }
+
+    titleP.appendChild(titleNode);
     div.appendChild(titleP);
 }
 
 function createPriceP(x, div) {
     const priceP = document.createElement('p');
-    const priceNode = document.createTextNode(listingArray[x].title);
+    const priceNode = document.createTextNode("Hinta: " + listingArray[x].price);
 
     priceP.id = 'price' + x;
     priceP.className = 'listing-price';
@@ -284,17 +284,33 @@ function createPriceP(x, div) {
 }
 
 function createDescP(x, div) {
-    if (listingArray[x].desc == '')
-        return
+    const descHeading = document.createElement('p');
+    const descHeadingNode = document.createTextNode("Lisätietoja:");
 
-    const descP = document.createElement('p');
-    const descNode = document.createTextNode(listingArray[x].desc);
+    descHeading.className = 'listing-desc-heading';
 
-    descP.id = 'desc' + x;
-    descP.className = 'listing-desc';
+    descHeading.appendChild(descHeadingNode);
+    div.appendChild(descHeading);
 
-    descP.appendChild(descNode);
-    div.appendChild(descP);
+    if (listingArray[x].desc == '') {
+        const descP = document.createElement('p');
+        const descNode = document.createTextNode("Tällä tuotteella ei ole lisätietoja");
+
+        descP.id = 'desc' + x;
+        descP.className = 'listing-desc';
+
+        descP.appendChild(descNode);
+        div.appendChild(descP);
+    } else {
+        const descP = document.createElement('p');
+        const descNode = document.createTextNode(listingArray[x].desc);
+
+        descP.id = 'desc' + x;
+        descP.className = 'listing-desc';
+
+        descP.appendChild(descNode);
+        div.appendChild(descP);
+    }
 }
 
 function createDateP(x, div) {
@@ -310,36 +326,39 @@ function createDateP(x, div) {
 
 function createImg(x, div, type) {
     switch (type) {
-        case 1:
+        case 0:
             const listingImg = document.createElement('img');
 
             listingImg.src = listingArray[x].img[0];
             listingImg.alt = 'kuva'
             listingImg.id = 'img' + x;
             listingImg.className = 'listing-img'
+
             div.appendChild(listingImg);
+
             return;
-        case 2:
+        case 1:
+            const listingExpandBigImg = document.createElement('img');
+
+            listingExpandBigImg.src = listingArray[x].img[0];
+            listingExpandBigImg.alt = 'kuva';
+            listingExpandBigImg.id = 'imgBig' + x;
+            listingExpandBigImg.className = 'listing-expand-img-main';
+
+            div.appendChild(listingExpandBigImg);
+
             for (let i = 0; listingArray[x].img.length > i; i++) {
-                const listingExpandBigImg = document.createElement('img');
+                const listingExpandSmallImg = document.createElement('img');
 
-                if (i == 0) {
-                    listingExpandBigImg.src = listingArray[x].img[0];
-                    listingExpandBigImg.alt = 'kuva';
-                    listingExpandBigImg.className = 'listing-expand-img-main';
-                    div.appendChild(listingExpandBigImg);
-                }
-
-                const listingExpandImg = document.createElement('img');
-                listingExpandImg.src = listingArray[x].img[i];
-                listingExpandImg.alt = 'kuva';
-                listingExpandImg.className = 'listing-expand-img-small';
-                listingExpandImg.addEventListener('click', function () {
-                    listingExpandBigImg.src = listingExpandImg.src;
+                listingExpandSmallImg.src = listingArray[x].img[i];
+                listingExpandSmallImg.alt = 'kuva';
+                listingExpandSmallImg.className = 'listing-expand-img-small';
+                listingExpandSmallImg.addEventListener('click', function () {
+                    listingExpandBigImg.src = listingExpandSmallImg.src;
                 });
-                div.appendChild(listingExpandImg);
+
+                div.appendChild(listingExpandSmallImg);
             }
-            return;
     }
 }
 

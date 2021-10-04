@@ -384,8 +384,13 @@ header {
     display: inline;
 }
 
+.listing-desc-heading {
+    font-size: x-large;
+    text-decoration: underline;
+    font-size: large;
+}
+
 .listing-desc {
-    border: 1px green solid;
     font-size: large;
 }
 
@@ -591,11 +596,6 @@ header {
     width: 25px;
     height: 25px;
 }
-
-
-
-
-
 
 /* Footer - stays at the bottom */
 
