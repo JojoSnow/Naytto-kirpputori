@@ -324,7 +324,6 @@ footer {
 /* LISTING */
 
 .listing {
-    display: block;
     width: 75%;
     margin: 40px auto;
     padding: 20px 30px;
@@ -334,12 +333,22 @@ footer {
     min-width: 380px;
 }
 
+.inner-listing {}
+
 .listing-title {
     font-family: fantasy;
     font-size: xx-large;
     text-transform: capitalize;
     display: inline;
     border-bottom: black 1px solid;
+}
+
+.listing-expand-title {
+    font-family: fantasy;
+    font-size: xx-large;
+    text-transform: capitalize;
+    margin: 0 auto;
+    padding: 5px;
 }
 
 .listing-img {
@@ -368,6 +377,7 @@ footer {
     background-repeat: no-repeat;
     width: 25px;
     height: 25px;
+    border: 1px tan solid;
 }
 
 .listing-expand {
