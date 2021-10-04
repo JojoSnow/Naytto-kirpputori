@@ -25,7 +25,8 @@ body {
 #container {
     position: relative;
     min-height: 100vh;
-    padding-bottom: 150px; /* Add if you want the footer further way */
+    padding-bottom: 150px;
+    /* Add if you want the footer further way */
 }
 
 /* Header */
@@ -304,55 +305,41 @@ header {
 
 .store_listing {
     display: inline-block;
-    padding: 3px;
     width: 100%;
 }
 
 /* LISTING */
 
 .listing {
-    width: 75%;
-    margin: 40px auto;
+    margin: 10px;
     padding: 20px 30px;
     border: 1px solid var(--medium-border);
     background-color: var(--light-bg);
-    max-width: 600px;
-    min-width: 380px;
+    float: left;
+    min-width: 425px;
 }
 
 .listing-title {
     font-family: fantasy;
-    font-size: xx-large;
+    font-size: x-large;
     text-transform: capitalize;
     display: inline;
     border-bottom: black 1px solid;
 }
 
-.listing-expand-title {
-    font-family: fantasy;
-    font-size: xx-large;
-    text-transform: capitalize;
-    margin: 0 auto;
-    padding: 5px;
-}
-
 .listing-img {
     width: 200px;
-    max-height: 120px;
     float: right;
     object-fit: cover;
-    margin: 10px;
 }
 
 .listing-price {
     font-size: x-large;
     display: block;
-    margin: 10px;
 }
 
 .listing-date {
     display: block;
-    margin: 10px;
 }
 
 .expand-btn {
@@ -367,6 +354,14 @@ header {
 
 .listing-expand {
     border: 1px red solid;
+}
+
+.listing-expand-title {
+    font-family: fantasy;
+    font-size: xx-large;
+    text-transform: capitalize;
+    margin: 0 auto;
+    padding: 5px;
 }
 
 .listing-expand-img-main {
@@ -576,25 +571,6 @@ header {
 .custom-file-input:hover {
     background-color: var(--darker-bg);
     cursor: pointer;
-}
-
-/* STORE LISTING */
-
-.listing {
-    width: 98%;
-    margin: 10px auto;
-    padding: 20px 30px;
-    border: 1px solid var(--medium-border);
-    background-color: var(--light-bg);
-}
-
-.expand-btn {
-    background-image: url(../img/icons/angle-down-solid.svg);
-    background-color: var(--light-bg);
-    border: none;
-    background-repeat: no-repeat;
-    width: 25px;
-    height: 25px;
 }
 
 /* Footer - stays at the bottom */
