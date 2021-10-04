@@ -12,299 +12,319 @@
 </head>
 
 <body>
+    <div id="container">
+        
+        <header>
 
-    <header>
+            <div class="header_items">
 
-        <div class="header_items">
+                <div class="header_logo">
 
-            <div class="header_logo">
+                    <img src="./img/empty.jpg" alt="logo">
 
-                <img src="./img/empty.jpg" alt="logo">
-
-                <h1>Thrifty</h1>
-
-            </div>
-
-            <div class="registration">
-
-                <button id="login-btn" class="regButton">Kirjaudu sisään</button>
-                <button id="regis-btn" class="regButton">Rekisteröidy</button>
-
-            </div>
-
-            <ul class="navbar">
-                <a href="?" class="navbar_link_active">
-                    <li>Etusivu</li>
-                </a>
-                <a href="./html/about.html" class="navbar_link_inactive">
-                    <li>Tietoa meistä</li>
-                </a>
-            </ul>
-
-        </div>
-
-    </header>
-
-    <section id="login-modal" class="modal">
-        <div id="login-content" class="modal-content">
-
-            <div class="modal-header">
-                <span id="login-close-btn" class="modal-close-btn">&times;</span>
-                <h2>Kirjaudu sisään</h2>
-            </div>
-
-            <div class="modal-main">
-                <form id="login-form" class="modal-form">
-
-                    <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus</label><br>
-                    <input type="text" name="login-username" id="input-login-name" class="modal-text-input"><br>
-
-                    <label for="login-password" id="login-password" class="modal-label">Salasana</label><br>
-                    <input type="password" name="login-password" id="input-login-password" class="modal-text-input"><br>
-
-                    <input type="submit" value="Kirjaudu" id="input-login-btn" class="modal-btn">
-                </form>
-                <p id="forgot-password" class="modal-question">Unohditko salasanasi?</p>
-                <p id="not-registered" class="modal-question">Etkö ole rekisteröitynyt?</p>
-            </div>
-
-            <div class="modal-footer">
-                <p class="login-cr">&copy; Tukiainen & Mieskolainen</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="reg-modal" class="modal">
-        <div id="reg-content" class="modal-content">
-
-            <div id="reg-header" class="modal-header">
-                <span id="reg-close-btn" class="modal-close-btn">&times;</span>
-                <h2>Rekisteröidy</h2>
-            </div>
-
-            <div class="modal-main">
-                <form id="reg-form" class="modal-form">
-
-                    <label for="reg-username" id="reg-name" class="modal-label">Nimi</label><br>
-                    <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input"><br>
-
-                    <label for="reg-email" id="reg-email" class="modal-label">Sähköposti</label><br>
-                    <input type="email" name="reg-email" id="input-reg-email" class="modal-text-input"><br>
-
-                    <label for="reg-password" id="reg-password" class="modal-label">Salasana</label><br>
-                    <input type="password" name="reg-password" id="input-reg-password" class="modal-text-input"><br>
-
-                    <input type="submit" value="Rekisteröidy" id="input-reg-btn" class="modal-btn">
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="info">
-        <div class="slides fade">
-            <img src="./img/clothing-rack.jpg" alt="clothing-rack" class="carousel-img">
-            <div class="info-text">
-                <h3>TEST</h3>
-            </div>
-        </div>
-
-        <div class="slides fade">
-            <img src="./img/old-tech.jpg" alt="old-tech" class="carousel-img">
-            <div class="info-text">
-                <h3>TEST 1</h3>
-            </div>
-        </div>
-
-        <div class="slides fade">
-            <img src="./img/folded-jeans.jpg" alt="folded-jeans" class="carousel-img">
-            <div class="info-text">
-                <h3>TEST 2</h3>
-            </div>
-        </div>
-    </section>
-
-    
-    <section id="add-listing-modal" class="modal">
-        <div id="add-listing-content" class="add-listing-content">
-
-            <div id="add-listing-header" class="modal-header">
-                <span id="listing-close-btn" class="modal-close-btn">&times;</span>
-                <h2>Tuotteen listaus</h2>
-            </div>
-            
-            <div id="add-listing-main" class="add-listing-main">
-                <form id="add-listing-form" class="add-listing-form">
-
-                    <label for="listing-name" class="modal-label">Nimi:</label><br>
-                    <input type="text" name="listing-name" id="listing-name" class="listing-input"><br>
-
-                    <label for="listing-price" class="modal-label">Hinta:</label><br>
-                    <input type="text" id="listing-price" class="listing-input"><br>
-
-                    <label for="listing-desc" class="modal-label">Kuvaus:</label><br>
-                    <textarea name="" id="listing-desc" class="listing-input"></textarea><br>
-
-                    <label for="listing-cond" class="modal-label">Kunto:</label><br>
-                    <select name="listing-cond" id="listing-cond" class="listing-select">
-                        <option value="empty">Valitse...</option>
-                        <option value="one">One</option>
-                        <option value="two">Two</option>
-                        <option value="three">Three</option>
-                    </select><br>
-
-                    <label for="listing-categ" class="modal-label">Kategoria:</label><br>
-                    <select name="listing-categ" id="listing-categ" class="listing-select">
-                        <option value="empty">Valitse...</option>
-                        <option value="uno">Uno</option>
-                        <option value="dos">Dos</option>
-                        <option value="tres">Tres</option>
-                    </select><br>
-
-                    <!--how to add pictures?-->
-
-                    <label for="listing-payment" class="modal-label">Maksutapa:</label><br>
-                    <input type="text" name="listing-payment" id="listing-payment" class="listing-input"><br>
-
-                    <label for="listing-address" class="modal-label">Osoite:</label><br>
-                    <input type="text" name="listing-address" id="listing-address" class="listing-input"><br>
-
-                    <label for="listing-city" class="modal-label">Kaupunki:</label><br>
-                    <select name="listing-city" id="listing-city" class="listing-select">
-                        <option value="empty">Valitse...</option>
-                        <option value="one">Yksi</option>
-                        <option value="kaksi">Kaksi</option>
-                        <option value="kolme">Kolme</option>
-                    </select><br>
-
-                    <label for="listing-contact" class="modal-label">Yhteydenotto:</label><br>
-                    <select name="listing-contact" id="listing-contact" class="listing-select">
-                        <option value="empty">Valitse...</option>
-                        <option value="email">Sähköposti</option>
-                        <option value="phone">Puhelin</option>
-                    </select><br>
-                    <input type="email" name="listing-email" id="listing-email" class="listing-input"><br>
-                    <input type="text" name="listing-phone" id="listing-phone" class="listing-input">
-
-                    <input type="submit" value="Listaus valmis" id="submit-listing" class="modal-btn">
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <p class="listing-cr">&copy; Tukiainen & Mieskolainen</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="store">
-
-        <div class="store_items">
-
-            <div class="store_filter">
-
-                <div class="divCheckbox">
-
-                    <div>
-                        <label for="free_checkbox">Ilmainen:</label>
-                        <input type="checkbox" id="free_checkbox" name="free_checkbox" value="1">
-                    </div>
-
-                    <div>
-                        <label for="used_checkbox">Käytetty:</label>
-                        <input type="checkbox" id="used_checkbox" name="used_checkbox" value="1">
-                    </div>
-
-                    <div>
-                        <label for="fin_checkbox">Suomalainen:</label>
-                        <input type="checkbox" id="fin_checkbox" name="fin_checkbox" value="1">
-                    </div>
-
-                    <div>
-                        <label for="test_checkbox">Testi:</label>
-                        <input type="checkbox" id="test_checkbox" name="test_checkbox" value="1">
-                    </div>
-                    <div>
-                        <label for="over_checkbox">Pitkä ylimääräinen testi:</label>
-                        <input type="checkbox" id="over_checkbox" name="over_checkbox" value="1">
-                    </div>
+                    <h1>Thrifty</h1>
 
                 </div>
 
-                <div class="divFilters">
+                <div class="registration">
 
-                    <div class="divSlider">
+                    <button id="login-btn" class="regButton">Kirjaudu sisään</button>
+                    <button id="regis-btn" class="regButton">Rekisteröidy</button>
 
-                        <form action="">
-                            <div>
-                                <input type="text" id="price" name="price">
-                                <p>€</p>
-                            </div>
-                            <select name="highOrLow" id="priceSelect">
-                                <option value="0">Halvempi kuin...</option>
-                                <option value="1">Kalliimpi kuin...</option>
-                            </select>
-                        </form>
+                </div>
 
-                    </div>
+                <ul class="navbar">
+                    <a href="?" class="navbar_link_active">
+                        <li>Etusivu</li>
+                    </a>
+                    <a href="./html/about.html" class="navbar_link_inactive">
+                        <li>Tietoa meistä</li>
+                    </a>
+                </ul>
 
-                    <div class="divCategories">
-                        <select name="categories" id="store_select">
-                            <option value="0">Kategoriat</option>
-                            <option value="1">Huonekalut</option>
-                            <option value="2">Koneet</option>
-                            <option value="3">Vaatteet</option>
-                            <option value="4">Lamput</option>
+            </div>
 
+        </header>
+
+        <section id="login-modal" class="modal">
+            <div id="login-content" class="modal-content">
+
+                <div class="modal-header">
+                    <span id="login-close-btn" class="modal-close-btn">&times;</span>
+                    <h2>Kirjaudu sisään</h2>
+                </div>
+
+                <div class="modal-main">
+                    <form id="login-form" class="modal-form">
+
+                        <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus<br>
+                            <input type="text" name="login-username" id="input-login-name" class="modal-text-input">
+                        </label><br>
+
+                        <label for="login-password" id="login-password" class="modal-label">Salasana<br>
+                            <input type="password" name="login-password" id="input-login-password" class="modal-text-input">
+                        </label><br>
+
+                        <input type="submit" value="Kirjaudu" id="input-login-btn" class="modal-btn">
+                    </form>
+                    <p id="forgot-password" class="modal-question">Unohditko salasanasi?</p>
+                    <p id="not-registered" class="modal-question">Etkö ole rekisteröitynyt?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="login-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="reg-modal" class="modal">
+            <div id="reg-content" class="modal-content">
+
+                <div id="reg-header" class="modal-header">
+                    <span id="reg-close-btn" class="modal-close-btn">&times;</span>
+                    <h2>Rekisteröidy</h2>
+                </div>
+
+                <div class="modal-main">
+                    <form id="reg-form" class="modal-form">
+
+                        <label for="reg-username" id="reg-name" class="modal-label">Nimi<br>
+                            <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input">
+                        </label><br>
+
+                        <label for="reg-email" id="reg-email" class="modal-label">Sähköposti<br>
+                            <input type="email" name="reg-email" id="input-reg-email" class="modal-text-input">
+                        </label><br>
+
+                        <label for="reg-password" id="reg-password" class="modal-label">Luo salasana<br>
+                            <input type="password" name="reg-password" id="input-reg-password" class="modal-text-input">
+                        </label><br>
+
+                        <input type="submit" value="Rekisteröidy" id="input-reg-btn" class="modal-btn">
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info">
+            <div class="slides fade">
+                <img src="./img/clothing-rack.jpg" alt="clothing-rack" class="carousel-img">
+                <div class="info-text">
+                    <h3>TEST</h3>
+                </div>
+            </div>
+
+            <div class="slides fade">
+                <img src="./img/old-tech.jpg" alt="old-tech" class="carousel-img">
+                <div class="info-text">
+                    <h3>TEST 1</h3>
+                </div>
+            </div>
+
+            <div class="slides fade">
+                <img src="./img/folded-jeans.jpg" alt="folded-jeans" class="carousel-img">
+                <div class="info-text">
+                    <h3>TEST 2</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="add-listing-modal" class="modal">
+            <div id="add-listing-content" class="add-listing-content">
+
+                <div id="add-listing-header" class="modal-header">
+                    <span id="listing-close-btn" class="modal-close-btn">&times;</span>
+                    <h2>Tuotteen listaus</h2>
+                </div>
+                
+                <div id="add-listing-main" class="add-listing-main">
+                    <form id="add-listing-form" class="add-listing-form">
+
+                        <label for="listing-name" class="modal-label">Nimi:<br>
+                            <input type="text" name="listing-name" id="listing-name" class="listing-input">
+                        </label><br>
+
+                        <label for="listing-price" class="modal-label">Hinta:<br>
+                            <input type="number" id="listing-price" class="listing-input">
+                        </label><br>
+
+                        <label for="listing-desc" class="modal-label">Kuvaus:<br>
+                            <textarea name="" id="listing-desc" class="listing-input"></textarea>
+                        </label><br>
+
+                        <label for="listing-cond" class="modal-label">Kunto:<br>
+                            <select name="listing-cond" id="listing-cond" class="listing-select">
+                            <option value="empty">Valitse...</option>
+                            <option value="one">One</option>
+                            <option value="two">Two</option>
+                            <option value="three">Three</option>
                         </select>
-                    </div>
+                        </label><br>
 
-                    <div class="divSearch">
+                        <label for="listing-categ" class="modal-label">Kategoria:<br>
+                            <select name="listing-categ" id="listing-categ" class="listing-select">
+                                <option value="empty">Valitse...</option>
+                                <option value="uno">Uno</option>
+                                <option value="dos">Dos</option>
+                                <option value="tres">Tres</option>
+                            </select>
+                        </label><br>
+
+                        <label for="listing-img" class="modal-label custom-file-input">Valitse tiedosto
+                            <input type="file" name="listing-img" id="listing-img" class="listing-file">
+                        </label><br>
+
+                        <label for="listing-payment" class="modal-label">Maksutapa:<br>
+                            <input type="text" name="listing-payment" id="listing-payment" class="listing-input">
+                        </label><br>
+
+                        <label for="listing-address" class="modal-label">Osoite:<br>
+                            <input type="text" name="listing-address" id="listing-address" class="listing-input">
+                        </label><br>
+
+                        <label for="listing-city" class="modal-label">Kaupunki:<br>
+                            <select name="listing-city" id="listing-city" class="listing-select">
+                                <option value="empty">Valitse...</option>
+                                <option value="one">Yksi</option>
+                                <option value="kaksi">Kaksi</option>
+                                <option value="kolme">Kolme</option>
+                            </select>
+                        </label><br>
+
+                        <label for="listing-contact" class="modal-label">Yhteydenotto:<br>
+                            <select name="listing-contact" id="listing-contact" class="listing-select">
+                                <option value="empty">Valitse...</option>
+                                <option value="email">Sähköposti</option>
+                                <option value="phone">Puhelin</option>
+                            </select><br>
+                            <input type="email" name="listing-email" id="listing-email" class="listing-input">
+                            <input type="number" name="listing-phone" id="listing-phone" class="listing-input">
+                        </label>
+
+                        <input type="submit" value="Listaus valmis" id="submit-listing" class="modal-btn">
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="listing-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="store">
+
+            <div class="store_items">
+
+                <div class="store_filter">
+
+                    <div class="divCheckbox">
 
                         <div>
-                            <button>Hae</button>
+                            <label for="free_checkbox">Ilmainen:</label>
+                            <input type="checkbox" id="free_checkbox" name="free_checkbox" value="1">
+                        </div>
+
+                        <div>
+                            <label for="used_checkbox">Käytetty:</label>
+                            <input type="checkbox" id="used_checkbox" name="used_checkbox" value="1">
+                        </div>
+
+                        <div>
+                            <label for="fin_checkbox">Suomalainen:</label>
+                            <input type="checkbox" id="fin_checkbox" name="fin_checkbox" value="1">
+                        </div>
+
+                        <div>
+                            <label for="test_checkbox">Testi:</label>
+                            <input type="checkbox" id="test_checkbox" name="test_checkbox" value="1">
+                        </div>
+                        <div>
+                            <label for="over_checkbox">Pitkä ylimääräinen testi:</label>
+                            <input type="checkbox" id="over_checkbox" name="over_checkbox" value="1">
                         </div>
 
                     </div>
+
+                    <div class="divFilters">
+
+                        <div class="divSlider">
+
+                            <form action="">
+                                <div>
+                                    <input type="text" id="price" name="price">
+                                    <p>€</p>
+                                </div>
+                                <select name="highOrLow" id="priceSelect">
+                                    <option value="0">Halvempi kuin...</option>
+                                    <option value="1">Kalliimpi kuin...</option>
+                                </select>
+                            </form>
+
+                        </div>
+
+                        <div class="divCategories">
+                            <select name="categories" id="store_select">
+                                <option value="0">Kategoriat</option>
+                                <option value="1">Huonekalut</option>
+                                <option value="2">Koneet</option>
+                                <option value="3">Vaatteet</option>
+                                <option value="4">Lamput</option>
+
+                            </select>
+                        </div>
+
+                        <div class="divSearch">
+
+                            <div>
+                                <button>Hae</button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <button id="add-listing-btn" class="add-listing-btn">Lisää ilmoitus</button>
+                <button id="add-listing-btn" class="add-listing-btn">Lisää ilmoitus</button>
 
-            <div class="store_counter">
+                <div class="store_counter">
 
-                <p id="listingCounterAll">Ilmoituksia: 0</p>
-                <p id="listingCounterFree">Ilmaisia: 0</p>
+                    <p id="listingCounterAll">Ilmoituksia: 0</p>
+                    <p id="listingCounterFree">Ilmaisia: 0</p>
 
-            </div>
+                </div>
 
-            <div id="store_listing" class="store_listing">
+                <div id="store_listing" class="store_listing">
 
-            </div>
-
-        </div>
-
-    </section>
-
-    <div class="giveth_ground_to_noble_body_thy_peasant_footer"></div>
-
-    <footer>
-
-        <div class="footer_items">
-
-            <div class="footer_links">
-
-                <p> Hienoja juttuja</p>
+                </div>
 
             </div>
 
-            <p id="copyright">&copy; Tukiainen & Mieskolainen</p>
+        </section>
+    
+        <!--Add #container more padding-bottom if you want the footer further away-->
+        <footer> 
 
-        </div>
+            <div class="footer_items">
 
-    </footer>
+                <div class="footer_links">
+
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="http://" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+                        <li class="footer-link-item"><a href="http://" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+                        <li class="footer-link-item"><a href="./html/about.html">Tietoa meistä</a></li>
+                    </ul>
+
+                </div>
+
+                <p id="copyright">&copy; Tukiainen & Mieskolainen</p>
+
+            </div>
+
+        </footer>
+    </div>
 
     <script src="./js/script.js"></script>
 
