@@ -623,13 +623,13 @@ header {
     padding: 0;
     text-align: center;
 }
- /* Company */
+ /* Story */
 
-.company {
+.story {
     padding: 20px 0 50px 0;
 }
 
-.company-title {
+.story-title {
     font-size: 30px;
 }
 
@@ -658,6 +658,41 @@ header {
 .person-desc {
     margin: 0;
     padding: 30px 50px;
+}
+
+/*About store*/
+
+.about-store {
+    display: flex;
+    border-top: 1px solid var(--highlight-dark);
+    padding: 30px 0;
+}
+
+/* About store - Column 1 */
+
+.column1 {
+    width: 60%;
+}
+
+/* Reviews - Column 2 */
+
+.column2 {
+    width: 40%;
+}
+
+.review {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+.review:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4;
 }
 
 /* Footer - stays at the bottom */
