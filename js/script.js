@@ -1,6 +1,7 @@
 const listingArray = [];
 let objectIndex = 0;
 let listingIndex = 0;
+let userIndex = 0;
 let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
@@ -46,26 +47,18 @@ function clickOutsideLogin(event) {
     }
 }
 
-// checks if user is registered
-function loginUser(event) {
-    event.preventDefault();
-
+// checks if user is registered (doesn't work with wrong password and username)
+function loginUser() {
     const loginEmail = document.getElementById('input-login-name').value;
-    const loginPassword = document.getElementById('input-login-password').value;
+    const loginPassWord = document.getElementById('input-login-password').value;
 
     for (let i = 0; localStorage.length > i; i++) {
-        const getUser = localStorage.getItem('user' + i);
+        const getUser = localStorage.getItem(loginEmail); // <--- fix
         const userArray = JSON.parse(getUser);
-        
-        if (loginEmail !== userArray[2]) {
-            // the user does not excist
-            console.log('wrong username');
-        } if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
-            // right username, wrong password
-            console.log('wrong password');
-        } else if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
-            // username and password are both right
+        if (loginEmail === userArray[1] && loginPassWord === userArray[2]) {
             console.log('logged in');
+        } else if (loginEmail !== userArray[1] || loginPassWord !== userArray[2]) {
+            console.log('username or password is wrong');
         }
     }
 }
@@ -89,26 +82,20 @@ function clickOutsideReg(event) {
 }
 
 // creates an array of user to localStorage
-function regUser(event) {
-    event.preventDefault();
-
+function regUser() {
     const regName = document.getElementById('input-reg-name').value;
     const regEmail = document.getElementById('input-reg-email').value;
     const regPassword = document.getElementById('input-reg-password').value;
 
-    // checks if the user is already registered
-    for (let i = 0; localStorage.length >= i; i++) {
-        if (!(localStorage.getItem('user' + i))) {
-            // registered user array
-            let user = ['user' + i, regName, regEmail, regPassword];
-            // adds the user array to localStorage
-            localStorage.setItem(user[0], JSON.stringify(user));
-            break;
-        }
-    }    
+    let user = [regName, regEmail, regPassword];
+
+    // adds the user array to localStorage
+    localStorage.setItem(user[1], JSON.stringify(user));
+
+    userIndex++;
 }
 
-//sliding for info images -- have a better animation
+//sliding for info images -- make it actually slide
 function showSlides() {
     let slides = document.querySelectorAll('.slides');
     for (let i = 0; i < slides.length; i++) {
@@ -140,12 +127,12 @@ function clickOutsideAddListing(event) {
     }
 }
 
-// testing - not working fully
+// testing- not working
 function addListingImg() {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-        localStorage.setItem('recent-image', reader.result);
+        // localStorage.setItem('recent-image', reader.result);
     });
 
     reader.readAsDataURL(this.files[0]);
@@ -189,6 +176,8 @@ function createListingObject(index) {
 
     objectIndex++;
 }
+
+
 
 // creates the listings for the page
 function createListing(x) {
@@ -238,26 +227,45 @@ function expandListing(event) {
         if (targetId == listingArray[x].id)
             if (listingArray[x].show == 'create') {
                 const expandDiv = document.createElement('div');
-                const infoDiv = document.createElement('div');
-                const imgDiv = document.createElement('div');
-                const descDiv = document.createElement('div');
-
-                createTitleP(x, expandDiv, 1);
 
                 expandDiv.id = 'listing-expand' + x;
                 expandDiv.className = 'listing-expand';
 
+                listingDiv.appendChild(expandDiv);
+
+                const headerDiv = document.createElement('div');
+                expandDiv.appendChild(headerDiv);
+
+                const infoDiv = document.createElement('div');
+                const imgDiv = document.createElement('div');
+                const descDiv = document.createElement('div');
+
                 infoDiv.className = 'listing-expand-info';
-
                 imgDiv.className = 'listing-expand-imgDiv';
-
                 descDiv.className = 'listing-expand-descDiv';
 
-                listingDiv.appendChild(expandDiv);
                 expandDiv.appendChild(infoDiv);
-
                 infoDiv.appendChild(imgDiv);
                 infoDiv.appendChild(descDiv);
+
+                const externalDiv = document.createElement('div');
+                const locationDiv = document.createElement('div');
+                const ulDiv = document.createElement('div');
+
+                externalDiv.className = 'listing-expand-external';
+                locationDiv.className = 'listing-expand-location';
+                ulDiv.className = 'listing-expand-ul';
+
+                expandDiv.appendChild(externalDiv);
+                externalDiv.appendChild(locationDiv);
+                externalDiv.appendChild(ulDiv);
+
+                //Poista kun saadaan kartta
+                const funny = document.createElement('canvas');
+                locationDiv.appendChild(funny);
+                //Poista kun saadaan kartta
+
+                createTitleP(x, headerDiv, 1);
 
                 createImg(x, imgDiv, 1);
 
@@ -265,7 +273,7 @@ function expandListing(event) {
 
                 createDescP(x, descDiv);
 
-                createListingUl(x, expandDiv);
+                createListingUl(x, ulDiv);
 
                 createDateP(x, expandDiv);
 
