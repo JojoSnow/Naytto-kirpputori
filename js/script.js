@@ -173,10 +173,9 @@ function createListing(x) {
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
         const listingInnerDiv = document.createElement('div');
-        const expandBtn = document.createElement('input');
 
         listingDiv.id = 'listing' + x;
-        listingDiv.className = 'listing';
+        listingDiv.className = 'listing-style1';
 
         listingInnerDiv.id = 'listingInner' + x;
         listingInnerDiv.className = 'inner-listing';
@@ -189,13 +188,14 @@ function createListing(x) {
 
         createDateP(x, listingInnerDiv);
 
+        const expandBtn = document.createElement('input');
         expandBtn.type = 'button'
         expandBtn.className = 'expand-btn';
 
         listingInnerDiv.appendChild(expandBtn);
 
-        listingList.appendChild(listingDiv);
         listingDiv.appendChild(listingInnerDiv);
+        listingList.appendChild(listingDiv);
 
         x++;
     }
@@ -214,24 +214,41 @@ function expandListing(event) {
         if (targetId == listingArray[x].id)
             if (listingArray[x].show == 'create') {
                 const expandDiv = document.createElement('div');
-                const newBtn = document.createElement('input');
-
-                expandDiv.id = 'listing-expand' + x;
-                expandDiv.class = 'listing-expand';
-                listingDiv.appendChild(expandDiv);
+                const infoDiv = document.createElement('div');
+                const imgDiv = document.createElement('div');
+                const descDiv = document.createElement('div');
 
                 createTitleP(x, expandDiv, 1);
 
-                createImg(x, expandDiv, 1);
+                expandDiv.id = 'listing-expand' + x;
+                expandDiv.class = 'listing-expand';
 
-                createPriceP(x, expandDiv);
+                infoDiv.id = 'listing-expand-info' + x;
+                infoDiv.class = 'listing-expand-info';
 
-                createDescP(x, expandDiv);
+                imgDiv.id = 'listing-expand-imgDiv' + x;
+                imgDiv.class = 'listing-expand-imgDiv';
+
+                descDiv.id = 'listing-expand-descDiv' + x;
+                descDiv.class = 'listing-expand-descDiv';
+
+                listingDiv.appendChild(expandDiv);
+                expandDiv.appendChild(infoDiv);
+
+                infoDiv.appendChild(imgDiv);
+                infoDiv.appendChild(descDiv);
+
+                createImg(x, imgDiv, 1);
+
+                createPriceP(x, descDiv);
+
+                createDescP(x, descDiv);
 
                 createListingUl(x, expandDiv);
 
                 createDateP(x, expandDiv);
 
+                const newBtn = document.createElement('input');
                 newBtn.type = "button"
                 newBtn.className = "expand-btn";
                 newBtn.style.backgroundImage = "url(../img/icons/angle-up-solid.svg)";
@@ -241,14 +258,17 @@ function expandListing(event) {
                     listingArray[x].show = "hide"
 
                     expandDiv.style.display = "none";
+                    listingDiv.className = "listing-style1";
                     listingInnerDiv.style.display = "block";
                 })
 
                 listingInnerDiv.style.display = "none";
+                listingDiv.className = "listing-style2";
             } else if (listingArray[x].show == "hide") {
                 listingArray[x].show = "show";
 
                 listingInnerDiv.style.display = "none";
+                listingDiv.className = "listing-style2";
 
                 expandDiv = document.getElementById('listing-expand' + x);
                 expandDiv.style.display = "block";
@@ -332,6 +352,15 @@ function createImg(x, div, type) {
 
             return;
         case 1:
+            const imgDivSmall = document.createElement('div');
+            const imgDivBig = document.createElement('div');
+
+            imgDivSmall.class = 'listing-expand-imgDiv-small';
+            imgDivBig.class = 'listing-expand-imgDiv-big';
+
+            div.appendChild(imgDivBig);
+            div.appendChild(imgDivSmall);
+
             const listingExpandBigImg = document.createElement('img');
 
             listingExpandBigImg.src = listingArray[x].img[0];
@@ -339,7 +368,7 @@ function createImg(x, div, type) {
             listingExpandBigImg.id = 'imgBig' + x;
             listingExpandBigImg.className = 'listing-expand-img-main';
 
-            div.appendChild(listingExpandBigImg);
+            imgDivBig.appendChild(listingExpandBigImg);
 
             for (let i = 0; listingArray[x].img.length > i; i++) {
                 const listingExpandSmallImg = document.createElement('img');
@@ -351,7 +380,7 @@ function createImg(x, div, type) {
                     listingExpandBigImg.src = listingExpandSmallImg.src;
                 });
 
-                div.appendChild(listingExpandSmallImg);
+                imgDivSmall.appendChild(listingExpandSmallImg);
             }
     }
 }
