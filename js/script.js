@@ -185,30 +185,47 @@ function createListing(x) {
 
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
-        const listingInnerDiv = document.createElement('div');
 
         listingDiv.id = 'listing' + x;
         listingDiv.className = 'listing-style1';
 
-        listingInnerDiv.id = 'listingInner' + x;
+        listingList.appendChild(listingDiv);
+
+        const listingInnerDiv = document.createElement('div');
+
+        listingInnerDiv.id = 'inner_Listing' + x;
         listingInnerDiv.className = 'inner-listing';
 
-        createTitleP(x, listingInnerDiv, 0);
+        listingDiv.appendChild(listingInnerDiv);
 
-        createImg(x, listingInnerDiv, 0)
+        const listingInnerImgDiv = document.createElement('div');
+        const listingInnerInfoDiv = document.createElement('div');
 
-        createPriceP(x, listingInnerDiv);
+        listingInnerImgDiv.className = 'inner-listing-img';
+        listingInnerInfoDiv.className = 'inner-listing-info';
 
-        createDateP(x, listingInnerDiv);
+        listingInnerDiv.appendChild(listingInnerImgDiv);
+        listingInnerDiv.appendChild(listingInnerInfoDiv);
+
+        const listingInnerExpand = document.createElement('div');
+
+        listingInnerExpand.className = 'inner-listing-expand';
+
+        listingInnerDiv.appendChild(listingInnerExpand);
+
+        createTitleP(x, listingInnerInfoDiv, 0);
+
+        createImg(x, listingInnerImgDiv, 0)
+
+        createPriceP(x, listingInnerInfoDiv);
+
+        createDateP(x, listingInnerInfoDiv);
 
         const expandBtn = document.createElement('input');
         expandBtn.type = 'button'
         expandBtn.className = 'expand-btn';
 
-        listingInnerDiv.appendChild(expandBtn);
-
-        listingDiv.appendChild(listingInnerDiv);
-        listingList.appendChild(listingDiv);
+        listingInnerExpand.appendChild(expandBtn);
 
         x++;
     }
@@ -218,8 +235,8 @@ function createListing(x) {
 // expanding the clicked listing
 function expandListing(event) {
 
-    const targetId = event.target.parentElement.parentElement.getAttribute('id');
-    const targetInnerId = event.target.parentElement.getAttribute('id');
+    const targetId = event.target.parentElement.parentElement.parentElement.getAttribute('id');
+    const targetInnerId = event.target.parentElement.parentElement.getAttribute('id');
     const listingDiv = document.getElementById(targetId);
     const listingInnerDiv = document.getElementById(targetInnerId);
 
