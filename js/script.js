@@ -47,7 +47,9 @@ function clickOutsideLogin(event) {
 }
 
 // checks if user is registered
-function loginUser() {
+function loginUser(event) {
+    event.preventDefault();
+
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
@@ -87,7 +89,9 @@ function clickOutsideReg(event) {
 }
 
 // creates an array of user to localStorage
-function regUser() {
+function regUser(event) {
+    event.preventDefault();
+
     const regName = document.getElementById('input-reg-name').value;
     const regEmail = document.getElementById('input-reg-email').value;
     const regPassword = document.getElementById('input-reg-password').value;
