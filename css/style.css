@@ -23,6 +23,7 @@ body {
 }
 
 #container {
+    line-height: 1.4;
     position: relative;
     min-height: 100vh;
     padding-bottom: 150px;
@@ -675,6 +676,7 @@ header {
     margin: 0 auto;
     padding: 0;
     text-align: center;
+    line-height: 1.4;
 }
  /* Story */
 
@@ -684,6 +686,10 @@ header {
 
 .story-title {
     font-size: 30px;
+}
+
+.story-desc {
+    margin: 20px 50px;
 }
 
 /* Person */
@@ -697,6 +703,7 @@ header {
 .person-img {
     width: 25%;
     height: 100%;
+    margin-left: 40px;
 }
 
 .about-person {
@@ -727,25 +734,33 @@ header {
     width: 60%;
 }
 
+.store-desc {
+    margin: 10px 30px;
+    font-size: 15px;
+}
+
 /* Reviews - Column 2 */
 
 .column2 {
     width: 40%;
 }
 
-.review {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    quotes: "\201C""\201D""\2018""\2019";
+.review-div {
+    margin: 20px;
+    padding: 5px 0;
+    color: var(--medium-text);
+    background-color: var(--light-bg);
+    text-align: left;
+    border-left: 8px solid var(--highlight-medium);
 }
 
-.review:before {
-    color: #ccc;
-    content: open-quote;
-    font-size: 4em;
-    line-height: 0.1em;
-    margin-right: 0.25em;
-    vertical-align: -0.4;
+.review {
+    margin: 20px 20px 10px 20px;
+}
+
+.review-writer {
+    margin: 0 0 20px 30px;
+    font-style: italic;
 }
 
 /* Footer - stays at the bottom */
