@@ -245,16 +245,13 @@ function expandListing(event) {
                 createTitleP(x, expandDiv, 1);
 
                 expandDiv.id = 'listing-expand' + x;
-                expandDiv.class = 'listing-expand';
+                expandDiv.className = 'listing-expand';
 
-                infoDiv.id = 'listing-expand-info' + x;
-                infoDiv.class = 'listing-expand-info';
+                infoDiv.className = 'listing-expand-info';
 
-                imgDiv.id = 'listing-expand-imgDiv' + x;
-                imgDiv.class = 'listing-expand-imgDiv';
+                imgDiv.className = 'listing-expand-imgDiv';
 
-                descDiv.id = 'listing-expand-descDiv' + x;
-                descDiv.class = 'listing-expand-descDiv';
+                descDiv.className = 'listing-expand-descDiv';
 
                 listingDiv.appendChild(expandDiv);
                 expandDiv.appendChild(infoDiv);
@@ -379,8 +376,8 @@ function createImg(x, div, type) {
             const imgDivSmall = document.createElement('div');
             const imgDivBig = document.createElement('div');
 
-            imgDivSmall.class = 'listing-expand-imgDiv-small';
-            imgDivBig.class = 'listing-expand-imgDiv-big';
+            imgDivSmall.className = 'listing-expand-imgDiv-small';
+            imgDivBig.className = 'listing-expand-imgDiv-big';
 
             div.appendChild(imgDivBig);
             div.appendChild(imgDivSmall);
