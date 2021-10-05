@@ -35,7 +35,7 @@ header {
     width: 100%;
     display: block;
     background-color: white;
-    border-bottom: groove gray thin;
+    border-bottom: 1px ridge var(--highlight-medium);
 }
 
 .header_items {
@@ -665,6 +665,52 @@ header {
 .custom-file-input:hover {
     background-color: var(--darker-bg);
     cursor: pointer;
+}
+
+/* ------- ABOUT US ------- */
+
+#about-us {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 70%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+ /* Company */
+
+.company {
+    padding: 20px 0 50px 0;
+}
+
+.company-title {
+    font-size: 30px;
+}
+
+/* Person */
+
+.person {
+    display: flex;
+    padding: 30px 0;
+    border-top: 1px solid var(--highlight-dark);
+}
+
+.person-img {
+    width: 25%;
+    height: 100%;
+}
+
+.about-person {
+    margin: 20px 0;
+    width: 75%;
+}
+
+.person-title {
+    margin: 0 50px;
+}
+
+.person-desc {
+    margin: 0;
+    padding: 30px 50px;
 }
 
 /* Footer - stays at the bottom */
