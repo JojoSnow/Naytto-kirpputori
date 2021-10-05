@@ -7,6 +7,7 @@ let slideIndex = 0;
 const loginBtn = document.getElementById('login-btn');
 const regBtn = document.getElementById('regis-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
+const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 const addListingBtn = document.getElementById('add-listing-btn');
@@ -25,7 +26,8 @@ addListingCloseBtn.addEventListener('click', closeAddListing);
 window.addEventListener('click', clickOutsideAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
-regModalBtn.addEventListener('click', createRegUser);
+regModalBtn.addEventListener('click', regUser);
+loginModalBtn.addEventListener('click', loginUser);
 
 // login functions
 function openLogin() {
@@ -42,6 +44,22 @@ function clickOutsideLogin(event) {
     const loginModal = document.getElementById('login-modal');
     if (event.target === loginModal) {
         loginModal.style.display = 'none';
+    }
+}
+
+// checks if user is registered (doesn't work with wrong password and username)
+function loginUser() {
+    const loginEmail = document.getElementById('input-login-name').value;
+    const loginPassWord = document.getElementById('input-login-password').value;
+
+    for (let i = 0; localStorage.length > i; i++) {
+        const getUser = localStorage.getItem(loginEmail); // <--- fix
+        const userArray = JSON.parse(getUser);
+        if (loginEmail === userArray[1] && loginPassWord === userArray[2]) {
+            console.log('logged in');
+        } else if (loginEmail !== userArray[1] || loginPassWord !== userArray[2]) {
+            console.log('username or password is wrong');
+        }
     }
 }
 
@@ -64,14 +82,15 @@ function clickOutsideReg(event) {
 }
 
 // creates an array of user to localStorage
-function createRegUser() {
+function regUser() {
     const regName = document.getElementById('input-reg-name').value;
     const regEmail = document.getElementById('input-reg-email').value;
     const regPassword = document.getElementById('input-reg-password').value;
 
     let user = [regName, regEmail, regPassword];
 
-    createStorageArray(user);
+    // adds the user array to localStorage
+    localStorage.setItem(user[1], JSON.stringify(user));
 
     userIndex++;
 }
@@ -108,6 +127,7 @@ function clickOutsideAddListing(event) {
     }
 }
 
+// testing- not working
 function addListingImg() {
     const reader = new FileReader();
 
@@ -157,14 +177,7 @@ function createListingObject(index) {
     objectIndex++;
 }
 
-// testing - not working yet
-function createStorageArray(item) {
-    localStorage.setItem(item[2], JSON.stringify(item));
 
-    let testArray = localStorage.getItem(item[2]);
-
-    console.log('testing storage object: ' + testArray);
-}
 
 // creates the listings for the page
 function createListing(x) {
