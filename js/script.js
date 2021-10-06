@@ -241,7 +241,7 @@ function expandListing(event) {
     const listingInnerDiv = document.getElementById(targetInnerId);
 
     for (let x = 0; listingArray.length > x; x++)
-        if (targetId == listingArray[x].id)
+        if (targetId == listingArray[x].id) {
             if (listingArray[x].show == 'create') {
                 const expandDiv = document.createElement('div');
 
@@ -305,7 +305,7 @@ function expandListing(event) {
 
                     expandDiv.style.display = "none";
                     listingDiv.className = "listing-style1";
-                    listingInnerDiv.style.display = "block";
+                    listingInnerDiv.style.display = "flex";
                 })
 
                 listingInnerDiv.style.display = "none";
@@ -319,6 +319,8 @@ function expandListing(event) {
                 expandDiv = document.getElementById('listing-expand' + x);
                 expandDiv.style.display = "block";
             }
+            break;
+        }
 }
 
 function createTitleP(x, div, type) {
