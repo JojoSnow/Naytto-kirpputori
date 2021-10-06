@@ -54,13 +54,13 @@ function loginUser(event) {
         if (loginEmail !== userArray[2]) {
             // the user does not exist
             console.log('user does not exist');
-        } 
-        
+        }
+
         if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
             // right username, wrong password
             console.log('wrong password');
-        } 
-        
+        }
+
         if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
             // username and password are both right
             console.log('logged in');
@@ -100,13 +100,13 @@ function regUser(event) {
                 let user = ['user' + i, regName, regEmail, regPassword];
                 // adds the user array to localStorage
                 localStorage.setItem(user[0], JSON.stringify(user));
-                
+
                 regSuccess();
-                
+
                 break;
             }
         }
-    } 
+    }
 }
 
 // alerts user for missing or not valid info
@@ -311,7 +311,7 @@ function createNewListingObject() {
     var address = document.getElementById("listing_address").value;
     var city = document.getElementById("listing_city").value;
     // Väliaikainen
-    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg2"];
+    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
     var payMethod = document.getElementById("listing_payment").value;
     var price = document.getElementById("listing_price").value;
     var contact = document.getElementById("listing_contact").value;
@@ -337,14 +337,14 @@ function createNewListingObject() {
 
     switch (contact) {
         case "Sähköposti":
-            const email = document.getElementById("listing_email");
+            const email = document.getElementById("listing_email").value;
             if (email == "")
                 return;
             contact = contact + ": " + email;
             break;
 
         case "Puhelin":
-            const phoneNumber = document.getElementById("listing_phone");
+            const phoneNumber = document.getElementById("listing_phone").value;
             if (phoneNumber == "")
                 return;
             contact = contact + ": " + phoneNumber;
@@ -397,19 +397,33 @@ function createListing() {
         listingInnerDiv.id = 'listingInner' + x;
         listingInnerDiv.className = 'inner-listing';
 
-        createTitleP(x, listingInnerDiv, 0);
+        const listingInnerImgDiv = document.createElement('div');
+        const listingInnerInfoDiv = document.createElement('div');
 
-        createImg(x, listingInnerDiv, 0)
+        listingInnerImgDiv.className = 'inner-listing-img';
+        listingInnerInfoDiv.className = 'inner-listing-info';
 
-        createPriceP(x, listingInnerDiv);
+        listingInnerDiv.appendChild(listingInnerImgDiv);
+        listingInnerDiv.appendChild(listingInnerInfoDiv);
 
-        createDateP(x, listingInnerDiv);
+        const listingInnerExpand = document.createElement('div');
+        listingInnerExpand.className = 'inner-listing-expand';
+
+        listingInnerDiv.appendChild(listingInnerExpand);
+
+        createTitleP(x, listingInnerInfoDiv, 0);
+
+        createImg(x, listingInnerImgDiv, 0)
+
+        createPriceP(x, listingInnerInfoDiv);
+
+        createDateP(x, listingInnerInfoDiv);
 
         const expandBtn = document.createElement('input');
         expandBtn.type = 'button'
         expandBtn.className = 'expand-btn';
 
-        listingInnerDiv.appendChild(expandBtn);
+        listingInnerExpand.appendChild(expandBtn);
 
         listingDiv.appendChild(listingInnerDiv);
         listingList.appendChild(listingDiv);
@@ -437,13 +451,13 @@ function clearAllListings() {
 // expanding the clicked listing
 function expandListing(event) {
 
-    const targetId = event.target.parentElement.parentElement.getAttribute('id');
-    const targetInnerId = event.target.parentElement.getAttribute('id');
+    const targetId = event.target.parentElement.parentElement.parentElement.getAttribute('id');
+    const targetInnerId = event.target.parentElement.parentElement.getAttribute('id');
     const listingDiv = document.getElementById(targetId);
     const listingInnerDiv = document.getElementById(targetInnerId);
 
     for (let x = 0; listingArray.length > x; x++)
-        if (targetId == listingArray[x].id)
+        if (targetId == listingArray[x].id) {
             if (listingArray[x].show == 'create') {
                 const expandDiv = document.createElement('div');
 
@@ -507,7 +521,7 @@ function expandListing(event) {
 
                     expandDiv.style.display = "none";
                     listingDiv.className = "listing-style1";
-                    listingInnerDiv.style.display = "block";
+                    listingInnerDiv.style.display = "flex";
                 })
 
                 listingInnerDiv.style.display = "none";
@@ -521,6 +535,8 @@ function expandListing(event) {
                 expandDiv = document.getElementById('listing-expand' + x);
                 expandDiv.style.display = "block";
             }
+            break;
+        }
 }
 
 function createTitleP(x, div, type) {
