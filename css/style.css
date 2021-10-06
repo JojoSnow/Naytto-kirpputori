@@ -10,6 +10,7 @@
     --highlight-medium: #009baf;
     --highlight-dark: #058c9e;
     --logo: #3cc3d4;
+    --alert: #de0f00;
 }
 
 * {
@@ -526,10 +527,6 @@ header {
     }
 }
 
-.giveth_ground_to_noble_body_thy_peasant_footer {
-    margin: 800px;
-}
-
 /* LOGIN & REGISTRATION MODALS */
 
 .modal {
@@ -546,11 +543,12 @@ header {
 
 .modal-content {
     background-color: var(--light-bg);
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 0 10px;
     width: 325px;
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
+    border-radius: 10px;
 }
 
 .modal-header {
@@ -592,6 +590,13 @@ header {
     padding: 4px;
     background-color: var(--lightest-bg);
     border: 1px ridge var(--medium-border);
+}
+
+.modal-alert {
+    display: none;
+    font-size: 15px;
+    color: var(--alert);
+    margin: 0 0 5px 0;
 }
 
 .modal-text-input:focus {

@@ -18,11 +18,8 @@ loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
-window.addEventListener('click', clickOutsideLogin);
-window.addEventListener('click', clickOutsideReg);
 addListingBtn.addEventListener('click', openAddListing);
 addListingCloseBtn.addEventListener('click', closeAddListing);
-window.addEventListener('click', clickOutsideAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
 regModalBtn.addEventListener('click', regUser);
@@ -39,15 +36,10 @@ function closeLogin() {
     loginModal.style.display = 'none';
 }
 
-function clickOutsideLogin(event) {
-    const loginModal = document.getElementById('login-modal');
-    if (event.target === loginModal) {
-        loginModal.style.display = 'none';
-    }
-}
-
 // checks if user is registered
-function loginUser() {
+function loginUser(event) {
+    event.preventDefault();
+
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
@@ -56,12 +48,16 @@ function loginUser() {
         const userArray = JSON.parse(getUser);
 
         if (loginEmail !== userArray[2]) {
-            // the user does not excist
-            console.log('wrong username');
-        } if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+            // the user does not exist
+            console.log('user does not exist');
+        } 
+        
+        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
             // right username, wrong password
             console.log('wrong password');
-        } else if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
+        } 
+        
+        if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
             // username and password are both right
             console.log('logged in');
         }
@@ -76,37 +72,97 @@ function openReg() {
 
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
+    resetRegForm();
+    document.getElementById('reg-title').innerHTML = 'Rekisteröidy';
     regModal.style.display = 'none';
 }
 
-function clickOutsideReg(event) {
-    const regModal = document.getElementById('reg-modal');
-    if (event.target === regModal) {
-        regModal.style.display = 'none';
-    }
-}
-
 // creates an array of user to localStorage
-function regUser() {
+function regUser(event) {
+    event.preventDefault();
+
     const regName = document.getElementById('input-reg-name').value;
     const regEmail = document.getElementById('input-reg-email').value;
     const regPassword = document.getElementById('input-reg-password').value;
 
-    let user = [regName, regEmail, regPassword];
+    checkRegInfo(regName, regEmail, regPassword);
 
     // adds the user array to localStorage
-    for (let i = 0; localStorage.length >= i; i++) {
-        if (!(localStorage.getItem('user' + i))) {
-            // registered user array
-            let user = ['user' + i, regName, regEmail, regPassword];
-            // adds the user array to localStorage
-            localStorage.setItem(user[0], JSON.stringify(user));
-            break;
+    if (regName !== '' && regEmail !== '' && regPassword.length >= 8) {
+        for (let i = 0; localStorage.length >= i; i++) {
+            if (!(localStorage.getItem('user' + i))) {
+                // registered user array
+                let user = ['user' + i, regName, regEmail, regPassword];
+                // adds the user array to localStorage
+                localStorage.setItem(user[0], JSON.stringify(user));
+
+                document.getElementById('reg-title').innerHTML = 'Rekisteröityminen onnistui!'
+                break;
+            }
         }
     } 
 }
 
-//sliding for info images -- have a better animation
+// alerts user for missing or not valid info
+function checkRegInfo(regName, regEmail, regPassword) {
+    // checks if the name is right - alert if not
+    const regNameAlert = document.getElementById('reg-username-alert');
+
+    if (regName === '') {
+        document.getElementById('input-reg-name').style.borderColor = '#de0f00';
+        regNameAlert.style.display = 'block';
+        regNameAlert.innerHTML = 'Syötä nimi';
+    } else {
+        document.getElementById('input-reg-name').style.borderColor = '#a0a0a0';
+        regNameAlert.innerHTML = '';
+        regNameAlert.style.display = 'none';
+    }
+
+    // checks if the email is right - alert if not
+    const regEmailAlert = document.getElementById('reg-email-alert');
+
+    if (regEmail === '') {
+        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+        regEmailAlert.style.display = 'block';
+        regEmailAlert.innerHTML = 'Syötä sähköposti';
+    } else {
+        document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
+        regEmailAlert.innerHTML = '';
+        regEmailAlert.style.display = 'none';
+    }
+
+    // checks if the password is right - alert if not
+    const regPasswordAlert = document.getElementById('reg-password-alert');
+
+    if (regPassword.length < 8) {
+        document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+        regPasswordAlert.style.display = 'block';
+        regPasswordAlert.innerHTML = 'Salasanan pitää olla vähintään 8 merkkiä pitkä'
+        if (regPassword === '') {
+            document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+            regPasswordAlert.style.display = 'block';
+            regPasswordAlert.innerHTML = 'Syötä salasana';
+        }
+    } else {
+        document.getElementById('input-reg-password').style.borderColor = '#a0a0a0';
+        regPasswordAlert.innerHTML = '';
+        regPasswordAlert.style.display = 'none';
+    }
+}
+
+// resets the registration form when it is closed
+function resetRegForm() {
+    document.getElementById('input-reg-name').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-username-alert').style.display = 'none';
+
+    document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-email-alert').style.display = 'none';
+
+    document.getElementById('input-reg-password').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-password-alert').style.display = 'none';
+}
+
+// sliding for info images -- have a better animation
 function showSlides() {
     let slides = document.querySelectorAll('.slides');
     for (let i = 0; i < slides.length; i++) {
@@ -129,13 +185,6 @@ function openAddListing() {
 function closeAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'none';
-}
-
-function clickOutsideAddListing(event) {
-    const listingModal = document.getElementById('add-listing-modal');
-    if (event.target === listingModal) {
-        listingModal.style.display = 'none';
-    }
 }
 
 // testing- not working
@@ -474,7 +523,7 @@ function createListingUl(x, div) {
     listingUl.appendChild(contactLi);
 }
 
-//Listauksen testailuja CSS
+// Listauksen testailuja CSS
 createListingObject(objectIndex);
 createListingObject(objectIndex);
 createListingObject(objectIndex);
