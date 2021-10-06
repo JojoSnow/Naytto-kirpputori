@@ -545,7 +545,7 @@ header {
     background-color: var(--light-bg);
     margin: 10% auto;
     padding: 0 10px;
-    width: 325px;
+    width: 340px;
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
     border-radius: 10px;
@@ -577,6 +577,13 @@ header {
     padding-top: 10px;
 }
 
+.modal-success {
+    display: none;
+    font-size: 19px;
+    font-weight: normal;
+    margin: 0 0 15px 0;
+}
+
 .modal-label {
     font-size: 20px;
 }
@@ -595,6 +602,7 @@ header {
 .modal-alert {
     display: none;
     font-size: 15px;
+    font-weight: bold;
     color: var(--alert);
     margin: 0 0 5px 0;
 }

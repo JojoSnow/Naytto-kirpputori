@@ -28,11 +28,13 @@ regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', loginUser);
 
 // login functions
+// opens the login modal
 function openLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'block';
 }
 
+//closes the login modal
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'none';
@@ -67,15 +69,16 @@ function loginUser(event) {
 }
 
 // registration functions
+// opens the registration modal
 function openReg() {
     const regModal = document.getElementById('reg-modal');
     regModal.style.display = 'block';
 }
 
+// closes the registration modal
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
     resetRegForm();
-    document.getElementById('reg-title').innerHTML = 'Rekisteröidy';
     regModal.style.display = 'none';
 }
 
@@ -90,15 +93,16 @@ function regUser(event) {
     checkRegInfo(regName, regEmail, regPassword);
 
     // adds the user array to localStorage
-    if (regName !== '' && regEmail !== '' && regPassword.length >= 8) {
+    if (regName !== '' && validateEmail(regEmail) && regPassword.length >= 8) {
         for (let i = 0; localStorage.length >= i; i++) {
             if (!(localStorage.getItem('user' + i))) {
                 // registered user array
                 let user = ['user' + i, regName, regEmail, regPassword];
                 // adds the user array to localStorage
                 localStorage.setItem(user[0], JSON.stringify(user));
-
-                document.getElementById('reg-title').innerHTML = 'Rekisteröityminen onnistui!'
+                
+                regSuccess();
+                
                 break;
             }
         }
@@ -107,9 +111,8 @@ function regUser(event) {
 
 // alerts user for missing or not valid info
 function checkRegInfo(regName, regEmail, regPassword) {
-    // checks if the name is right - alert if not
+    // checks if the name is empty - alert if otherwise
     const regNameAlert = document.getElementById('reg-username-alert');
-
     if (regName === '') {
         document.getElementById('input-reg-name').style.borderColor = '#de0f00';
         regNameAlert.style.display = 'block';
@@ -120,20 +123,24 @@ function checkRegInfo(regName, regEmail, regPassword) {
         regNameAlert.style.display = 'none';
     }
 
-    // checks if the email is right - alert if not
+    // checks if the email is valid and not empty - alert if otherwise
     const regEmailAlert = document.getElementById('reg-email-alert');
-
-    if (regEmail === '') {
-        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
-        regEmailAlert.style.display = 'block';
-        regEmailAlert.innerHTML = 'Syötä sähköposti';
-    } else {
+    if (validateEmail(regEmail)) {
         document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
         regEmailAlert.innerHTML = '';
         regEmailAlert.style.display = 'none';
+        if (regEmail === '') {
+            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+            regEmailAlert.style.display = 'block';
+            regEmailAlert.innerHTML = 'Syötä sähköposti';
+        }
+    } else {
+        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+        regEmailAlert.style.display = 'block';
+        regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
     }
 
-    // checks if the password is right - alert if not
+    // checks if the password is longer than 8 chars and not empty - alert if otherwise
     const regPasswordAlert = document.getElementById('reg-password-alert');
 
     if (regPassword.length < 8) {
@@ -152,6 +159,17 @@ function checkRegInfo(regName, regEmail, regPassword) {
     }
 }
 
+// checks that the registration email is valid
+function validateEmail(regEmail) {
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (regEmail.match(pattern)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // resets the registration form when it is closed
 function resetRegForm() {
     document.getElementById('input-reg-name').style.borderColor = '#a0a0a0';
@@ -162,6 +180,21 @@ function resetRegForm() {
 
     document.getElementById('input-reg-password').style.borderColor = '#a0a0a0';
     document.getElementById('reg-password-alert').style.display = 'none';
+
+    document.getElementById('reg-success').style.display = 'none';
+
+    document.getElementById('reg-form').reset();
+}
+
+// tells the user that the registration has been successful
+function regSuccess() {
+    const success = document.getElementById('reg-success');
+
+    success.style.display = 'block';
+    success.innerHTML = 'Rekisteröityminen onnistui!';
+
+    // closes the registration modal after 2 seconds of a successful registration
+    setTimeout(closeReg, 2000);
 }
 
 // sliding for info images -- have a better animation

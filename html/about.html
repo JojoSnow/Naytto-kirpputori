@@ -79,21 +79,30 @@
 
                 <div id="reg-header" class="modal-header">
                     <span id="reg-close-btn" class="modal-close-btn">&times;</span>
-                    <h2>Rekisteröidy</h2>
+                    <h2 id="reg-title">Rekisteröidy</h2>
                 </div>
 
-                <div id="reg-main" class="modal-main">
+                <div class="modal-main">
                     <form id="reg-form" class="modal-form">
-                        <label for="reg-username" id="reg-name" class="modal-label">Nimi</label><br>
-                        <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input"><br>
 
-                        <label for="reg-email" id="reg-email" class="modal-label">Sähköposti</label><br>
-                        <input type="email" name="reg-email" id="input-reg-email" class="modal-text-input"><br>
+                        <label for="reg-username" id="reg-name" class="modal-label">Nimi<br>
+                            <input type="text" name="reg-username" id="input-reg-name" class="modal-text-input">
+                        </label><br>
+                        <p id="reg-username-alert" class="modal-alert"></p>
 
-                        <label for="reg-password" id="reg-password" class="modal-label">Salasana</label><br>
-                        <input type="password" name="reg-password" id="input-reg-password" class="modal-text-input"><br>
+                        <label for="reg-email" id="reg-email" class="modal-label">Sähköposti<br>
+                            <input type="email" name="reg-email" id="input-reg-email" class="modal-text-input">
+                        </label><br>
+                        <p id="reg-email-alert" class="modal-alert"></p>
+
+                        <label for="reg-password" id="reg-password" class="modal-label">Luo salasana<br>
+                            <input type="password" name="reg-password" id="input-reg-password" class="modal-text-input">
+                        </label><br>
+                        <p id="reg-password-alert" class="modal-alert"></p>
 
                         <input type="submit" value="Rekisteröidy" id="input-reg-btn" class="modal-btn">
+
+                        <p id="reg-success" class="modal-success"></p>
                     </form>
                 </div>
 
