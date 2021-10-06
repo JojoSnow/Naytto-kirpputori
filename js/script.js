@@ -306,7 +306,7 @@ function createListingObjectOnStart() {
     listing.city = 'Kolari';
     listing.img = ['./img/empty.jpg', './img/empty.jpg', './img/empty.jpg'];
     listing.payMethod = ['MobilePay', ' käteinen'];
-    listing.price = '5 €';
+    listing.price = '5';
     listing.contact = ['Sähköposti'];
     listing.shape = 'käytetty';
     listing.show = "create";
@@ -333,6 +333,8 @@ function createNewListingObject() {
     var price = document.getElementById("listing_price").value;
     var contact = document.getElementById("listing_contact").value;
     var cond = document.getElementById("listing_cond").value;
+
+    //Lisää function toimittomuuden syyt tekijälle
 
     if (title == "")
         return;
@@ -575,7 +577,7 @@ function createTitleP(x, div, type) {
 
 function createPriceP(x, div) {
     const priceP = document.createElement('p');
-    const priceNode = document.createTextNode("Hinta: " + listingArray[x].price);
+    const priceNode = document.createTextNode("Hinta: " + listingArray[x].price + " €");
 
     priceP.id = 'price' + x;
     priceP.className = 'listing-price';
