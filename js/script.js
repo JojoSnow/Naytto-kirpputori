@@ -125,19 +125,19 @@ function checkRegInfo(regName, regEmail, regPassword) {
 
     // checks if the email is valid and not empty - alert if otherwise
     const regEmailAlert = document.getElementById('reg-email-alert');
-    if (validateEmail(regEmail)) {
-        document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
-        regEmailAlert.innerHTML = '';
-        regEmailAlert.style.display = 'none';
+    if (!(validateEmail(regEmail))) {
+        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+        regEmailAlert.style.display = 'block';
+        regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
         if (regEmail === '') {
             document.getElementById('input-reg-email').style.borderColor = '#de0f00';
             regEmailAlert.style.display = 'block';
             regEmailAlert.innerHTML = 'Syötä sähköposti';
         }
     } else {
-        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
-        regEmailAlert.style.display = 'block';
-        regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
+        document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
+        regEmailAlert.innerHTML = '';
+        regEmailAlert.style.display = 'none';
     }
 
     // checks if the password is longer than 8 chars and not empty - alert if otherwise
@@ -146,7 +146,7 @@ function checkRegInfo(regName, regEmail, regPassword) {
     if (regPassword.length < 8) {
         document.getElementById('input-reg-password').style.borderColor = '#de0f00';
         regPasswordAlert.style.display = 'block';
-        regPasswordAlert.innerHTML = 'Salasanan pitää olla vähintään 8 merkkiä pitkä'
+        regPasswordAlert.innerHTML = 'Salasana on liian lyhyt (min. 8 merkkiä)'
         if (regPassword === '') {
             document.getElementById('input-reg-password').style.borderColor = '#de0f00';
             regPasswordAlert.style.display = 'block';
@@ -194,7 +194,7 @@ function regSuccess() {
     success.innerHTML = 'Rekisteröityminen onnistui!';
 
     // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 2000);
+    setTimeout(closeReg, 5000);
 }
 
 // sliding for info images -- have a better animation
