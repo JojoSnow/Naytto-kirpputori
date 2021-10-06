@@ -1,6 +1,6 @@
 const listingArray = [];
 let objectIndex = 0;
-let listingIndex = 0;
+let userIndex = 0;
 let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
@@ -11,8 +11,9 @@ const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
-const addListingSelect = document.getElementById('listing-contact');
-const addListingImgBtn = document.getElementById('listing-img');
+const addListingSelect = document.getElementById('listing_contact');
+const addListingImgBtn = document.getElementById('listing_img');
+const addListingSubmit = document.getElementById('listing_submit');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
@@ -22,6 +23,7 @@ addListingBtn.addEventListener('click', openAddListing);
 addListingCloseBtn.addEventListener('click', closeAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
+addListingSubmit.addEventListener('click', submitListing);
 regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', loginUser);
 
@@ -213,11 +215,25 @@ function showSlides() {
 function openAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'block';
+    contactSelectDefault();
 }
 
 function closeAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'none';
+}
+
+function clickOutsideAddListing(event) {
+    const listingModal = document.getElementById('add-listing-modal');
+    if (event.target === listingModal) {
+        listingModal.style.display = 'none';
+    }
+}
+
+function submitListing(event) {
+    event.preventDefault();
+    // event.preventDefault() kunnes local storage toimii
+    createNewListingObject();
 }
 
 // testing- not working
@@ -232,25 +248,38 @@ function addListingImg() {
 }
 
 function contactSelect() {
-    const contactValue = document.getElementById('listing-contact').value;
+    const contactValue = document.getElementById("listing_contact").value;
 
-    if (contactValue === 'email') {
-        document.getElementById('listing-email').style.display = 'block';
-        document.getElementById('listing-phone').style.display = 'none';
-    } else if (contactValue === 'phone') {
-        document.getElementById('listing-phone').style.display = 'block';
-        document.getElementById('listing-email').style.display = 'none';
-    } else if (contactValue === 'empty') {
-        document.getElementById('listing-phone').style.display = 'none';
-        document.getElementById('listing-email').style.display = 'none';
+    switch (contactValue) {
+
+        case "Sähköposti":
+            document.getElementById("listing_email").style.display = 'block';
+            document.getElementById("listing_phone").style.display = 'none';
+            return;
+
+        case "Puhelin":
+            document.getElementById("listing_phone").style.display = 'block';
+            document.getElementById("listing_email").style.display = 'none';
+            return;
+
+        default:
+            document.getElementById("listing_phone").style.display = 'none';
+            document.getElementById("listing_email").style.display = 'none';
+            return;
     }
+}
 
+function contactSelectDefault() {
+    document.getElementById("listing_phone").style.display = 'none';
+    document.getElementById("listing_email").style.display = 'none';
 }
 
 // creates an object of the listing
-function createListingObject(index) {
+function createListingObjectOnStart() {
+
     const listing = {};
-    listing.id = 'listing' + index;
+
+    listing.id = 'listing' + objectIndex;
     listing.title = 'ruskea tuoli';
     listing.name = 'Maija Meikäläinen'
     listing.date = '10.01.2020';
@@ -263,15 +292,99 @@ function createListingObject(index) {
     listing.price = '5 €';
     listing.contact = ['Sähköposti'];
     listing.shape = 'käytetty';
-    listing.show = 'create';
+    listing.show = "create";
 
     listingArray.push(listing);
 
     objectIndex++;
 }
 
+function createNewListingObject() {
+
+    const listing = {};
+    var date = new Date();
+    var time = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+
+    var title = document.getElementById("listing_name").value
+    var desc = document.getElementById("listing_desc").value;
+    var categ = document.getElementById("listing_categ").value;
+    var address = document.getElementById("listing_address").value;
+    var city = document.getElementById("listing_city").value;
+    // Väliaikainen
+    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg2"];
+    var payMethod = document.getElementById("listing_payment").value;
+    var price = document.getElementById("listing_price").value;
+    var contact = document.getElementById("listing_contact").value;
+    var cond = document.getElementById("listing_cond").value;
+
+    if (title == "")
+        return;
+
+    if (desc == "")
+        return;
+
+    if (categ == null)
+        return;
+
+    if (address == "")
+        return;
+
+    if (city == null)
+        return;
+
+    if (payMethod == "")
+        return;
+
+    switch (contact) {
+        case "Sähköposti":
+            const email = document.getElementById("listing_email");
+            if (email == "")
+                return;
+            contact = contact + ": " + email;
+            break;
+
+        case "Puhelin":
+            const phoneNumber = document.getElementById("listing_phone");
+            if (phoneNumber == "")
+                return;
+            contact = contact + ": " + phoneNumber;
+            break;
+
+        case null:
+            return;
+    }
+
+    if (cond == null)
+        return;
+
+    listing.id = "listing" + objectIndex;
+    listing.title = title;
+    listing.name = "Null";
+    listing.date = time;
+    listing.desc = desc;
+    listing.category = categ;
+    listing.address = address;
+    listing.city = city;
+    listing.img = img;
+    listing.payMethod = payMethod;
+    listing.price = price;
+    listing.contact = contact;
+    listing.shape = cond;
+    listing.show = "create";
+
+    listingArray.push(listing);
+
+    objectIndex++;
+
+    clearAllListings();
+    createListing();
+}
+
+
+
 // creates the listings for the page
-function createListing(x) {
+function createListing() {
+    let x = 0;
     const listingList = document.getElementById('store_listing');
 
     for (let i = 0; listingArray.length > i; i++) {
@@ -304,6 +417,21 @@ function createListing(x) {
         x++;
     }
     document.querySelectorAll('.expand-btn').forEach(btn => btn.addEventListener('click', expandListing));
+}
+
+function clearAllListings() {
+    let x = 0, y = listingArray.length - 1;
+
+    if (y == 0)
+        return;
+
+    for (let x = 0; listingArray.length > x; x++)
+        listingArray[x].show = "create";
+
+    while (x < y) {
+        document.getElementById("listing" + x).remove();
+        x++;
+    }
 }
 
 // expanding the clicked listing
@@ -556,12 +684,12 @@ function createListingUl(x, div) {
     listingUl.appendChild(contactLi);
 }
 
-// Listauksen testailuja CSS
-createListingObject(objectIndex);
-createListingObject(objectIndex);
-createListingObject(objectIndex);
-createListingObject(objectIndex);
-createListingObject(objectIndex);
+createListingObjectOnStart();
+createListingObjectOnStart();
+createListingObjectOnStart();
+createListingObjectOnStart();
+createListingObjectOnStart();
 
-createListing(listingIndex);
+createListing();
+
 showSlides();
