@@ -312,35 +312,58 @@ header {
 /* LISTING */
 
 .listing-style1 {
-    margin: 10px;
-    padding: 20px 30px;
+    margin: 4px;
+    padding: 10px 20px;
     border: 1px solid var(--medium-border);
     background-color: var(--light-bg);
     float: left;
-    min-width: 350px;
+    width: 350px;
 }
 
 .listing-title {
     font-family: fantasy;
-    font-size: x-large;
     text-transform: capitalize;
+    font-size: larger;
     display: inline;
-    border-bottom: black 1px solid;
 }
 
-.listing-img {
-    width: 150px;
-    float: right;
+.inner-listing {
+    display: flex;
+}
+
+.inner-listing-img {
+    flex: 1;
+    display: block;
+    float: left;
+}
+
+.inner-listing-img img {
     object-fit: cover;
+    width: 90%;
+    margin: 0 auto;
 }
 
-.listing-price {
-    font-size: x-large;
+.inner-listing-info {
+    flex: 1;
+    display: block;
+    float: right;
+}
+
+.inner-listing-info .listing-price {
+    font-size: larger;
     display: block;
 }
 
-.listing-date {
+.inner-listing-info .listing-date {
     display: block;
+}
+
+.inner-listing-expand {
+    flex: 0.5;
+}
+
+.inner-listing-expand input {
+    float: right;
 }
 
 .expand-btn {
@@ -353,11 +376,12 @@ header {
 }
 
 .listing-style2 {
+    margin: 4px;
     padding: 20px 30px;
     border: 1px solid var(--medium-border);
     background-color: var(--light-bg);
     width: 100%;
-    margin: 0 auto;
+    max-width: 900px;
     float: left;
 }
 
@@ -379,6 +403,10 @@ header {
     width: 100%;
     display: flex;
     padding: 5px;
+}
+
+.listing-expand-info .listing-price {
+    font-size: x-large
 }
 
 .listing-expand-imgDiv {
@@ -466,6 +494,10 @@ header {
 
 .listing-expand-ul li {
     padding: 2px;
+}
+
+.listing-expand input {
+    float: left;
 }
 
 @media screen and (max-width: 900px) {
