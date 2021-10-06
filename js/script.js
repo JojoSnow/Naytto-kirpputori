@@ -40,32 +40,50 @@ function closeLogin() {
     loginModal.style.display = 'none';
 }
 
-// checks if user is registered
+//logs the user in
 function loginUser(event) {
     event.preventDefault();
 
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
-    for (let i = 0; localStorage.length > i; i++) {
+    for (let i = 0; localStorage.length >= i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
 
-        if (loginEmail !== userArray[2]) {
-            // the user does not exist
-            console.log('user does not exist');
-        }
-
-        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
-            // right username, wrong password
-            console.log('wrong password');
-        }
+        checkLoginInfo(loginEmail, loginPassword, userArray);
 
         if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
             // username and password are both right
             console.log('logged in');
         }
+        break;
     }
+}
+
+function checkLoginInfo(loginEmail, loginPassword, userArray) {
+    const loginEmailAlert = document.getElementById('login-name-alert');
+    const longPasswordAlert = document.getElementById('login-password-alert');
+
+    // checks if the user is registered and if the input field is empty - alert if error
+    if (loginEmail !== userArray[2]) {
+        loginEmailAlert.style.display = 'block';
+        loginEmailAlert.innerHTML = 'Käyttäjää ei ole olemassa';
+        if (loginEmail === '') {
+            loginEmailAlert.innerHTML = 'Syötä sähköposti';
+        }
+    } else {
+        loginEmailAlert.style.display = 'none';
+        loginEmailAlert.innerHTML = '';
+        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
+    }
+
+    // checks if the email is right, but password wrong and if input field is empty - alert if error
+    if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+        // right username, wrong password
+        console.log('wrong password');
+    }
+
 }
 
 // registration functions
@@ -142,7 +160,6 @@ function checkRegInfo(regName, regEmail, regPassword) {
 
     // checks if the password is longer than 8 chars and not empty - alert if otherwise
     const regPasswordAlert = document.getElementById('reg-password-alert');
-
     if (regPassword.length < 8) {
         document.getElementById('input-reg-password').style.borderColor = '#de0f00';
         regPasswordAlert.style.display = 'block';
