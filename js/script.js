@@ -474,7 +474,7 @@ function expandListing(event) {
 
                     expandDiv.style.display = "none";
                     listingDiv.className = "listing-style1";
-                    listingInnerDiv.style.display = "block";
+                    listingInnerDiv.style.display = "flex";
                 })
 
                 listingInnerDiv.style.display = "none";
