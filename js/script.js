@@ -19,11 +19,8 @@ loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
-window.addEventListener('click', clickOutsideLogin);
-window.addEventListener('click', clickOutsideReg);
 addListingBtn.addEventListener('click', openAddListing);
 addListingCloseBtn.addEventListener('click', closeAddListing);
-window.addEventListener('click', clickOutsideAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
 addListingSubmit.addEventListener('click', submitListing);
@@ -41,25 +38,30 @@ function closeLogin() {
     loginModal.style.display = 'none';
 }
 
-function clickOutsideLogin(event) {
-    const loginModal = document.getElementById('login-modal');
-    if (event.target === loginModal) {
-        loginModal.style.display = 'none';
-    }
-}
+// checks if user is registered
+function loginUser(event) {
+    event.preventDefault();
 
-// checks if user is registered (doesn't work with wrong password and username)
-function loginUser() {
     const loginEmail = document.getElementById('input-login-name').value;
-    const loginPassWord = document.getElementById('input-login-password').value;
+    const loginPassword = document.getElementById('input-login-password').value;
 
     for (let i = 0; localStorage.length > i; i++) {
-        const getUser = localStorage.getItem(loginEmail); // <--- fix
+        const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
-        if (loginEmail === userArray[1] && loginPassWord === userArray[2]) {
+
+        if (loginEmail !== userArray[2]) {
+            // the user does not exist
+            console.log('user does not exist');
+        } 
+        
+        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+            // right username, wrong password
+            console.log('wrong password');
+        } 
+        
+        if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
+            // username and password are both right
             console.log('logged in');
-        } else if (loginEmail !== userArray[1] || loginPassWord !== userArray[2]) {
-            console.log('username or password is wrong');
         }
     }
 }
@@ -72,31 +74,97 @@ function openReg() {
 
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
+    resetRegForm();
+    document.getElementById('reg-title').innerHTML = 'Rekisteröidy';
     regModal.style.display = 'none';
 }
 
-function clickOutsideReg(event) {
-    const regModal = document.getElementById('reg-modal');
-    if (event.target === regModal) {
-        regModal.style.display = 'none';
-    }
-}
-
 // creates an array of user to localStorage
-function regUser() {
+function regUser(event) {
+    event.preventDefault();
+
     const regName = document.getElementById('input-reg-name').value;
     const regEmail = document.getElementById('input-reg-email').value;
     const regPassword = document.getElementById('input-reg-password').value;
 
-    let user = [regName, regEmail, regPassword];
+    checkRegInfo(regName, regEmail, regPassword);
 
     // adds the user array to localStorage
-    localStorage.setItem(user[1], JSON.stringify(user));
+    if (regName !== '' && regEmail !== '' && regPassword.length >= 8) {
+        for (let i = 0; localStorage.length >= i; i++) {
+            if (!(localStorage.getItem('user' + i))) {
+                // registered user array
+                let user = ['user' + i, regName, regEmail, regPassword];
+                // adds the user array to localStorage
+                localStorage.setItem(user[0], JSON.stringify(user));
 
-    userIndex++;
+                document.getElementById('reg-title').innerHTML = 'Rekisteröityminen onnistui!'
+                break;
+            }
+        }
+    } 
 }
 
-//sliding for info images -- make it actually slide
+// alerts user for missing or not valid info
+function checkRegInfo(regName, regEmail, regPassword) {
+    // checks if the name is right - alert if not
+    const regNameAlert = document.getElementById('reg-username-alert');
+
+    if (regName === '') {
+        document.getElementById('input-reg-name').style.borderColor = '#de0f00';
+        regNameAlert.style.display = 'block';
+        regNameAlert.innerHTML = 'Syötä nimi';
+    } else {
+        document.getElementById('input-reg-name').style.borderColor = '#a0a0a0';
+        regNameAlert.innerHTML = '';
+        regNameAlert.style.display = 'none';
+    }
+
+    // checks if the email is right - alert if not
+    const regEmailAlert = document.getElementById('reg-email-alert');
+
+    if (regEmail === '') {
+        document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+        regEmailAlert.style.display = 'block';
+        regEmailAlert.innerHTML = 'Syötä sähköposti';
+    } else {
+        document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
+        regEmailAlert.innerHTML = '';
+        regEmailAlert.style.display = 'none';
+    }
+
+    // checks if the password is right - alert if not
+    const regPasswordAlert = document.getElementById('reg-password-alert');
+
+    if (regPassword.length < 8) {
+        document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+        regPasswordAlert.style.display = 'block';
+        regPasswordAlert.innerHTML = 'Salasanan pitää olla vähintään 8 merkkiä pitkä'
+        if (regPassword === '') {
+            document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+            regPasswordAlert.style.display = 'block';
+            regPasswordAlert.innerHTML = 'Syötä salasana';
+        }
+    } else {
+        document.getElementById('input-reg-password').style.borderColor = '#a0a0a0';
+        regPasswordAlert.innerHTML = '';
+        regPasswordAlert.style.display = 'none';
+    }
+}
+
+// resets the registration form when it is closed
+function resetRegForm() {
+    document.getElementById('input-reg-name').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-username-alert').style.display = 'none';
+
+    document.getElementById('input-reg-email').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-email-alert').style.display = 'none';
+
+    document.getElementById('input-reg-password').style.borderColor = '#a0a0a0';
+    document.getElementById('reg-password-alert').style.display = 'none';
+}
+
+// sliding for info images -- have a better animation
 function showSlides() {
     let slides = document.querySelectorAll('.slides');
     for (let i = 0; i < slides.length; i++) {
@@ -110,7 +178,7 @@ function showSlides() {
     setTimeout(showSlides, 7000);
 }
 
-// listing functions
+// add listing functions
 function openAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'block';
@@ -140,7 +208,7 @@ function addListingImg() {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-        // localStorage.setItem('recent-image', reader.result);
+        localStorage.setItem('recent-image', reader.result);
     });
 
     reader.readAsDataURL(this.files[0]);
@@ -288,47 +356,30 @@ function createListing() {
 
     for (let i = 0; listingArray.length > i; i++) {
         const listingDiv = document.createElement('div');
+        const listingInnerDiv = document.createElement('div');
 
         listingDiv.id = 'listing' + x;
         listingDiv.className = 'listing-style1';
 
-        listingList.appendChild(listingDiv);
-
-        const listingInnerDiv = document.createElement('div');
-
-        listingInnerDiv.id = 'inner_Listing' + x;
+        listingInnerDiv.id = 'listingInner' + x;
         listingInnerDiv.className = 'inner-listing';
 
-        listingDiv.appendChild(listingInnerDiv);
+        createTitleP(x, listingInnerDiv, 0);
 
-        const listingInnerImgDiv = document.createElement('div');
-        const listingInnerInfoDiv = document.createElement('div');
+        createImg(x, listingInnerDiv, 0)
 
-        listingInnerImgDiv.className = 'inner-listing-img';
-        listingInnerInfoDiv.className = 'inner-listing-info';
+        createPriceP(x, listingInnerDiv);
 
-        listingInnerDiv.appendChild(listingInnerImgDiv);
-        listingInnerDiv.appendChild(listingInnerInfoDiv);
-
-        const listingInnerExpand = document.createElement('div');
-
-        listingInnerExpand.className = 'inner-listing-expand';
-
-        listingInnerDiv.appendChild(listingInnerExpand);
-
-        createTitleP(x, listingInnerInfoDiv, 0);
-
-        createImg(x, listingInnerImgDiv, 0)
-
-        createPriceP(x, listingInnerInfoDiv);
-
-        createDateP(x, listingInnerInfoDiv);
+        createDateP(x, listingInnerDiv);
 
         const expandBtn = document.createElement('input');
         expandBtn.type = 'button'
         expandBtn.className = 'expand-btn';
 
-        listingInnerExpand.appendChild(expandBtn);
+        listingInnerDiv.appendChild(expandBtn);
+
+        listingDiv.appendChild(listingInnerDiv);
+        listingList.appendChild(listingDiv);
 
         x++;
     }
@@ -353,13 +404,13 @@ function clearAllListings() {
 // expanding the clicked listing
 function expandListing(event) {
 
-    const targetId = event.target.parentElement.parentElement.parentElement.getAttribute('id');
-    const targetInnerId = event.target.parentElement.parentElement.getAttribute('id');
+    const targetId = event.target.parentElement.parentElement.getAttribute('id');
+    const targetInnerId = event.target.parentElement.getAttribute('id');
     const listingDiv = document.getElementById(targetId);
     const listingInnerDiv = document.getElementById(targetInnerId);
 
     for (let x = 0; listingArray.length > x; x++)
-        if (targetId == listingArray[x].id) {
+        if (targetId == listingArray[x].id)
             if (listingArray[x].show == 'create') {
                 const expandDiv = document.createElement('div');
 
@@ -423,7 +474,7 @@ function expandListing(event) {
 
                     expandDiv.style.display = "none";
                     listingDiv.className = "listing-style1";
-                    listingInnerDiv.style.display = "flex";
+                    listingInnerDiv.style.display = "block";
                 })
 
                 listingInnerDiv.style.display = "none";
@@ -437,8 +488,6 @@ function expandListing(event) {
                 expandDiv = document.getElementById('listing-expand' + x);
                 expandDiv.style.display = "block";
             }
-            break;
-        }
 }
 
 function createTitleP(x, div, type) {
