@@ -311,7 +311,7 @@ function createNewListingObject() {
     var address = document.getElementById("listing_address").value;
     var city = document.getElementById("listing_city").value;
     // Väliaikainen
-    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg2"];
+    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
     var payMethod = document.getElementById("listing_payment").value;
     var price = document.getElementById("listing_price").value;
     var contact = document.getElementById("listing_contact").value;
@@ -337,14 +337,14 @@ function createNewListingObject() {
 
     switch (contact) {
         case "Sähköposti":
-            const email = document.getElementById("listing_email");
+            const email = document.getElementById("listing_email").value;
             if (email == "")
                 return;
             contact = contact + ": " + email;
             break;
 
         case "Puhelin":
-            const phoneNumber = document.getElementById("listing_phone");
+            const phoneNumber = document.getElementById("listing_phone").value;
             if (phoneNumber == "")
                 return;
             contact = contact + ": " + phoneNumber;
