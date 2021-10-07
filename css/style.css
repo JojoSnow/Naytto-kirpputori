@@ -584,9 +584,9 @@ header {
 
 .modal-success {
     display: none;
-    font-size: 19px;
+    font-size: 21px;
     font-weight: normal;
-    margin: 0 0 15px 0;
+    margin: 20px 0;
 }
 
 .modal-label {

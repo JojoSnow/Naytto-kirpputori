@@ -4,6 +4,7 @@ let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
 const regBtn = document.getElementById('regis-btn');
+const logoutBtn = document.getElementById('logout-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
@@ -17,6 +18,7 @@ const addListingSubmit = document.getElementById('listing_submit');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
+logoutBtn.addEventListener('click', userLogout);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
 addListingBtn.addEventListener('click', openAddListing);
@@ -57,11 +59,14 @@ function loginUser(event) {
 
         //checks if username and password are both right
         if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
-            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('userLogged', 'true');
 
             loginSuccess();
 
-            document.getElementById('add-listing-btn').style.display = 'block';
+            loginBtn.style.display = 'none';
+            regBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            addListingBtn.style.display = 'block';
             break;
         }
         
@@ -119,8 +124,10 @@ function loginSuccess() {
 
     document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'none');
 
-    // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeLogin, 5000);
+    loginModalBtn.style.display = 'none';
+
+    // closes the login modal after 2 seconds of a successful login -- maybe an animation for closing?
+    setTimeout(closeLogin, 2000);
 }
 
 // resets the login form when it is closed
@@ -135,6 +142,8 @@ function resetLoginForm() {
 
     document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'block');
 
+    loginModalBtn.style.display = 'block';
+
     document.getElementById('login-form').reset();
 }
 
@@ -142,6 +151,16 @@ function resetLoginForm() {
 function fromLoginToReg() {
     closeLogin();
     openReg();
+}
+
+// logout functions
+// logs the user out
+function userLogout() {
+    localStorage.setItem('userLogged', 'false');
+    logoutBtn.style.display = 'none';
+    loginBtn.style.display = 'table-cell';
+    regBtn.style.display = 'table-cell';
+    addListingBtn.style.display = 'none';
 }
 
 // registration functions
@@ -253,6 +272,7 @@ function resetRegForm() {
     document.getElementById('reg-password-alert').style.display = 'none';
 
     document.getElementById('reg-success').style.display = 'none';
+    regModalBtn.style.display = 'block';
 
     document.getElementById('reg-form').reset();
 }
@@ -261,11 +281,12 @@ function resetRegForm() {
 function regSuccess() {
     const success = document.getElementById('reg-success');
 
+    regModalBtn.style.display = 'none';
     success.style.display = 'block';
     success.innerHTML = 'Rekisteröityminen onnistui!';
 
     // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 5000);
+    setTimeout(closeReg, 2000);
 }
 
 // sliding for info images -- have a better animation
