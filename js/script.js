@@ -63,27 +63,39 @@ function loginUser(event) {
 
 function checkLoginInfo(loginEmail, loginPassword, userArray) {
     const loginEmailAlert = document.getElementById('login-name-alert');
-    const longPasswordAlert = document.getElementById('login-password-alert');
+    const loginPasswordAlert = document.getElementById('login-password-alert');
 
-    // checks if the user is registered and if the input field is empty - alert if error
+    // checks if the user is not registered and if the input field is empty - alert if wrong
     if (loginEmail !== userArray[2]) {
+        document.getElementById('input-login-name').style.borderColor = '#de0f00'
         loginEmailAlert.style.display = 'block';
         loginEmailAlert.innerHTML = 'Käyttäjää ei ole olemassa';
         if (loginEmail === '') {
             loginEmailAlert.innerHTML = 'Syötä sähköposti';
         }
     } else {
+        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
         loginEmailAlert.style.display = 'none';
         loginEmailAlert.innerHTML = '';
-        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
     }
 
-    // checks if the email is right, but password wrong and if input field is empty - alert if error
-    if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
-        // right username, wrong password
-        console.log('wrong password');
+    // checks if the password wrong and if the input field is empty - alert if it is
+    if (loginPassword !== userArray[3]) {
+        document.getElementById('input-login-password').style.borderColor = '#de0f00'
+        loginPasswordAlert.style.display = 'block';
+        loginPasswordAlert.innerHTML = 'Syötä salasana';
+        if (loginPassword === '') {
+            loginPasswordAlert.innerHTML = 'Syötä salasana';
+        }
+        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+            loginPasswordAlert.innerHTML = 'Väärä salasana'
+        }
+    } else {
+        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+        loginPasswordAlert.style.display = 'none';
+        loginPasswordAlert.innerHTML = '';
     }
-
+    
 }
 
 // registration functions
@@ -148,8 +160,6 @@ function checkRegInfo(regName, regEmail, regPassword) {
         regEmailAlert.style.display = 'block';
         regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
         if (regEmail === '') {
-            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
-            regEmailAlert.style.display = 'block';
             regEmailAlert.innerHTML = 'Syötä sähköposti';
         }
     } else {
@@ -165,8 +175,6 @@ function checkRegInfo(regName, regEmail, regPassword) {
         regPasswordAlert.style.display = 'block';
         regPasswordAlert.innerHTML = 'Salasana on liian lyhyt (min. 8 merkkiä)'
         if (regPassword === '') {
-            document.getElementById('input-reg-password').style.borderColor = '#de0f00';
-            regPasswordAlert.style.display = 'block';
             regPasswordAlert.innerHTML = 'Syötä salasana';
         }
     } else {
