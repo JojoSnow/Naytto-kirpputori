@@ -1,6 +1,5 @@
 const listingArray = [];
 let objectIndex = 0;
-let userIndex = 0;
 let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
@@ -9,6 +8,7 @@ const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
+const loginRegText = document.getElementById('not-registered');
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
 const addListingSelect = document.getElementById('listing_contact');
@@ -26,6 +26,7 @@ addListingImgBtn.addEventListener('change', addListingImg);
 addListingSubmit.addEventListener('click', submitListing);
 regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', loginUser);
+loginRegText.addEventListener('click', fromLoginToReg);
 
 // login functions
 // opens the login modal
@@ -38,6 +39,7 @@ function openLogin() {
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'none';
+    resetLoginForm();
 }
 
 //logs the user in
@@ -53,14 +55,19 @@ function loginUser(event) {
 
         checkLoginInfo(loginEmail, loginPassword, userArray);
 
+        //checks if username and password are both right
         if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
-            // username and password are both right
-            console.log('logged in');
+            localStorage.setItem('userLoggedIn', 'true');
+
+            loginSuccess();
+
+            document.getElementById('add-listing-btn').style.display = 'block';
+            break;
         }
-        break;
+        
     }
 }
-
+// alerts user for missing or not valid login info
 function checkLoginInfo(loginEmail, loginPassword, userArray) {
     const loginEmailAlert = document.getElementById('login-name-alert');
     const loginPasswordAlert = document.getElementById('login-password-alert');
@@ -79,23 +86,62 @@ function checkLoginInfo(loginEmail, loginPassword, userArray) {
         loginEmailAlert.innerHTML = '';
     }
 
-    // checks if the password wrong and if the input field is empty - alert if it is
-    if (loginPassword !== userArray[3]) {
+    //  checks if the input field is empty - alert if it is
+    if (loginPassword === '') {
         document.getElementById('input-login-password').style.borderColor = '#de0f00'
         loginPasswordAlert.style.display = 'block';
         loginPasswordAlert.innerHTML = 'Syötä salasana';
-        if (loginPassword === '') {
-            loginPasswordAlert.innerHTML = 'Syötä salasana';
-        }
-        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
-            loginPasswordAlert.innerHTML = 'Väärä salasana'
-        }
     } else {
         document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
         loginPasswordAlert.style.display = 'none';
         loginPasswordAlert.innerHTML = '';
     }
-    
+
+    // checks if the email is right and if the password wrong - alert if it is
+    if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+        document.getElementById('input-login-password').style.borderColor = '#de0f00'
+        loginPasswordAlert.style.display = 'block';
+        loginPasswordAlert.innerHTML = 'Väärä salasana';
+    } else if (loginPassword !== '') {
+        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+        loginPasswordAlert.style.display = 'none';
+        loginPasswordAlert.innerHTML = '';
+    }
+
+}
+
+// tells the user login has been successful
+function loginSuccess() {
+    const success = document.getElementById('login-success');
+
+    success.style.display = 'block';
+    success.innerHTML = 'Olet kirjautunut sisään!';
+
+    document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'none');
+
+    // closes the registration modal after 2 seconds of a successful registration
+    setTimeout(closeLogin, 5000);
+}
+
+// resets the login form when it is closed
+function resetLoginForm() {
+    document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
+    document.getElementById('login-name-alert').style.display = 'none';
+
+    document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+    document.getElementById('login-password-alert').style.display = 'none';
+
+    document.getElementById('login-success').style.display = 'none';
+
+    document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'block');
+
+    document.getElementById('login-form').reset();
+}
+
+// directs user from login to registration
+function fromLoginToReg() {
+    closeLogin();
+    openReg();
 }
 
 // registration functions
@@ -108,8 +154,8 @@ function openReg() {
 // closes the registration modal
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
-    resetRegForm();
     regModal.style.display = 'none';
+    resetRegForm();
 }
 
 // creates an array of user to localStorage
@@ -139,7 +185,7 @@ function regUser(event) {
     }
 }
 
-// alerts user for missing or not valid info
+// alerts user for missing or not valid registration info
 function checkRegInfo(regName, regEmail, regPassword) {
     // checks if the name is empty - alert if otherwise
     const regNameAlert = document.getElementById('reg-username-alert');

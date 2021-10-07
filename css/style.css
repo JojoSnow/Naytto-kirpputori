@@ -105,6 +105,10 @@ header {
     cursor: pointer;
 }
 
+#logout-btn {
+    display: none;
+}
+
 /* INFO */
 
 .info {
@@ -149,8 +153,9 @@ header {
 }
 
 .add-listing-btn {
+    display: none;
     color: var(--light-text);
-    margin: 30px auto;
+    margin: 30px auto 0 auto;
     padding: 10px 20px;
     font-size: 18px;
     border: 0.5px solid var(--medium-border);
