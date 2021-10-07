@@ -185,9 +185,11 @@
                             </select>
                         </label><br>
 
-                        <label for="listing-img" class="modal-label custom-file-input">Valitse kuva
-                            <input type="file" name="listing-img" id="listing_img" class="listing-file">
-                        </label><br>
+                        <input type="file" name="listing-img" id="listing_img" class="modal-label custom-file-input" accept="Image/*">
+                        <br>
+
+                        <div class="listing-img-preview" id="listing_img_preview"></div>
+                        <br>
 
                         <label for="listing-payment" class="modal-label">Maksutapa:<br>
                             <input type="text" name="listing-payment" id="listing_payment" class="listing-input">

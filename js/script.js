@@ -1,12 +1,12 @@
 const listingArray = [];
 let objectIndex = 0;
+let userIndex = 0;
 let slideIndex = 0;
 let userEmail = false;
 let adminEmail = true;
 
 const loginBtn = document.getElementById('login-btn');
 const regBtn = document.getElementById('regis-btn');
-const logoutBtn = document.getElementById('logout-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
@@ -21,7 +21,6 @@ const addListingSubmit = document.getElementById('listing_submit');
 window.addEventListener('load', toStorageOnLoad);
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
-logoutBtn.addEventListener('click', userLogout);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
 addListingBtn.addEventListener('click', openAddListing);
@@ -58,7 +57,6 @@ function openLogin() {
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'none';
-    resetLoginForm();
 }
 
 // logs the user or admin in
@@ -68,7 +66,7 @@ function login(event) {
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
-    for (let i = 0; localStorage.length >= i; i++) {
+    for (let i = 0; localStorage.length > i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
         const getAdmin = localStorage.getItem('admin' + i);
@@ -255,8 +253,8 @@ function openReg() {
 // closes the registration modal
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
-    regModal.style.display = 'none';
     resetRegForm();
+    regModal.style.display = 'none';
 }
 
 // creates an array of user to localStorage
@@ -286,7 +284,7 @@ function regUser(event) {
     }
 }
 
-// alerts user for missing or not valid registration info
+// alerts user for missing or not valid info
 function checkRegInfo(regName, regEmail, regPassword) {
     // checks if the name is empty - alert if otherwise
     const regNameAlert = document.getElementById('reg-username-alert');
@@ -307,6 +305,8 @@ function checkRegInfo(regName, regEmail, regPassword) {
         regEmailAlert.style.display = 'block';
         regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
         if (regEmail === '') {
+            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+            regEmailAlert.style.display = 'block';
             regEmailAlert.innerHTML = 'Syötä sähköposti';
         }
     } else {
@@ -317,11 +317,14 @@ function checkRegInfo(regName, regEmail, regPassword) {
 
     // checks if the password is longer than 8 chars and not empty - alert if otherwise
     const regPasswordAlert = document.getElementById('reg-password-alert');
+
     if (regPassword.length < 8) {
         document.getElementById('input-reg-password').style.borderColor = '#de0f00';
         regPasswordAlert.style.display = 'block';
         regPasswordAlert.innerHTML = 'Salasana on liian lyhyt (min. 8 merkkiä)'
         if (regPassword === '') {
+            document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+            regPasswordAlert.style.display = 'block';
             regPasswordAlert.innerHTML = 'Syötä salasana';
         }
     } else {
@@ -354,7 +357,6 @@ function resetRegForm() {
     document.getElementById('reg-password-alert').style.display = 'none';
 
     document.getElementById('reg-success').style.display = 'none';
-    regModalBtn.style.display = 'block';
 
     document.getElementById('reg-form').reset();
 }
@@ -363,12 +365,11 @@ function resetRegForm() {
 function regSuccess() {
     const success = document.getElementById('reg-success');
 
-    regModalBtn.style.display = 'none';
     success.style.display = 'block';
     success.innerHTML = 'Rekisteröityminen onnistui!';
 
     // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 2000);
+    setTimeout(closeReg, 5000);
 }
 
 
@@ -399,8 +400,8 @@ function closeAddListing() {
 }
 
 function clickOutsideAddListing(event) {
-    const listingModal = document.getElementById('add-listing-modal');
     if (event.target === listingModal) {
+        const listingModal = document.getElementById('add-listing-modal');
         listingModal.style.display = 'none';
     }
 }
@@ -411,16 +412,26 @@ function submitListing(event) {
     createNewListingObject();
 }
 
-// testing- not working
 function addListingImg() {
     const reader = new FileReader();
 
-    reader.addEventListener('load', () => {
-        localStorage.setItem('recent-image', reader.result);
-    });
-
     reader.readAsDataURL(this.files[0]);
+
+    reader.addEventListener("load", () => {
+        imager.push(reader.result);
+        const listingImgPreview = document.createElement("img");
+
+        listingImgPreview.src = imager[imagerX];
+        listingImgPreview.alt = "kuva"
+
+        const div = document.getElementById("listing_img_preview");
+        div.appendChild(listingImgPreview);
+        imagerX++;
+    });
 }
+
+const imager = [];
+let imagerX = 0;
 
 function contactSelect() {
     const contactValue = document.getElementById("listing_contact").value;
@@ -485,8 +496,6 @@ function createNewListingObject() {
     var categ = document.getElementById("listing_categ").value;
     var address = document.getElementById("listing_address").value;
     var city = document.getElementById("listing_city").value;
-    // Väliaikainen
-    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
     var payMethod = document.getElementById("listing_payment").value;
     var price = document.getElementById("listing_price").value;
     var contact = document.getElementById("listing_contact").value;
@@ -542,7 +551,14 @@ function createNewListingObject() {
     listing.category = categ;
     listing.address = address;
     listing.city = city;
-    listing.img = img;
+
+    listing.img = [];
+    for (var i of imager) {
+        listing.img.push(i);
+    }
+
+    console.log(listing.img);
+
     listing.payMethod = payMethod;
     listing.price = price;
     listing.contact = contact;
@@ -553,8 +569,37 @@ function createNewListingObject() {
 
     objectIndex++;
 
+    const listingModal = document.getElementById('add-listing-modal');
+    listingModal.style.display = 'none';
+
+    resetAddListing();
     clearAllListings();
     createListing();
+}
+
+function resetAddListing() {
+    document.getElementById("listing_name").value = "";
+    document.getElementById("listing_desc").value = "";
+    document.getElementById("listing_categ").value = null;
+    document.getElementById("listing_address").value = "";
+    document.getElementById("listing_city").value = null;
+    document.getElementById("listing_payment").value = "";
+    document.getElementById("listing_price").value = "";
+    document.getElementById("listing_contact").value = null;
+    document.getElementById("listing_cond").value = null;
+    document.getElementById("listing_email").value = "";
+    document.getElementById("listing_phone").value = "";
+
+    const imageCarrier = document.getElementById("listing_img_preview");
+    while (imageCarrier.firstChild) {
+        imageCarrier.removeChild(imageCarrier.lastChild);
+    }
+
+    while (true) {
+        if (imagerX == 0) break;
+        imager.splice(imagerX - 1);
+        imagerX--;
+    }
 }
 
 
@@ -823,6 +868,7 @@ function createImg(x, div, type) {
 
                 imgDivSmall.appendChild(listingExpandSmallImg);
             }
+            return;
     }
 }
 
