@@ -221,12 +221,14 @@ function openAddListing() {
 function closeAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'none';
+    resetAddListing();
 }
 
 function clickOutsideAddListing(event) {
     const listingModal = document.getElementById('add-listing-modal');
     if (event.target === listingModal) {
         listingModal.style.display = 'none';
+        resetAddListing();
     }
 }
 
@@ -240,12 +242,23 @@ function submitListing(event) {
 function addListingImg() {
     const reader = new FileReader();
 
-    reader.addEventListener('load', () => {
-        localStorage.setItem('recent-image', reader.result);
-    });
-
     reader.readAsDataURL(this.files[0]);
+
+    reader.addEventListener("load", () => {
+        imager.push(reader.result);
+        const listingImgPreview = document.createElement("img");
+
+        listingImgPreview.src = imager[imagerX];
+        listingImgPreview.alt = "kuva"
+
+        const div = document.getElementById("listing_img_preview");
+        div.appendChild(listingImgPreview);
+        imagerX++;
+    });
 }
+
+const imager = [];
+let imagerX = 0;
 
 function contactSelect() {
     const contactValue = document.getElementById("listing_contact").value;
@@ -310,8 +323,6 @@ function createNewListingObject() {
     var categ = document.getElementById("listing_categ").value;
     var address = document.getElementById("listing_address").value;
     var city = document.getElementById("listing_city").value;
-    // Väliaikainen
-    var img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
     var payMethod = document.getElementById("listing_payment").value;
     var price = document.getElementById("listing_price").value;
     var contact = document.getElementById("listing_contact").value;
@@ -367,7 +378,7 @@ function createNewListingObject() {
     listing.category = categ;
     listing.address = address;
     listing.city = city;
-    listing.img = img;
+    listing.img = []; listing.img = imager;
     listing.payMethod = payMethod;
     listing.price = price;
     listing.contact = contact;
@@ -378,8 +389,35 @@ function createNewListingObject() {
 
     objectIndex++;
 
+    const listingModal = document.getElementById('add-listing-modal');
+    listingModal.style.display = 'block';
+
+    resetAddListing();
     clearAllListings();
     createListing();
+}
+
+function resetAddListing() {
+    document.getElementById("listing_name").value = "";
+    document.getElementById("listing_desc").value = "";
+    document.getElementById("listing_categ").value = null;
+    document.getElementById("listing_address").value = "";
+    document.getElementById("listing_city").value = null;
+    document.getElementById("listing_payment").value = "";
+    document.getElementById("listing_price").value = "";
+    document.getElementById("listing_contact").value = null;
+    document.getElementById("listing_cond").value = null;
+
+    const imageCarrier = document.getElementById("listing_img_preview");
+    while (imageCarrier.firstChild) {
+        imageCarrier.removeChild(imageCarrier.lastChild);
+    }
+
+    while (true) {
+        if (imagerX == 0) break;
+        imager.splice(imagerX - 1);
+        imagerX--;
+    }
 }
 
 
@@ -648,6 +686,7 @@ function createImg(x, div, type) {
 
                 imgDivSmall.appendChild(listingExpandSmallImg);
             }
+            return;
     }
 }
 

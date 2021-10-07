@@ -340,7 +340,8 @@ header {
 
 .inner-listing-img img {
     object-fit: cover;
-    width: 90%;
+    width: 110px;
+    height: 110px;
     margin: 0 auto;
 }
 
@@ -661,6 +662,11 @@ header {
     padding: 10px 50px;
 }
 
+.listing-img-preview img {
+    width: 100px;
+    height: 100px;
+}
+
 .listing-input {
     font-size: 16px;
     text-align: start;
@@ -723,7 +729,8 @@ header {
     text-align: center;
     line-height: 1.4;
 }
- /* Story */
+
+/* Story */
 
 .story {
     padding: 20px 0 50px 0;
