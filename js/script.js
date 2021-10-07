@@ -1,15 +1,14 @@
 const listingArray = [];
 let objectIndex = 0;
+let userIndex = 0;
 let slideIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
 const regBtn = document.getElementById('regis-btn');
-const logoutBtn = document.getElementById('logout-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
-const loginRegText = document.getElementById('not-registered');
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
 const addListingSelect = document.getElementById('listing_contact');
@@ -18,7 +17,6 @@ const addListingSubmit = document.getElementById('listing_submit');
 
 loginBtn.addEventListener('click', openLogin);
 regBtn.addEventListener('click', openReg);
-logoutBtn.addEventListener('click', userLogout);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
 addListingBtn.addEventListener('click', openAddListing);
@@ -28,7 +26,6 @@ addListingImgBtn.addEventListener('change', addListingImg);
 addListingSubmit.addEventListener('click', submitListing);
 regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', loginUser);
-loginRegText.addEventListener('click', fromLoginToReg);
 
 // login functions
 // opens the login modal
@@ -41,126 +38,34 @@ function openLogin() {
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'none';
-    resetLoginForm();
 }
 
-//logs the user in
+// checks if user is registered
 function loginUser(event) {
     event.preventDefault();
 
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
-    for (let i = 0; localStorage.length >= i; i++) {
+    for (let i = 0; localStorage.length > i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
 
-        checkLoginInfo(loginEmail, loginPassword, userArray);
+        if (loginEmail !== userArray[2]) {
+            // the user does not exist
+            console.log('user does not exist');
+        }
 
-        //checks if username and password are both right
+        if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
+            // right username, wrong password
+            console.log('wrong password');
+        }
+
         if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
-            localStorage.setItem('userLogged', 'true');
-
-            loginSuccess();
-
-            loginBtn.style.display = 'none';
-            regBtn.style.display = 'none';
-            logoutBtn.style.display = 'block';
-            addListingBtn.style.display = 'block';
-            break;
+            // username and password are both right
+            console.log('logged in');
         }
-        
     }
-}
-// alerts user for missing or not valid login info
-function checkLoginInfo(loginEmail, loginPassword, userArray) {
-    const loginEmailAlert = document.getElementById('login-name-alert');
-    const loginPasswordAlert = document.getElementById('login-password-alert');
-
-    // checks if the user is not registered and if the input field is empty - alert if wrong
-    if (loginEmail !== userArray[2]) {
-        document.getElementById('input-login-name').style.borderColor = '#de0f00'
-        loginEmailAlert.style.display = 'block';
-        loginEmailAlert.innerHTML = 'Käyttäjää ei ole olemassa';
-        if (loginEmail === '') {
-            loginEmailAlert.innerHTML = 'Syötä sähköposti';
-        }
-    } else {
-        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
-        loginEmailAlert.style.display = 'none';
-        loginEmailAlert.innerHTML = '';
-    }
-
-    //  checks if the input field is empty - alert if it is
-    if (loginPassword === '') {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Syötä salasana';
-    } else {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
-    }
-
-    // checks if the email is right and if the password wrong - alert if it is
-    if (loginEmail === userArray[2] && loginPassword !== userArray[3]) {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Väärä salasana';
-    } else if (loginPassword !== '') {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
-    }
-
-}
-
-// tells the user login has been successful
-function loginSuccess() {
-    const success = document.getElementById('login-success');
-
-    success.style.display = 'block';
-    success.innerHTML = 'Olet kirjautunut sisään!';
-
-    document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'none');
-
-    loginModalBtn.style.display = 'none';
-
-    // closes the login modal after 2 seconds of a successful login -- maybe an animation for closing?
-    setTimeout(closeLogin, 2000);
-}
-
-// resets the login form when it is closed
-function resetLoginForm() {
-    document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
-    document.getElementById('login-name-alert').style.display = 'none';
-
-    document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-    document.getElementById('login-password-alert').style.display = 'none';
-
-    document.getElementById('login-success').style.display = 'none';
-
-    document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'block');
-
-    loginModalBtn.style.display = 'block';
-
-    document.getElementById('login-form').reset();
-}
-
-// directs user from login to registration
-function fromLoginToReg() {
-    closeLogin();
-    openReg();
-}
-
-// logout functions
-// logs the user out
-function userLogout() {
-    localStorage.setItem('userLogged', 'false');
-    logoutBtn.style.display = 'none';
-    loginBtn.style.display = 'table-cell';
-    regBtn.style.display = 'table-cell';
-    addListingBtn.style.display = 'none';
 }
 
 // registration functions
@@ -173,8 +78,8 @@ function openReg() {
 // closes the registration modal
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
-    regModal.style.display = 'none';
     resetRegForm();
+    regModal.style.display = 'none';
 }
 
 // creates an array of user to localStorage
@@ -204,7 +109,7 @@ function regUser(event) {
     }
 }
 
-// alerts user for missing or not valid registration info
+// alerts user for missing or not valid info
 function checkRegInfo(regName, regEmail, regPassword) {
     // checks if the name is empty - alert if otherwise
     const regNameAlert = document.getElementById('reg-username-alert');
@@ -225,6 +130,8 @@ function checkRegInfo(regName, regEmail, regPassword) {
         regEmailAlert.style.display = 'block';
         regEmailAlert.innerHTML = 'Sähköposti osoite ei kelpaa';
         if (regEmail === '') {
+            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+            regEmailAlert.style.display = 'block';
             regEmailAlert.innerHTML = 'Syötä sähköposti';
         }
     } else {
@@ -235,11 +142,14 @@ function checkRegInfo(regName, regEmail, regPassword) {
 
     // checks if the password is longer than 8 chars and not empty - alert if otherwise
     const regPasswordAlert = document.getElementById('reg-password-alert');
+
     if (regPassword.length < 8) {
         document.getElementById('input-reg-password').style.borderColor = '#de0f00';
         regPasswordAlert.style.display = 'block';
         regPasswordAlert.innerHTML = 'Salasana on liian lyhyt (min. 8 merkkiä)'
         if (regPassword === '') {
+            document.getElementById('input-reg-password').style.borderColor = '#de0f00';
+            regPasswordAlert.style.display = 'block';
             regPasswordAlert.innerHTML = 'Syötä salasana';
         }
     } else {
@@ -272,7 +182,6 @@ function resetRegForm() {
     document.getElementById('reg-password-alert').style.display = 'none';
 
     document.getElementById('reg-success').style.display = 'none';
-    regModalBtn.style.display = 'block';
 
     document.getElementById('reg-form').reset();
 }
@@ -281,12 +190,11 @@ function resetRegForm() {
 function regSuccess() {
     const success = document.getElementById('reg-success');
 
-    regModalBtn.style.display = 'none';
     success.style.display = 'block';
     success.innerHTML = 'Rekisteröityminen onnistui!';
 
     // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 2000);
+    setTimeout(closeReg, 5000);
 }
 
 // sliding for info images -- have a better animation
@@ -313,14 +221,12 @@ function openAddListing() {
 function closeAddListing() {
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'none';
-    resetAddListing();
 }
 
 function clickOutsideAddListing(event) {
-    const listingModal = document.getElementById('add-listing-modal');
     if (event.target === listingModal) {
+        const listingModal = document.getElementById('add-listing-modal');
         listingModal.style.display = 'none';
-        resetAddListing();
     }
 }
 
@@ -330,7 +236,6 @@ function submitListing(event) {
     createNewListingObject();
 }
 
-// testing- not working
 function addListingImg() {
     const reader = new FileReader();
 
@@ -470,7 +375,14 @@ function createNewListingObject() {
     listing.category = categ;
     listing.address = address;
     listing.city = city;
-    listing.img = []; listing.img = imager;
+
+    listing.img = [];
+    for (var i of imager) {
+        listing.img.push(i);
+    }
+
+    console.log(listing.img);
+
     listing.payMethod = payMethod;
     listing.price = price;
     listing.contact = contact;
@@ -482,7 +394,7 @@ function createNewListingObject() {
     objectIndex++;
 
     const listingModal = document.getElementById('add-listing-modal');
-    listingModal.style.display = 'block';
+    listingModal.style.display = 'none';
 
     resetAddListing();
     clearAllListings();
@@ -499,6 +411,8 @@ function resetAddListing() {
     document.getElementById("listing_price").value = "";
     document.getElementById("listing_contact").value = null;
     document.getElementById("listing_cond").value = null;
+    document.getElementById("listing_email").value = "";
+    document.getElementById("listing_phone").value = "";
 
     const imageCarrier = document.getElementById("listing_img_preview");
     while (imageCarrier.firstChild) {
