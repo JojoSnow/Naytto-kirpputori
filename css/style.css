@@ -203,6 +203,7 @@ header {
 .divCheckbox input {
     height: 20px;
     width: 20px;
+    float: right;
 }
 
 .divCheckbox div {
@@ -531,6 +532,10 @@ header {
     .listing-expand-ul {
         flex: 0;
     }
+}
+
+.listing-style3 {
+    display: none;
 }
 
 /* LOGIN & REGISTRATION MODALS */
