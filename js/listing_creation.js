@@ -96,12 +96,12 @@ function createListingObjectOnStart() {
     listing.name = 'Maija Meikäläinen'
     listing.date = '10.01.2020';
     listing.desc = 'ruskea, puinen, haku';
-    listing.category = 'Huonekalut';
+    listing.category = 'Koti';
     listing.address = 'Aikakuja 10';
     listing.city = 'Kolari';
     listing.img = ['./img/empty.jpg', './img/empty.jpg', './img/empty.jpg'];
     listing.payMethod = ['MobilePay', ' käteinen'];
-    listing.price = '5';
+    listing.price = 5;
     listing.contact = ['Sähköposti'];
     listing.shape = 'käytetty';
     listing.show = "create";
