@@ -28,7 +28,6 @@
 
                 <div class="registration">
 
-                    <button id="logout-btn" class="regButton">Kirjaudu ulos</button>
                     <button id="login-btn" class="regButton">Kirjaudu sisään</button>
                     <button id="regis-btn" class="regButton">Rekisteröidy</button>
 
@@ -61,19 +60,15 @@
                         <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus<br>
                             <input type="text" name="login-username" id="input-login-name" class="modal-text-input">
                         </label><br>
-                        <p id="login-name-alert" class="modal-alert"></p>
 
                         <label for="login-password" id="login-password" class="modal-label">Salasana<br>
                             <input type="password" name="login-password" id="input-login-password"
                                 class="modal-text-input">
                         </label><br>
-                        <p id="login-password-alert" class="modal-alert"></p>
 
                         <input type="submit" value="Kirjaudu" id="input-login-btn" class="modal-btn">
-
-                        <p id="login-success" class="modal-success"></p>
                     </form>
-
+                    <p id="forgot-password" class="modal-question">Unohditko salasanasi?</p>
                     <p id="not-registered" class="modal-question">Etkö ole rekisteröitynyt?</p>
                 </div>
 
@@ -185,7 +180,8 @@
                             </select>
                         </label><br>
 
-                        <input type="file" name="listing-img" id="listing_img" class="modal-label custom-file-input" accept="Image/*">
+                        <input type="file" name="listing-img" id="listing_img" class="modal-label custom-file-input"
+                            accept="Image/*">
                         <br>
 
                         <div class="listing-img-preview" id="listing_img_preview"></div>
@@ -234,70 +230,68 @@
 
                 <div class="store_filter">
 
-                    <div class="divCheckbox">
+                    <form id="listing_Search_Form">
 
-                        <div>
-                            <label for="free_checkbox">Ilmainen:</label>
-                            <input type="checkbox" id="free_checkbox" name="free_checkbox" value="1">
-                        </div>
-
-                        <div>
-                            <label for="used_checkbox">Käytetty:</label>
-                            <input type="checkbox" id="used_checkbox" name="used_checkbox" value="1">
-                        </div>
-
-                        <div>
-                            <label for="fin_checkbox">Suomalainen:</label>
-                            <input type="checkbox" id="fin_checkbox" name="fin_checkbox" value="1">
-                        </div>
-
-                        <div>
-                            <label for="test_checkbox">Testi:</label>
-                            <input type="checkbox" id="test_checkbox" name="test_checkbox" value="1">
-                        </div>
-                        <div>
-                            <label for="over_checkbox">Pitkä ylimääräinen testi:</label>
-                            <input type="checkbox" id="over_checkbox" name="over_checkbox" value="1">
-                        </div>
-
-                    </div>
-
-                    <div class="divFilters">
-
-                        <div class="divSlider">
-
-                            <form action="">
-                                <div>
-                                    <input type="text" id="price" name="price">
-                                    <p>€</p>
-                                </div>
-                                <select name="highOrLow" id="priceSelect">
-                                    <option value="0">Halvempi kuin...</option>
-                                    <option value="1">Kalliimpi kuin...</option>
-                                </select>
-                            </form>
-
-                        </div>
-
-                        <div class="divCategories">
-                            <select name="categories" id="store_select">
-                                <option value="0">Kategoriat</option>
-                                <option value="1">Huonekalut</option>
-                                <option value="2">Koneet</option>
-                                <option value="3">Vaatteet</option>
-                                <option value="4">Lamput</option>
-
-                            </select>
-                        </div>
-
-                        <div class="divSearch">
+                        <div class="divCheckbox">
 
                             <div>
-                                <button>Hae</button>
+                                <label for="fin_checkbox">Suomalainen:
+                                    <input type="checkbox" id="fin_checkbox" name="fin_checkbox">
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="free_checkbox">Ilmainen:
+                                    <input type="checkbox" id="free_checkbox" name="free_checkbox">
+                                </label>
                             </div>
 
                         </div>
-                    </div>
+
+                        <div class="divFilters">
+
+                            <div class="divSlider">
+
+                                <form action="">
+                                    <div>
+                                        <input type="number" id="search_price_input" name="price">
+                                        <p>€</p>
+                                    </div>
+                                    <select name="highOrLow" id="search_price_select">
+                                        <option value="0">Halvempi kuin...</option>
+                                        <option value="1">Kalliimpi kuin...</option>
+                                    </select>
+                                </form>
+
+                            </div>
+
+                            <div class="divCategories">
+                                <select name="categories" id="search_categ">
+                                    <option value="null">Valitse...</option>
+                                    <option value="Lamppu">Lamppu</option>
+                                    <option value="Ämpäri">Ämpäri</option>
+                                    <option value="Muu">Muu</option>
+                                </select>
+                            </div>
+
+                            <label for="search_cond" class="modal-label">Kunto:<br>
+                                <select name="listing-cond" id="search_cond" class="listing-select">
+                                    <option value="null">Valitse...</option>
+                                    <option value="Erinomainen">Erinomainen</option>
+                                    <option value="Käytetty">Käytetty</option>
+                                    <option value="Rikki">Rikki</option>
+                                </select>
+                            </label><br>
+
+                            <div class="divSearch">
+
+                                <div>
+                                    <button id="search_button">Hae</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
                 <button id="add-listing-btn" class="add-listing-btn">Lisää ilmoitus</button>
@@ -343,6 +337,8 @@
     </div>
 
     <script src="./js/script.js"></script>
+    <script src="./js/listing_creation.js"></script>
+    <script src="./js/listing_search.js"></script>
 
 </body>
 
