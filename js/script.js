@@ -1,14 +1,17 @@
 let userIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
 const regBtn = document.getElementById('regis-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
+const loginRegText = document.getElementById('not-registered');
 
 window.addEventListener('load', toStorageOnLoad);
 loginBtn.addEventListener('click', openLogin);
+logoutBtn.addEventListener('click', userLogout);
 regBtn.addEventListener('click', openReg);
 loginCloseBtn.addEventListener('click', closeLogin);
 regCloseBtn.addEventListener('click', closeReg);
@@ -16,14 +19,15 @@ regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', login);
 loginRegText.addEventListener('click', fromLoginToReg);
 
+// add the admin info to localStorage on load
 function toStorageOnLoad() {
-    let admin1 = ['admin1', 'bunny', 'burrow@hopping.com', 'carrot!!'];
-    let admin2 = ['admin2', 'catto', 'claw@attack.co.uk', 'mouse!!123'];
-    let admin3 = ['admin3', 'doggo', 'tail@wagging.fi', 'bone!!123'];
+    const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin'];
+    const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin'];
+    const admin3 = ['doggo', 'tail@wagging.fi', 'bone!!123', 'admin'];
 
-    localStorage.setItem(admin1[0], JSON.stringify(admin1));
-    localStorage.setItem(admin2[0], JSON.stringify(admin2));
-    localStorage.setItem(admin3[0], JSON.stringify(admin3));
+    localStorage.setItem(admin1[1], JSON.stringify(admin1));
+    localStorage.setItem(admin2[1], JSON.stringify(admin2));
+    localStorage.setItem(admin3[1], JSON.stringify(admin3));
 
     localStorage.setItem('userLogged', 'false');
     localStorage.setItem('adminLogged', 'false');
@@ -41,6 +45,7 @@ function openLogin() {
 function closeLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'none';
+    resetLoginForm();
 }
 
 // logs the user or admin in
@@ -50,72 +55,15 @@ function login(event) {
     const loginEmail = document.getElementById('input-login-name').value;
     const loginPassword = document.getElementById('input-login-password').value;
 
-    for (let i = 0; localStorage.length > i; i++) {
-        const getUser = localStorage.getItem('user' + i);
-        const userArray = JSON.parse(getUser);
-        const getAdmin = localStorage.getItem('admin' + i);
-        const adminArray = JSON.parse(getAdmin);
-        console.log(adminEmail);
-        console.log(userEmail);
-        if (userArray !== null) {
-            if (userEmail === false && adminEmail === true) {
-                checkLoginInfo(loginEmail, loginPassword, userArray);
-            }
-            // checks if username and password are both right - logs in if yes
-            if (loginEmail === userArray[2] && loginPassword === userArray[3]) {
-                localStorage.setItem('userLogged', 'true');
-
-                loginSuccess();
-
-                loginBtn.style.display = 'none';
-                regBtn.style.display = 'none';
-                logoutBtn.style.display = 'block';
-                addListingBtn.style.display = 'block';
-                userEmail = false;
-                break;
-            }
-        }
-        if (adminArray !== null) {
-            if (adminEmail === true && userEmail === false) {
-                checkAdminLoginInfo(loginEmail, loginPassword, adminArray);
-            }
-
-            // checks if username and password are both right - logs in if yes
-            if (loginEmail === adminArray[2] && loginPassword === adminArray[3]) {
-                localStorage.setItem('adminLogged', 'true');
-
-                loginSuccess();
-
-                loginBtn.style.display = 'none';
-                regBtn.style.display = 'none';
-                logoutBtn.style.display = 'block';
-                addListingBtn.style.display = 'block';
-                adminEmail = true;
-                break;
-            }
-        }
-    }
-}
-
-// alerts user for missing or not valid login info
-function checkLoginInfo(loginEmail, loginPassword, array) {
     const loginEmailAlert = document.getElementById('login-name-alert');
     const loginPasswordAlert = document.getElementById('login-password-alert');
 
-    // checks if the email is right and if the password wrong - alert if it is
-    if (loginEmail === array[2] && loginPassword !== array[3]) {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Väärä salasana';
-        userEmail = true;
-    } else if (loginPassword !== '') {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
-    }
-    
-    // checks if the user is not registered and if the input field is empty - alert if wrong
-    if (loginEmail !== array[2] && userEmail === false) {
+    const getInfo = localStorage.getItem(loginEmail);
+    const infoArray = JSON.parse(getInfo);
+
+    // checks if the user or admin are registered - alerts if not
+    // checks if the email and password are right to login - alerts if not
+    if (infoArray === null) {
         document.getElementById('input-login-name').style.borderColor = '#de0f00'
         loginEmailAlert.style.display = 'block';
         loginEmailAlert.innerHTML = 'Tiliä ei ole olemassa';
@@ -123,57 +71,32 @@ function checkLoginInfo(loginEmail, loginPassword, array) {
         document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
         loginEmailAlert.style.display = 'none';
         loginEmailAlert.innerHTML = '';
+
+        if (infoArray[2] === loginPassword) {
+            document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+            loginPasswordAlert.style.display = 'none';
+            loginPasswordAlert.innerHTML = '';
+        } else {
+            document.getElementById('input-login-password').style.borderColor = '#de0f00'
+            loginPasswordAlert.style.display = 'block';
+            loginPasswordAlert.innerHTML = 'Väärä salasana';
+        }
     }
 
-    //  checks if the input field is empty - alert if it is
-    if (loginPassword === '') {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Syötä salasana';
-    } else {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
-    }
-}
+    // logs admin or user in if the email and password are right
+    if (infoArray !== null && loginEmail === infoArray[1] && loginPassword === infoArray[2]) {
+        loginSuccess();
 
-// alerts admin for missing or not valid login info
-function checkAdminLoginInfo(loginEmail, loginPassword, array) {
-    const loginEmailAlert = document.getElementById('login-name-alert');
-    const loginPasswordAlert = document.getElementById('login-password-alert');
+        loginBtn.style.display = 'none';
+        regBtn.style.display = 'none';
+        logoutBtn.style.display = 'block';
+        addListingBtn.style.display = 'block';
 
-    // checks if the email is right and if the password wrong - alert if it is
-    if (loginEmail === array[2] && loginPassword !== array[3]) {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Väärä salasana';
-        adminEmail = false;
-    } else if (loginPassword !== '') {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
-    }
-    
-    // checks if the user is not registered and if the input field is empty - alert if wrong
-    if (loginEmail !== array[2] && adminEmail === true) {
-        document.getElementById('input-login-name').style.borderColor = '#de0f00'
-        loginEmailAlert.style.display = 'block';
-        loginEmailAlert.innerHTML = 'Tiliä ei ole olemassa';
-    } else {
-        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
-        loginEmailAlert.style.display = 'none';
-        loginEmailAlert.innerHTML = '';
-    }
-
-    //  checks if the input field is empty - alert if it is
-    if (loginPassword === '') {
-        document.getElementById('input-login-password').style.borderColor = '#de0f00'
-        loginPasswordAlert.style.display = 'block';
-        loginPasswordAlert.innerHTML = 'Syötä salasana';
-    } else {
-        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-        loginPasswordAlert.style.display = 'none';
-        loginPasswordAlert.innerHTML = '';
+        if (infoArray[3] === 'user') {
+            localStorage.setItem('userLogged', 'true');
+        } else if (infoArray[3] === 'admin') {
+            localStorage.setItem('adminLogged', 'true');
+        }
     }
 }
 
@@ -217,9 +140,10 @@ function fromLoginToReg() {
 
 // LOGOUT FUNCTIONS
 
-// logs the user out
+// logs the user or admin out
 function userLogout() {
     localStorage.setItem('userLogged', 'false');
+    localStorage.setItem('adminLogged', 'false');
     logoutBtn.style.display = 'none';
     loginBtn.style.display = 'table-cell';
     regBtn.style.display = 'table-cell';
@@ -237,8 +161,8 @@ function openReg() {
 // closes the registration modal
 function closeReg() {
     const regModal = document.getElementById('reg-modal');
-    resetRegForm();
     regModal.style.display = 'none';
+    resetRegForm();
 }
 
 // creates an array of user to localStorage
@@ -253,17 +177,14 @@ function regUser(event) {
 
     // adds the user array to localStorage
     if (regName !== '' && validateEmail(regEmail) && regPassword.length >= 8) {
-        for (let i = 0; localStorage.length >= i; i++) {
-            if (!(localStorage.getItem('user' + i))) {
-                // registered user array
-                let user = ['user' + i, regName, regEmail, regPassword];
-                // adds the user array to localStorage
-                localStorage.setItem(user[0], JSON.stringify(user));
+        if (!(localStorage.getItem(regEmail))) {
+            // registered user array
+            let user = [regName, regEmail, regPassword, 'user'];
+            // adds the user array to localStorage
+            localStorage.setItem(user[1], JSON.stringify(user));
 
-                regSuccess();
+            regSuccess();
 
-                break;
-            }
         }
     }
 }
@@ -355,3 +276,4 @@ function regSuccess() {
     // closes the registration modal after 2 seconds of a successful registration
     setTimeout(closeReg, 5000);
 }
+
