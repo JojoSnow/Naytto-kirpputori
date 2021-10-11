@@ -98,7 +98,7 @@ function createListingObjectOnStart() {
     listing.desc = 'ruskea, puinen, haku';
     listing.category = 'Koti';
     listing.address = 'Aikakuja 10';
-    listing.city = 'Kolari';
+    listing.city = 'Mikkeli';
     listing.img = ['./img/empty.jpg', './img/empty.jpg', './img/empty.jpg'];
     listing.payMethod = ['MobilePay', ' käteinen'];
     listing.price = 5;
@@ -335,16 +335,12 @@ function expandListing(event) {
 
                 externalDiv.className = 'listing-expand-external';
                 locationDiv.className = 'listing-expand-location';
+                locationDiv.id = "location" + x;
                 ulDiv.className = 'listing-expand-ul';
 
                 expandDiv.appendChild(externalDiv);
                 externalDiv.appendChild(locationDiv);
                 externalDiv.appendChild(ulDiv);
-
-                //Poista kun saadaan kartta
-                const funny = document.createElement('canvas');
-                locationDiv.appendChild(funny);
-                //Poista kun saadaan kartta
 
                 createTitleP(x, headerDiv, 1);
 
@@ -353,6 +349,8 @@ function expandListing(event) {
                 createPriceP(x, descDiv);
 
                 createDescP(x, descDiv);
+
+                createGoogleMaps(x, locationDiv);
 
                 createListingUl(x, ulDiv);
 
@@ -496,6 +494,112 @@ function createImg(x, div, type) {
             }
             return;
     }
+}
+
+function createGoogleMaps(x, div) {
+    var object = listingArray[x];
+    var location = { lat: null, lng: null };
+    var zoom = 6;
+
+    if (object.address == "" && object.city == "Muu") {
+        createMapsError(div);
+        return;
+    }
+
+    switch (object.city) {
+        case "Espoo":
+            location.lat = 60.205238;
+            location.lng = 24.654079;
+            break;
+        case "Hamina":
+            location.lat = 60.569199;
+            location.lng = 27.193800;
+            break;
+        case "Hanko":
+            location.lat = 59.823101;
+            location.lng = 22.969290;
+            break;
+        case "Helsinki":
+            location.lat = 60.166621;
+            location.lng = 24.942961;
+            break;
+        //Loput rikki
+        case "Hyvinkää":
+        case "Hämeenlinna":
+        case "Iisalmi":
+        case "Imatra":
+        case "Joensuu":
+        case "Jyväskylä":
+        case "Järvenpää":
+        case "Kaarina":
+        case "Kajaani":
+        case "Kangasala":
+        case "Kaskinen":
+        case "Kauniainen":
+        case "Kemi":
+        case "Kemijärvi":
+        case "Kerava":
+        case "Kokkola":
+        case "Kotka":
+        case "Kouvola":
+        case "Kuopio":
+        case "Lahti":
+        case "Lappeenranta":
+        case "Lohja":
+        case "Loviisa":
+        case "Mikkeli":
+        case "Naantali":
+        case "Nokia":
+        case "Närpiö":
+        case "Oulu":
+        case "Pietarsaari":
+        case "Pori":
+        case "Porvoo":
+        case "Raahe":
+        case "Raasepori":
+        case "Raisio":
+        case "Rauma":
+        case "Riihimäki":
+        case "Rovaniemi":
+        case "Salo":
+        case "Savonlinna":
+        case "Seinäjoki":
+        case "Tampere":
+        case "Tornio":
+        case "Turku":
+        case "Ulvila":
+        case "Vaasa":
+        case "Vantaa":
+        case "Varkaus":
+            location.lat = 62.186014;
+            location.lng = 26.000915;
+            zoom = 5;
+            break;
+        default:
+            createMapsError(div);
+            return;
+        case "Ulkomaalainen":
+            location.lat = -8.581021;
+            location.lng = -55.749495;
+            zoom = 4;
+            break;
+    }
+
+    initMap(location, zoom, div);
+}
+
+function initMap(location, zoom, div) {
+    var map = new google.maps.Map(div, {
+        zoom: zoom,
+        center: location
+    });
+}
+
+function createMapsError(div) {
+    const p = document.createElement("p");
+    const pNode = document.createTextNode("Tätä tuotetta ei voi paikantaa");
+    p.appendChild(pNode);
+    div.appendChild(p);
 }
 
 function createListingUl(x, div) {

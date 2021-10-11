@@ -441,7 +441,7 @@ header {
     flex: 1;
 }
 
-.listing-expand-location canvas {
+.listing-expand-location map {
     width: 100%;
     border: var(--medium-border) 1px solid;
     padding: 25px;
