@@ -21,9 +21,9 @@ loginRegText.addEventListener('click', fromLoginToReg);
 
 // add the admin info to localStorage on load
 function toStorageOnLoad() {
-    const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin'];
-    const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin'];
-    const admin3 = ['doggo', 'tail@wagging.fi', 'bone!!123', 'admin'];
+    const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin1'];
+    const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin2'];
+    const admin3 = ['doggo', 'tail@wagging.fi', 'bone!!123', 'admin3'];
 
     localStorage.setItem(admin1[1], JSON.stringify(admin1));
     localStorage.setItem(admin2[1], JSON.stringify(admin2));
@@ -62,7 +62,7 @@ function login(event) {
     const infoArray = JSON.parse(getInfo);
 
     // checks if the user or admin are registered - alerts if not
-    // checks if the email and password are right to login - alerts if not
+    // checks if the email and password are right to login with - alerts if not
     if (infoArray === null) {
         document.getElementById('input-login-name').style.borderColor = '#de0f00'
         loginEmailAlert.style.display = 'block';
@@ -92,9 +92,9 @@ function login(event) {
         logoutBtn.style.display = 'block';
         addListingBtn.style.display = 'block';
 
-        if (infoArray[3] === 'user') {
+        if (infoArray[3].includes('user')) {
             localStorage.setItem('userLogged', 'true');
-        } else if (infoArray[3] === 'admin') {
+        } else if (infoArray[3].includes('admin')) {
             localStorage.setItem('adminLogged', 'true');
         }
     }
@@ -185,6 +185,11 @@ function regUser(event) {
 
             regSuccess();
 
+            
+        } else {
+            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
+            document.getElementById('reg-email-alert').style.display = 'block';
+            document.getElementById('reg-email-alert').innerHTML = 'Sähköposti jo käytössä';
         }
     }
 }
@@ -262,6 +267,7 @@ function resetRegForm() {
     document.getElementById('reg-password-alert').style.display = 'none';
 
     document.getElementById('reg-success').style.display = 'none';
+    regModalBtn.style.display = 'block';
 
     document.getElementById('reg-form').reset();
 }
@@ -272,8 +278,9 @@ function regSuccess() {
 
     success.style.display = 'block';
     success.innerHTML = 'Rekisteröityminen onnistui!';
+    regModalBtn.style.display = 'none';
 
     // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 5000);
+    setTimeout(closeReg, 2000);
 }
 
