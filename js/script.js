@@ -1,15 +1,19 @@
-let userIndex = 0;
 
 const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const regBtn = document.getElementById('regis-btn');
+const adminBtn = document.getElementById('admin-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginCloseBtn = document.getElementById('login-close-btn');
+const adminCloseBtn = document.getElementById('admin-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 const loginRegText = document.getElementById('not-registered');
+const adminSelect = document.getElementById('admin-select');
 
 window.addEventListener('load', toStorageOnLoad);
+adminBtn.addEventListener('click', adminSettings);
+adminCloseBtn.addEventListener('click', closeAdmin);
 loginBtn.addEventListener('click', openLogin);
 logoutBtn.addEventListener('click', userLogout);
 regBtn.addEventListener('click', openReg);
@@ -18,19 +22,20 @@ regCloseBtn.addEventListener('click', closeReg);
 regModalBtn.addEventListener('click', regUser);
 loginModalBtn.addEventListener('click', login);
 loginRegText.addEventListener('click', fromLoginToReg);
+adminSelect.addEventListener('click', selectRemove);
 
 // add the admin info to localStorage on load
 function toStorageOnLoad() {
-    const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin1'];
-    const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin2'];
-    const admin3 = ['doggo', 'tail@wagging.fi', 'bone!!123', 'admin3'];
+    const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin0'];
+    const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin1'];
+    const admin3 = ['doggo', 'tail@wagging.fi', 'bone!!123', 'admin2'];
 
-    localStorage.setItem(admin1[1], JSON.stringify(admin1));
-    localStorage.setItem(admin2[1], JSON.stringify(admin2));
-    localStorage.setItem(admin3[1], JSON.stringify(admin3));
+    localStorage.setItem(admin1[3], JSON.stringify(admin1));
+    localStorage.setItem(admin2[3], JSON.stringify(admin2));
+    localStorage.setItem(admin3[3], JSON.stringify(admin3));
 
-    localStorage.setItem('userLogged', 'false');
-    localStorage.setItem('adminLogged', 'false');
+    localStorage.setItem('user', 'false');
+    localStorage.setItem('admin', 'false');
 }
 
 // LOGIN FUNCTIONS
@@ -48,7 +53,7 @@ function closeLogin() {
     resetLoginForm();
 }
 
-// logs the user or admin in
+// logs the user or admin in - alerts don't work as they should yet
 function login(event) {
     event.preventDefault();
 
@@ -58,56 +63,126 @@ function login(event) {
     const loginEmailAlert = document.getElementById('login-name-alert');
     const loginPasswordAlert = document.getElementById('login-password-alert');
 
-    const getInfo = localStorage.getItem(loginEmail);
-    const infoArray = JSON.parse(getInfo);
+    let userBoolean = false;
+    let adminBoolean = false;
 
-    // checks if the user or admin are registered - alerts if not
-    // checks if the email and password are right to login with - alerts if not
-    if (infoArray === null) {
-        document.getElementById('input-login-name').style.borderColor = '#de0f00'
-        loginEmailAlert.style.display = 'block';
-        loginEmailAlert.innerHTML = 'Tiliä ei ole olemassa';
-    } else {
-        document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
-        loginEmailAlert.style.display = 'none';
-        loginEmailAlert.innerHTML = '';
+    for (let i = 0; localStorage.length >= i; i++) {
+        const getUser = localStorage.getItem('user' + i);
+        const userArray = JSON.parse(getUser);
 
-        if (infoArray[2] === loginPassword) {
-            document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
-            loginPasswordAlert.style.display = 'none';
-            loginPasswordAlert.innerHTML = '';
+        if (userArray !== null && userBoolean === false && adminBoolean === false) {
+            // checks if it's user or admin logging in
+            if (userArray[3].includes('user')) {
+                // checks if admin is registered - alerts if not
+                // checks if the email and password are right to login with - alerts if not
+                if (userArray[1] !== loginEmail) {
+                    document.getElementById('input-login-name').style.borderColor = '#de0f00'
+                    loginEmailAlert.style.display = 'block';
+                    loginEmailAlert.innerHTML = 'Tiliä ei ole olemassa';
+                } else {
+                    document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
+                    loginEmailAlert.style.display = 'none';
+                    loginEmailAlert.innerHTML = '';
+
+                    if (userArray[2] === loginPassword) {
+                        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+                        loginPasswordAlert.style.display = 'none';
+                        loginPasswordAlert.innerHTML = '';
+                    } else {
+                        document.getElementById('input-login-password').style.borderColor = '#de0f00'
+                        loginPasswordAlert.style.display = 'block';
+                        loginPasswordAlert.innerHTML = 'Väärä salasana';
+                    }
+                }
+                // logs user in if the email and password are right
+                if (userArray !== null && loginEmail === userArray[1] && loginPassword === userArray[2]) {
+                    loginSuccess();
+
+                    loginBtn.style.display = 'none';
+                    regBtn.style.display = 'none';
+                    logoutBtn.style.display = 'table-cell';
+                    addListingBtn.style.display = 'block';
+                    
+                    localStorage.setItem('user', 'true');
+                }
+                
+            } 
         } else {
-            document.getElementById('input-login-password').style.borderColor = '#de0f00'
-            loginPasswordAlert.style.display = 'block';
-            loginPasswordAlert.innerHTML = 'Väärä salasana';
+            userBoolean = true;
         }
-    }
 
-    // logs admin or user in if the email and password are right
-    if (infoArray !== null && loginEmail === infoArray[1] && loginPassword === infoArray[2]) {
-        loginSuccess();
+        const getAdmin = localStorage.getItem('admin' + i);
+        const adminArray = JSON.parse(getAdmin);
+        
+        if (adminArray !== null && userBoolean === false && adminBoolean === false) {
+            // checks if it's user or admin logging in
+            if (adminArray[3].includes('admin')) {
+                // checks if admin is registered - alerts if not
+                // checks if the email and password are right to login with - alerts if not
+                if (adminArray[1] !== loginEmail) {
+                    document.getElementById('input-login-name').style.borderColor = '#de0f00'
+                    loginEmailAlert.style.display = 'block';
+                    loginEmailAlert.innerHTML = 'Tiliä ei ole olemassa';
+                } else {
+                    document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
+                    loginEmailAlert.style.display = 'none';
+                    loginEmailAlert.innerHTML = '';
 
-        loginBtn.style.display = 'none';
-        regBtn.style.display = 'none';
-        logoutBtn.style.display = 'block';
-        addListingBtn.style.display = 'block';
+                    if (adminArray[2] === loginPassword) {
+                        document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
+                        loginPasswordAlert.style.display = 'none';
+                        loginPasswordAlert.innerHTML = '';
+                    } else {
+                        document.getElementById('input-login-password').style.borderColor = '#de0f00'
+                        loginPasswordAlert.style.display = 'block';
+                        loginPasswordAlert.innerHTML = 'Väärä salasana';
+                    }
+                }
 
-        if (infoArray[3].includes('user')) {
-            localStorage.setItem('userLogged', 'true');
-        } else if (infoArray[3].includes('admin')) {
-            localStorage.setItem('adminLogged', 'true');
+                // logs admin in if the email and password are right
+                if (adminArray !== null && loginEmail === adminArray[1] && loginPassword === adminArray[2]) {
+                    loginSuccess();
+
+                    loginBtn.style.display = 'none';
+                    regBtn.style.display = 'none';
+                    logoutBtn.style.display = 'table-cell';
+                    addListingBtn.style.display = 'block';
+
+                    localStorage.setItem('admin', 'true');
+                    adminBtn.style.display = 'table-cell';
+
+                }
+            }
+        } else {
+            adminBoolean = true;
         }
-    }
+           
+        const getAdminStatus = localStorage.getItem('admin');
+        const adminStatus = JSON.parse(getAdminStatus);
+        const getUserStatus = localStorage.getItem('user');
+        const userStatus = JSON.parse(getUserStatus);
+
+        if (adminStatus) {
+            break;
+        } else if (userStatus) {
+            break;
+        } else if (adminBoolean) {
+            break;
+        } else if (userBoolean) {
+            break;
+        }
+
+    }    
 }
 
-// tells the user or admin login has been successful
+// tells the user or admin if login has been successful
 function loginSuccess() {
     const success = document.getElementById('login-success');
 
     success.style.display = 'block';
-    success.innerHTML = 'Olet kirjautunut sisään!';
+    success.innerHTML = 'Tervetuloa!';
 
-    document.querySelectorAll('.modal-question').forEach(question => question.style.display = 'none');
+    document.querySelector('.modal-question').style.display = 'none';
 
     loginModalBtn.style.display = 'none';
 
@@ -174,22 +249,31 @@ function regUser(event) {
     const regPassword = document.getElementById('input-reg-password').value;
 
     checkRegInfo(regName, regEmail, regPassword);
+  
+    // makes an identifying number for the user
+    let userNum = 0;
+    if (!(localStorage.getItem('userNum'))) {
+        localStorage.setItem('userNum', 0);
+        const getUserNum = localStorage.getItem('userNum');
+        userNum = JSON.parse(getUserNum);
+    } else {
+        const getUserNum = localStorage.getItem('userNum');
+        userNum = JSON.parse(getUserNum);
+    }
 
     // adds the user array to localStorage
     if (regName !== '' && validateEmail(regEmail) && regPassword.length >= 8) {
-        if (!(localStorage.getItem(regEmail))) {
+        if (!(localStorage.getItem('user' + userNum))) {
+
             // registered user array
-            let user = [regName, regEmail, regPassword, 'user'];
+            let user = [regName, regEmail, regPassword, 'user' + userNum];
             // adds the user array to localStorage
-            localStorage.setItem(user[1], JSON.stringify(user));
+            localStorage.setItem(user[3], JSON.stringify(user));
 
             regSuccess();
 
-            
-        } else {
-            document.getElementById('input-reg-email').style.borderColor = '#de0f00';
-            document.getElementById('reg-email-alert').style.display = 'block';
-            document.getElementById('reg-email-alert').innerHTML = 'Sähköposti jo käytössä';
+            userNum += 1;
+            localStorage.setItem('userNum', userNum);
         }
     }
 }
@@ -284,3 +368,46 @@ function regSuccess() {
     setTimeout(closeReg, 2000);
 }
 
+// ADMIN FUNCTIONS  
+
+function adminSettings() {
+    console.log('admin');
+
+    document.getElementById('admin-modal').style.display = 'block';
+
+    const userId = document.getElementById('user-id').value;
+
+    for (let i = 0; localStorage.length < i; i++) {
+        if (localStorage.getItem('user' + i)) {}
+    }
+}
+
+function selectRemove() {
+    const optionValue = document.getElementById('admin-select').value;
+
+    switch (optionValue) {
+        case 'remove-user':
+            document.getElementById('remove-user-div').style.display = 'block';
+            document.getElementById('remove-listing-div').style.display = 'none';
+            return;
+        case 'remove-listing':
+            document.getElementById('remove-listing-div').style.display = 'block';
+            document.getElementById('remove-user-div').style.display = 'none';
+            return;
+        default: 
+            document.getElementById('remove-user-div').style.display = 'none';
+            document.getElementById('remove-listing-div').style.display = 'none';
+            return;
+    }
+}
+
+// closes admins settings modal
+function closeAdmin() {
+    const loginModal = document.getElementById('admin-modal');
+    loginModal.style.display = 'none';
+    resetAdminForm();
+}
+
+function resetAdminForm() {
+    document.getElementById('admin-form').reset();
+}
