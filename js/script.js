@@ -39,15 +39,14 @@ logoutBtn.addEventListener('click', userLogout);
 adminBtn.addEventListener('click', openAdminSettings);
 adminSelect.addEventListener('click', selectRemove);
 adminUserBtn.addEventListener('click', removeUser);
-// adminListingBtn.addEventListener('click', removeListing);
-adminCloseBtn.addEventListener('click', closeAdmin);
+adminListingBtn.addEventListener('click', removeListing);
+adminCloseBtn.addEventListener('click', closeAdminSettings);
 
 // Other Events
 window.addEventListener('load', toStorageOnLoad);
 
 
-
-// add the admin info to localStorage on load
+// add info to localStorage on load
 function toStorageOnLoad() {
     const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin0'];
     const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin1'];
@@ -60,6 +59,7 @@ function toStorageOnLoad() {
     localStorage.setItem('userLogged', 'null');
     localStorage.setItem('adminLogged', 'null');
 }
+
 
 // LOGIN FUNCTIONS
 
@@ -233,6 +233,7 @@ function fromLoginToReg() {
     openReg();
 }
 
+
 // LOGOUT FUNCTIONS
 
 // logs the user or admin out
@@ -244,6 +245,7 @@ function userLogout() {
     regBtn.style.display = 'table-cell';
     addListingBtn.style.display = 'none';
 }
+
 
 // REGISTRATION FUNCTIONS
 
@@ -388,6 +390,7 @@ function regSuccess() {
     setTimeout(closeReg, 2000);
 }
 
+
 // ADMIN FUNCTIONS  
 
 // opens admins settings modal
@@ -396,7 +399,7 @@ function openAdminSettings() {
 }
 
 // closes admins settings modal
-function closeAdmin() {
+function closeAdminSettings() {
     const loginModal = document.getElementById('admin-modal');
     loginModal.style.display = 'none';
     resetAdminForm();
@@ -444,6 +447,35 @@ function removeUser(event) {
                 document.getElementById('user-id').style.borderColor = '#de0f00';
                 document.getElementById('user-id-alert').style.display = 'block';
                 document.getElementById('user-id-alert').innerHTML = 'Käyttäjä ID on virheellinen';
+            }
+        }
+    }
+}
+
+// removes the chosen listing from the site
+function removeListing(event) {
+    event.preventDefault();
+
+    for (let i = 0; localStorage.length >= i; i++) {        
+        const getListing = localStorage.getItem('storageListing' + i);
+        const listingObject = JSON.parse(getListing);
+        const listingId = document.getElementById('listing-id').value;
+
+        if (listingObject !== null) {
+            if (listingId === listingObject.id) {
+                localStorage.removeItem('storageListing' + i);
+
+                document.getElementById(listingObject.id).remove();
+
+                document.getElementById('listing-id').style.borderColor = '#a0a0a0';
+                document.getElementById('listing-id-alert').style.display = 'none';
+                document.getElementById('listing-id-alert').innerHTML = '';
+
+                break;
+            } else {
+                document.getElementById('listing-id').style.borderColor = '#de0f00';
+                document.getElementById('listing-id-alert').style.display = 'block';
+                document.getElementById('listing-id-alert').innerHTML = 'Listaus ID on virheellinen';
             }
         }
     }
