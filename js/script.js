@@ -432,16 +432,24 @@ function removeUser(event) {
         const userId = document.getElementById('user-id').value;
 
         if (userArray !== null) {
-            if (userId === userArray[1]) {
+            if (userId === userArray[3]) {
                 localStorage.removeItem('user' + i);
+
+                document.getElementById('user-id').style.borderColor = '#a0a0a0';
+                document.getElementById('user-id-alert').style.display = 'none';
+                document.getElementById('user-id-alert').innerHTML = '';
+
                 break;
             } else {
-                console.log('user not found');
+                document.getElementById('user-id').style.borderColor = '#de0f00';
+                document.getElementById('user-id-alert').style.display = 'block';
+                document.getElementById('user-id-alert').innerHTML = 'Käyttäjä ID on virheellinen';
             }
         }
     }
 }
 
+// resets the form in admin modal
 function resetAdminForm() {
     document.getElementById('admin-form').reset();
 }
