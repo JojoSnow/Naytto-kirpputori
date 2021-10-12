@@ -106,7 +106,7 @@ header {
     cursor: pointer;
 }
 
-#logout-btn {
+#logout-btn, #admin-btn {
     display: none;
 }
 
@@ -699,6 +699,33 @@ header {
     text-align: left;
     margin: 10px;
     padding: 10px 50px;
+}
+
+#reports-title {
+    margin: 5px 0;
+}
+
+#reports {
+    display: flex;
+}
+
+.report-div {
+    width: 50%;
+    margin: 5px 5px 5px 0;
+}
+
+.reports-list-title {
+    margin: 0;
+}
+
+.reports-list {
+    list-style-type: square;
+    padding-left: 17px;
+    margin: 10px 0;
+}
+
+#admin-form {
+    margin: 10px 0;
 }
 
 .selected-div {

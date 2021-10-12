@@ -10,7 +10,7 @@ const loginModalBtn = document.getElementById('input-login-btn');
 const loginRegText = document.getElementById('not-registered');
 const loginCloseBtn = document.getElementById('login-close-btn');
 
-// Logout Buttons
+// Logout Button
 const logoutBtn = document.getElementById('logout-btn');
 
 // Admin Buttons
@@ -395,7 +395,12 @@ function regSuccess() {
 
 // opens admins settings modal
 function openAdminSettings() {
-    document.getElementById('admin-modal').style.display = 'block';
+    const getAdmin = localStorage.getItem('adminLogged');
+    const admin = JSON.parse(getAdmin);
+
+    if (admin !== null) {
+        document.getElementById('admin-modal').style.display = 'block';
+    }
 }
 
 // closes admins settings modal
@@ -460,7 +465,7 @@ function removeListing(event) {
         const getListing = localStorage.getItem('storageListing' + i);
         const listingObject = JSON.parse(getListing);
         const listingId = document.getElementById('listing-id').value;
-
+        // removes objects by their id value
         if (listingObject !== null) {
             if (listingId === listingObject.id) {
                 localStorage.removeItem('storageListing' + i);
