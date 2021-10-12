@@ -7,6 +7,7 @@ const addListingSelect = document.getElementById('listing_contact');
 const addListingImgBtn = document.getElementById('listing_img');
 const addListingSubmit = document.getElementById('listing_submit');
 
+window.addEventListener("load", createOrLoadListingsOnFirstStart);
 addListingBtn.addEventListener('click', openAddListing);
 addListingCloseBtn.addEventListener('click', closeAddListing);
 addListingSelect.addEventListener('click', contactSelect);
@@ -86,29 +87,89 @@ function contactSelectDefault() {
     document.getElementById("listing_email").style.display = 'none';
 }
 
-// creates an object of the listing
+// creates an object of the listing 
 function createListingObjectOnStart() {
 
     const listing = {};
 
+    switch (objectIndex) {
+        case 0:
+            listing.title = "ruskea tuoli";
+            listing.name = "Maija Meikäläinen"
+            listing.date = "10.01.2020";
+            listing.desc = "ruskea, puinen, haku";
+            listing.category = "Koti";
+            listing.address = "Aikakuja 10";
+            listing.city = "Imatra";
+            listing.img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
+            listing.payMethod = "MobilePay, käteinen";
+            listing.price = 5;
+            listing.contact = "Sähköposti";
+            listing.shape = "Käytetty";
+            break;
+        case 1:
+            listing.title = "Pölynimuri";
+            listing.name = "Marko Peltosaari"
+            listing.date = "27.09.2012";
+            listing.desc = "kyllä se toimii";
+            listing.category = "Elektroniikat";
+            listing.address = "Aikakuja 18";
+            listing.city = "Joensuu";
+            listing.img = ["./img/empty.jpg", "./img/empty.jpg"];
+            listing.payMethod = "Kaikki käy";
+            listing.price = 20;
+            listing.contact = "Sähköposti";
+            listing.shape = "Käytetty";
+            break;
+        case 2:
+            listing.title = "Harry Potter kirja-kokoelma";
+            listing.name = "Juuso Hämäläinen"
+            listing.date = "15.04.2018";
+            listing.desc = "Täydellinen kokoelma";
+            listing.category = "Harrastukset";
+            listing.address = "Aikakuja 19";
+            listing.city = "Pori";
+            listing.img = ["./img/empty.jpg"];
+            listing.payMethod = "Bitcoin";
+            listing.price = 5000;
+            listing.contact = "Sähköposti";
+            listing.shape = "Erinomainen";
+            break;
+        case 3:
+            listing.title = "Entinen kitara";
+            listing.name = "Emilia Salminen"
+            listing.date = "27.09.2012";
+            listing.desc = "langat poikki";
+            listing.category = "Harrastukset";
+            listing.address = "Aikakuja 8";
+            listing.city = "Espoo";
+            listing.img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
+            listing.payMethod = "Käteinen";
+            listing.price = 20;
+            listing.contact = "Sähköposti";
+            listing.shape = "Rikki";
+            break;
+        case 4:
+            listing.title = "Kotini";
+            listing.name = "Herra X"
+            var date = new Date();
+            var time = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+            listing.date = time;
+            listing.desc = "kaikki rahat meni kasinoon, ostakaa";
+            listing.category = "Koti";
+            listing.address = "Hotelli Ässä, huone 202";
+            listing.city = "Helsinki";
+            listing.img = ["./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg", "./img/empty.jpg"];
+            listing.payMethod = "Suoraan pankkitilille";
+            listing.price = 499;
+            listing.contact = "Puhelin";
+            listing.shape = "Käytetty";
+            break;
+    }
     listing.id = 'listing' + objectIndex;
-    listing.title = 'ruskea tuoli';
-    listing.name = 'Maija Meikäläinen'
-    listing.date = '10.01.2020';
-    listing.desc = 'ruskea, puinen, haku';
-    listing.category = 'Koti';
-    listing.address = 'Aikakuja 10';
-    listing.city = 'Mikkeli';
-    listing.img = ['./img/empty.jpg', './img/empty.jpg', './img/empty.jpg'];
-    listing.payMethod = ['MobilePay', ' käteinen'];
-    listing.price = 5;
-    listing.contact = ['Sähköposti'];
-    listing.shape = 'käytetty';
     listing.show = "create";
 
-    listingArray.push(listing);
-
-    objectIndex++;
+    addToListingStorage(listing);
 }
 
 function createNewListingObject() {
@@ -183,24 +244,48 @@ function createNewListingObject() {
         listing.img.push(i);
     }
 
-    console.log(listing.img);
-
     listing.payMethod = payMethod;
     listing.price = price;
     listing.contact = contact;
     listing.shape = cond;
     listing.show = "create";
 
-    listingArray.push(listing);
-
-    objectIndex++;
-
     const listingModal = document.getElementById('add-listing-modal');
     listingModal.style.display = 'none';
+
+    addToListingStorage(listing);
 
     resetAddListing();
     clearAllListings();
     createListing();
+}
+
+function createOrLoadListingsOnFirstStart() {
+    if (localStorage.getItem(("storageListing") + objectIndex) == null) { // On first start, creates 5 listings
+
+        createListingObjectOnStart();
+        createListingObjectOnStart();
+        createListingObjectOnStart();
+        createListingObjectOnStart();
+        createListingObjectOnStart();
+
+    } else { // On second and more starts, loads all currently saved listings
+
+        while (true) {
+            const object = JSON.parse(localStorage.getItem(("storageListing") + objectIndex));
+            if (object == null) break;
+            listingArray.push(object)
+            objectIndex++;
+        }
+    }
+
+    createListing();
+}
+
+function addToListingStorage(listing) {
+    listingArray.push(listing);
+    localStorage.setItem(("storageListing") + objectIndex, JSON.stringify(listing));
+    objectIndex++;
 }
 
 function resetAddListing() {
@@ -221,14 +306,20 @@ function resetAddListing() {
         imageCarrier.removeChild(imageCarrier.lastChild);
     }
 
-    while (true) {
-        if (imagerX == 0) break;
+    while (imagerX != 0) {
         imager.splice(imagerX - 1);
         imagerX--;
     }
 }
 
+function createNewDiv(x, divId, divClass, div) {
+    const newDiv = document.createElement('div');
 
+    priceP.id = divId + x;
+    priceP.className = divClass;
+
+    div.appendChild(newDiv);
+}
 
 // creates the listings for the page
 function createListing() {
@@ -236,28 +327,18 @@ function createListing() {
     const listingList = document.getElementById('store_listing');
 
     for (let i = 0; listingArray.length > i; i++) {
+
         const listingDiv = document.createElement('div');
         const listingInnerDiv = document.createElement('div');
-
-        listingDiv.id = 'listing' + x;
-        listingDiv.className = 'listing-style1';
-
-        listingInnerDiv.id = 'listingInner' + x;
-        listingInnerDiv.className = 'inner-listing';
-
         const listingInnerImgDiv = document.createElement('div');
         const listingInnerInfoDiv = document.createElement('div');
-
-        listingInnerImgDiv.className = 'inner-listing-img';
-        listingInnerInfoDiv.className = 'inner-listing-info';
-
-        listingInnerDiv.appendChild(listingInnerImgDiv);
-        listingInnerDiv.appendChild(listingInnerInfoDiv);
-
         const listingInnerExpand = document.createElement('div');
-        listingInnerExpand.className = 'inner-listing-expand';
 
-        listingInnerDiv.appendChild(listingInnerExpand);
+        createNewDiv(x, listingDiv, "listing", "listing-style1", listingList)
+        createNewDiv(x, listingInnerDiv, "listingInner", "inner-listing", listingDiv)
+        createNewDiv(x, listingInnerImgDiv, null, "inner-listing-img", listingInnerDiv)
+        createNewDiv(x, listingInnerInfoDiv, null, "inner-listing-info", listingInnerDiv)
+        createNewDiv(x, listingInnerExpand, null, "inner-listing-expand", listingInnerDiv)
 
         createTitleP(x, listingInnerInfoDiv, 0);
 
@@ -307,40 +388,28 @@ function expandListing(event) {
     for (let x = 0; listingArray.length > x; x++)
         if (targetId == listingArray[x].id) {
             if (listingArray[x].show == 'create') {
+
                 const expandDiv = document.createElement('div');
-
-                expandDiv.id = 'listing-expand' + x;
-                expandDiv.className = 'listing-expand';
-
-                listingDiv.appendChild(expandDiv);
-
                 const headerDiv = document.createElement('div');
-                expandDiv.appendChild(headerDiv);
+
+                createNewDiv(x, expandDiv, "listing-expand", "listing-expand", listingDiv)
+                createNewDiv(x, headerDiv, null, null, listingDiv)
 
                 const infoDiv = document.createElement('div');
                 const imgDiv = document.createElement('div');
                 const descDiv = document.createElement('div');
 
-                infoDiv.className = 'listing-expand-info';
-                imgDiv.className = 'listing-expand-imgDiv';
-                descDiv.className = 'listing-expand-descDiv';
-
-                expandDiv.appendChild(infoDiv);
-                infoDiv.appendChild(imgDiv);
-                infoDiv.appendChild(descDiv);
+                createNewDiv(x, infoDiv, null, "listing-expand-info", expandDiv);
+                createNewDiv(x, imgDiv, null, "listing-expand-imgDiv", infoDiv);
+                createNewDiv(x, descDiv, null, "listing-expand-descDiv", infoDiv);
 
                 const externalDiv = document.createElement('div');
                 const locationDiv = document.createElement('div');
                 const ulDiv = document.createElement('div');
 
-                externalDiv.className = 'listing-expand-external';
-                locationDiv.className = 'listing-expand-location';
-                locationDiv.id = "location" + x;
-                ulDiv.className = 'listing-expand-ul';
-
-                expandDiv.appendChild(externalDiv);
-                externalDiv.appendChild(locationDiv);
-                externalDiv.appendChild(ulDiv);
+                createNewDiv(x, externalDiv, null, "listing-expand-external", expandDiv);
+                createNewDiv(x, locationDiv, null, "listing-expand-location", externalDiv);
+                createNewDiv(x, ulDiv, null, "listing-expand-ul", externalDiv);
 
                 createTitleP(x, headerDiv, 1);
 
@@ -400,6 +469,13 @@ function createTitleP(x, div, type) {
 
     titleP.appendChild(titleNode);
     div.appendChild(titleP);
+}
+
+function createNewDiv(x, newDiv, divId, divClass, div) {
+    if (divId != null) newDiv.id = divId + x;
+    if (divClass != null) newDiv.className = divClass;
+
+    div.appendChild(newDiv);
 }
 
 function createPriceP(x, div) {
@@ -652,11 +728,3 @@ function createListingUl(x, div) {
     contactLi.appendChild(contactNode);
     listingUl.appendChild(contactLi);
 }
-
-createListingObjectOnStart();
-createListingObjectOnStart();
-createListingObjectOnStart();
-createListingObjectOnStart();
-createListingObjectOnStart();
-
-createListing();
