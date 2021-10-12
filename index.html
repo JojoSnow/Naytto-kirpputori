@@ -29,6 +29,7 @@
 
                 <div class="registration">
 
+                    <button id="admin-btn" class="regButton">Asetukset</button>
                     <button id="logout-btn" class="regButton">Kirjaudu ulos</button>
                     <button id="login-btn" class="regButton">Kirjaudu sisään</button>
                     <button id="regis-btn" class="regButton">Rekisteröidy</button>
@@ -112,6 +113,50 @@
                         <input type="submit" value="Rekisteröidy" id="input-reg-btn" class="modal-btn">
 
                         <p id="reg-success" class="modal-success"></p>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin-modal" class="modal">
+            <div id="admin-content" class="modal-content">
+
+                <div id="admin-header" class="modal-header">
+                    <span id="admin-close-btn" class="modal-close-btn">&times;</span>
+                    <h2 id="admin-title">Ylläpitäjän asetukset</h2>
+                </div>
+
+                <div id="admin-main" class="modal-main">
+                    <form id="admin-form">
+                        <label for="admin-select" class="modal-label">Poista...<br>
+                            <select name="admin-select" id="admin-select" class="listing-select">
+                                <option value="select">Valitse...</option>
+                                <option value="remove-user">Käyttäjä</option>
+                                <option value="remove-listing">Listaus</option>
+                            </select>
+                        </label>
+
+                        <div id="remove-user-div" class="selected-div">
+                            <label for="userID" class="modal-label">Käyttäjän ID:<br>
+                                <input name="userID" type="text" id="user-id" class="listing-input">
+                            </label><br>
+                            <p id="user-id-alert" class="modal-alert"></p>
+
+                            <input type="submit" value="Poista käyttäjä" id="remove-user-btn" class="modal-btn">
+                        </div>
+
+                        <div id="remove-listing-div" class="selected-div">
+                            <label for="listingID" class="modal-label">Listauksen ID:<br>
+                                <input type="text" name="listingID" id="listing-id" class="listing-input">
+                            </label><br>
+                            <p id="listing-id-alert" class="modal-alert"></p>
+
+                            <input type="submit" value="Poista listaus" id="remove-listing-btn" class="modal-btn">
+                        </div>
                     </form>
                 </div>
 
@@ -411,7 +456,7 @@
     <script src="./js/slides.js"></script>
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDwyikrMCrLOxJUcfsh7QQyHPOi7sFp4&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDwyikrMCrLOxJUcfsh7QQyHPOi7sFp4&callback=initMap"></script> -->
 
 </body>
 

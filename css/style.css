@@ -21,6 +21,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--lightest-bg);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #container {
@@ -686,6 +687,22 @@ header {
 .custom-file-input:hover {
     background-color: var(--darker-bg);
     cursor: pointer;
+}
+
+/* Admin modal */
+
+#admin-content {
+    width: 60%;
+}
+
+#admin-main {
+    text-align: left;
+    margin: 10px;
+    padding: 10px 50px;
+}
+
+.selected-div {
+    display: none;
 }
 
 /* ------- ABOUT US ------- */
