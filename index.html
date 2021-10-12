@@ -144,16 +144,18 @@
                             <label for="userID" class="modal-label">Käyttäjän ID:<br>
                                 <input name="userID" type="text" id="user-id" class="listing-input">
                             </label><br>
+                            <p id="user-id-alert" class="modal-alert"></p>
 
-                            <submit id="remove-user-btn" class="modal-btn">Poista käyttäjä</submit>
+                            <input type="submit" value="Poista käyttäjä" id="remove-user-btn" class="modal-btn">
                         </div>
 
                         <div id="remove-listing-div" class="selected-div">
                             <label for="listingID" class="modal-label">Listauksen ID:<br>
                                 <input type="text" name="listingID" id="listing-id" class="listing-input">
                             </label><br>
+                            <p id="user-listing-alert" class="modal-alert"></p>
 
-                            <submit id="remove-listing-btn" class="modal-btn">Poista listaus</submit>
+                            <input type="submit" value="Poista listaus" id="remove-listing-btn" class="modal-btn">
                         </div>
                     </form>
                 </div>
@@ -453,8 +455,8 @@
     <script src="./js/listing_search.js"></script>
     <script src="./js/slides.js"></script>
 
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDwyikrMCrLOxJUcfsh7QQyHPOi7sFp4&callback=initMap"></script>
+    <!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIDwyikrMCrLOxJUcfsh7QQyHPOi7sFp4&callback=initMap"></script> -->
 
 </body>
 

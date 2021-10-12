@@ -1,28 +1,51 @@
 
-const loginBtn = document.getElementById('login-btn');
-const logoutBtn = document.getElementById('logout-btn');
+// Register Buttons
 const regBtn = document.getElementById('regis-btn');
-const adminBtn = document.getElementById('admin-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
-const loginModalBtn = document.getElementById('input-login-btn');
-const loginCloseBtn = document.getElementById('login-close-btn');
-const adminCloseBtn = document.getElementById('admin-close-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
-const loginRegText = document.getElementById('not-registered');
-const adminSelect = document.getElementById('admin-select');
 
-window.addEventListener('load', toStorageOnLoad);
-adminBtn.addEventListener('click', adminSettings);
-adminCloseBtn.addEventListener('click', closeAdmin);
-loginBtn.addEventListener('click', openLogin);
-logoutBtn.addEventListener('click', userLogout);
+// Login Buttons
+const loginBtn = document.getElementById('login-btn');
+const loginModalBtn = document.getElementById('input-login-btn');
+const loginRegText = document.getElementById('not-registered');
+const loginCloseBtn = document.getElementById('login-close-btn');
+
+// Logout Buttons
+const logoutBtn = document.getElementById('logout-btn');
+
+// Admin Buttons
+const adminBtn = document.getElementById('admin-btn');
+const adminCloseBtn = document.getElementById('admin-close-btn');
+const adminSelect = document.getElementById('admin-select');
+const adminUserBtn = document.getElementById('remove-user-btn');
+const adminListingBtn = document.getElementById('remove-listing-btn');
+
+
+// Register Events
 regBtn.addEventListener('click', openReg);
-loginCloseBtn.addEventListener('click', closeLogin);
-regCloseBtn.addEventListener('click', closeReg);
 regModalBtn.addEventListener('click', regUser);
-loginModalBtn.addEventListener('click', login);
+regCloseBtn.addEventListener('click', closeReg);
+
+// Login Events
+loginBtn.addEventListener('click', openLogin);
 loginRegText.addEventListener('click', fromLoginToReg);
+loginModalBtn.addEventListener('click', login);
+loginCloseBtn.addEventListener('click', closeLogin);
+
+// Logout Events
+logoutBtn.addEventListener('click', userLogout);
+
+// Admin Events
+adminBtn.addEventListener('click', openAdminSettings);
 adminSelect.addEventListener('click', selectRemove);
+adminUserBtn.addEventListener('click', removeUser);
+// adminListingBtn.addEventListener('click', removeListing);
+adminCloseBtn.addEventListener('click', closeAdmin);
+
+// Other Events
+window.addEventListener('load', toStorageOnLoad);
+
+
 
 // add the admin info to localStorage on load
 function toStorageOnLoad() {
@@ -34,8 +57,8 @@ function toStorageOnLoad() {
     localStorage.setItem(admin2[3], JSON.stringify(admin2));
     localStorage.setItem(admin3[3], JSON.stringify(admin3));
 
-    localStorage.setItem('user', 'false');
-    localStorage.setItem('admin', 'false');
+    localStorage.setItem('userLogged', 'null');
+    localStorage.setItem('adminLogged', 'null');
 }
 
 // LOGIN FUNCTIONS
@@ -63,17 +86,22 @@ function login(event) {
     const loginEmailAlert = document.getElementById('login-name-alert');
     const loginPasswordAlert = document.getElementById('login-password-alert');
 
-    let userBoolean = false;
-    let adminBoolean = false;
-
     for (let i = 0; localStorage.length >= i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
+        
+        const getAdmin = localStorage.getItem('admin' + i);
+        const adminArray = JSON.parse(getAdmin);
 
-        if (userArray !== null && userBoolean === false && adminBoolean === false) {
+        let userEmail = false;
+        let userPassword = false;
+        let adminEmail = false;
+        let adminPassword = false;
+
+        if (userArray !== null && adminEmail === false) {
             // checks if it's user or admin logging in
             if (userArray[3].includes('user')) {
-                // checks if admin is registered - alerts if not
+                // checks if user is registered - alerts if not
                 // checks if the email and password are right to login with - alerts if not
                 if (userArray[1] !== loginEmail) {
                     document.getElementById('input-login-name').style.borderColor = '#de0f00'
@@ -83,11 +111,13 @@ function login(event) {
                     document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
                     loginEmailAlert.style.display = 'none';
                     loginEmailAlert.innerHTML = '';
+                    userEmail = true;
 
                     if (userArray[2] === loginPassword) {
                         document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
                         loginPasswordAlert.style.display = 'none';
                         loginPasswordAlert.innerHTML = '';
+                        userPassword = true;
                     } else {
                         document.getElementById('input-login-password').style.borderColor = '#de0f00'
                         loginPasswordAlert.style.display = 'block';
@@ -95,26 +125,24 @@ function login(event) {
                     }
                 }
                 // logs user in if the email and password are right
-                if (userArray !== null && loginEmail === userArray[1] && loginPassword === userArray[2]) {
+                if (loginEmail === userArray[1] && loginPassword === userArray[2]) {
                     loginSuccess();
 
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'table-cell';
                     addListingBtn.style.display = 'block';
-                    
-                    localStorage.setItem('user', 'true');
+
+                    // saves the info which user is logged in
+                    localStorage.setItem('userLogged', JSON.stringify(userArray));
+
+                    break;
                 }
                 
             } 
-        } else {
-            userBoolean = true;
         }
-
-        const getAdmin = localStorage.getItem('admin' + i);
-        const adminArray = JSON.parse(getAdmin);
         
-        if (adminArray !== null && userBoolean === false && adminBoolean === false) {
+        if (adminArray !== null && userEmail === false) {
             // checks if it's user or admin logging in
             if (adminArray[3].includes('admin')) {
                 // checks if admin is registered - alerts if not
@@ -127,11 +155,13 @@ function login(event) {
                     document.getElementById('input-login-name').style.borderColor = '#a0a0a0';
                     loginEmailAlert.style.display = 'none';
                     loginEmailAlert.innerHTML = '';
+                    adminEmail = true;
 
                     if (adminArray[2] === loginPassword) {
                         document.getElementById('input-login-password').style.borderColor = '#a0a0a0';
                         loginPasswordAlert.style.display = 'none';
                         loginPasswordAlert.innerHTML = '';
+                        adminPassword = true;
                     } else {
                         document.getElementById('input-login-password').style.borderColor = '#de0f00'
                         loginPasswordAlert.style.display = 'block';
@@ -140,38 +170,28 @@ function login(event) {
                 }
 
                 // logs admin in if the email and password are right
-                if (adminArray !== null && loginEmail === adminArray[1] && loginPassword === adminArray[2]) {
+                if (loginEmail === adminArray[1] && loginPassword === adminArray[2]) {
                     loginSuccess();
 
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'table-cell';
                     addListingBtn.style.display = 'block';
-
-                    localStorage.setItem('admin', 'true');
                     adminBtn.style.display = 'table-cell';
 
+                    // saves the info which admin is logged in
+                    localStorage.setItem('adminLogged', JSON.stringify(adminArray));
+
+                    break;
                 }
             }
-        } else {
-            adminBoolean = true;
         }
-           
-        const getAdminStatus = localStorage.getItem('admin');
-        const adminStatus = JSON.parse(getAdminStatus);
-        const getUserStatus = localStorage.getItem('user');
-        const userStatus = JSON.parse(getUserStatus);
-
-        if (adminStatus) {
+        
+        if (userEmail === true && userPassword === false) {
             break;
-        } else if (userStatus) {
-            break;
-        } else if (adminBoolean) {
-            break;
-        } else if (userBoolean) {
+        } else if (adminEmail === true && adminPassword === false) {
             break;
         }
-
     }    
 }
 
@@ -217,8 +237,8 @@ function fromLoginToReg() {
 
 // logs the user or admin out
 function userLogout() {
-    localStorage.setItem('userLogged', 'false');
-    localStorage.setItem('adminLogged', 'false');
+    localStorage.setItem('userLogged', 'null');
+    localStorage.setItem('adminLogged', 'null');
     logoutBtn.style.display = 'none';
     loginBtn.style.display = 'table-cell';
     regBtn.style.display = 'table-cell';
@@ -370,18 +390,19 @@ function regSuccess() {
 
 // ADMIN FUNCTIONS  
 
-function adminSettings() {
-    console.log('admin');
-
+// opens admins settings modal
+function openAdminSettings() {
     document.getElementById('admin-modal').style.display = 'block';
-
-    const userId = document.getElementById('user-id').value;
-
-    for (let i = 0; localStorage.length < i; i++) {
-        if (localStorage.getItem('user' + i)) {}
-    }
 }
 
+// closes admins settings modal
+function closeAdmin() {
+    const loginModal = document.getElementById('admin-modal');
+    loginModal.style.display = 'none';
+    resetAdminForm();
+}
+
+// chooses what admin wants to remove from site
 function selectRemove() {
     const optionValue = document.getElementById('admin-select').value;
 
@@ -401,11 +422,24 @@ function selectRemove() {
     }
 }
 
-// closes admins settings modal
-function closeAdmin() {
-    const loginModal = document.getElementById('admin-modal');
-    loginModal.style.display = 'none';
-    resetAdminForm();
+// removes the chosen user from the site
+function removeUser(event) {
+    event.preventDefault();
+
+    for (let i = 0; localStorage.length >= i; i++) {        
+        const getUser = localStorage.getItem('user' + i);
+        const userArray = JSON.parse(getUser);
+        const userId = document.getElementById('user-id').value;
+
+        if (userArray !== null) {
+            if (userId === userArray[1]) {
+                localStorage.removeItem('user' + i);
+                break;
+            } else {
+                console.log('user not found');
+            }
+        }
+    }
 }
 
 function resetAdminForm() {
