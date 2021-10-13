@@ -33,7 +33,8 @@ function clickOutsideAddListing(event) {
     }
 }
 
-function submitListing() {
+function submitListing(event) {
+    event.preventDefault()
     createNewListingObject();
 }
 
@@ -64,39 +65,71 @@ function contactSelect() {
     switch (contactValue) {
 
         case "Sähköposti":
-            document.getElementById("listing_email").style.display = 'block';
-            document.getElementById("listing_phone").style.display = 'none';
+            document.getElementById("listing_email").style.display = "block";
+            document.getElementById("listing_phone").style.display = "none";
             return;
 
         case "Puhelin":
-            document.getElementById("listing_phone").style.display = 'block';
-            document.getElementById("listing_email").style.display = 'none';
+            document.getElementById("listing_phone").style.display = "block";
+            document.getElementById("listing_email").style.display = "none";
             return;
 
         default:
-            document.getElementById("listing_phone").style.display = 'none';
-            document.getElementById("listing_email").style.display = 'none';
+            document.getElementById("listing_phone").style.display = "none";
+            document.getElementById("listing_email").style.display = "none";
             return;
     }
 }
 
 function contactSelectDefault() {
-    document.getElementById("listing_phone").style.display = 'none';
-    document.getElementById("listing_email").style.display = 'none';
-}
+    document.getElementById("add_listing_error").style.display = "none";
 
-function resetAddListing() {
-    document.getElementById("listing_name").value = "";
-    document.getElementById("listing_desc").value = "";
-    document.getElementById("listing_categ").value = null;
-    document.getElementById("listing_address").value = "";
-    document.getElementById("listing_city").value = null;
-    document.getElementById("listing_payment").value = "";
-    document.getElementById("listing_price").value = "";
-    document.getElementById("listing_contact").value = null;
-    document.getElementById("listing_cond").value = null;
-    document.getElementById("listing_email").value = "";
-    document.getElementById("listing_phone").value = "";
+    document.getElementById("listing_phone").style.display = "none";
+    document.getElementById("listing_email").style.display = "none";
+
+    const name = document.getElementById("listing_name");
+    name.value = "";
+    name.className = "listing-input";
+
+    const desc = document.getElementById("listing_desc");
+    desc.value = "";
+    desc.className = "listing-input";
+
+    const categ = document.getElementById("listing_categ");
+    categ.value = "0";
+    categ.className = "listing-select";
+
+    const address = document.getElementById("listing_address");
+    address.value = "";
+    address.className = "listing-input";
+
+    const city = document.getElementById("listing_city");
+    city.value = "0";
+    city.className = "listing-select";
+
+    const payment = document.getElementById("listing_payment");
+    payment.value = "";
+    payment.className = "listing-input";
+
+    const price = document.getElementById("listing_price");
+    price.value = "";
+    price.className = "listing-input";
+
+    const contact = document.getElementById("listing_contact");
+    contact.value = "0";
+    contact.className = "listing-select"
+
+    const cond = document.getElementById("listing_cond");
+    cond.value = "0";
+    cond.className = "listing-select";
+
+    const email = document.getElementById("listing_email");
+    email.value = "";
+    email.className = "listing-input";
+
+    const phone = document.getElementById("listing_phone");
+    phone.value = "";
+    phone.className = "listing-input";
 
     const imageCarrier = document.getElementById("listing_img_preview");
     while (imageCarrier.firstChild) {
@@ -200,86 +233,131 @@ function createNewListingObject() {
     var date = new Date();
     var time = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 
-    var title = document.getElementById("listing_name").value
-    var desc = document.getElementById("listing_desc").value;
-    var categ = document.getElementById("listing_categ").value;
-    var address = document.getElementById("listing_address").value;
-    var city = document.getElementById("listing_city").value;
-    var payMethod = document.getElementById("listing_payment").value;
-    var price = document.getElementById("listing_price").value;
-    var contact = document.getElementById("listing_contact").value;
-    var cond = document.getElementById("listing_cond").value;
+    var title = document.getElementById("listing_name");
+    var desc = document.getElementById("listing_desc");
+    var categ = document.getElementById("listing_categ");
+    var address = document.getElementById("listing_address");
+    var city = document.getElementById("listing_city");
+    var payMethod = document.getElementById("listing_payment");
+    var price = document.getElementById("listing_price");
+    var contact = document.getElementById("listing_contact");
+    var cond = document.getElementById("listing_cond");
+
+    var allIsFilled = true;
 
     //Lisää function toimittomuuden syyt tekijälle
 
-    if (title == "")
-        return;
+    if (title.value == "") {
+        title.className = "listing-input-error";
+        allIsFilled = false;
+    } else {
+        title.className = "listing-input";
+    }
 
-    if (desc == "")
-        return;
+    if (desc.value == "") {
+        desc.className = "listing-input-error";
+        allIsFilled = false;
+    } else {
+        desc.className = "listing-input";
+    }
 
-    if (categ == null)
-        return;
+    if (categ.value == "0") {
+        categ.className = "listing-select-error";
+        allIsFilled = false;
+    } else {
+        categ.className = "listing-select";
+    }
 
-    if (address == "")
-        return;
+    if (city.value == "0") {
+        city.className = "listing-select-error";
+        allIsFilled = false;
+    } else {
+        city.className = "listing-select";
+    }
 
-    if (city == null)
-        return;
+    if (payMethod.value == "") {
+        payMethod.className = "listing-input-error";
+        allIsFilled = false;
+    } else {
+        payMethod.className = "listing-input";
+    }
 
-    if (payMethod == "")
-        return;
+    if (price.value == "") {
+        price.className = "listing-input-error";
+        allIsFilled = false;
+    } else {
+        price.className = "listing-input";
+    }
 
-    switch (contact) {
+    switch (contact.value) {
         case "Sähköposti":
-            const email = document.getElementById("listing_email").value;
-            if (email == "")
-                return;
-            contact = contact + ": " + email;
+            const email = document.getElementById("listing_email");
+            if (email.value == "") {
+                email.className = "listing-input-error";
+                allIsFilled = false;
+            } else {
+                email.className = "listing-input";
+            }
+            contact = contact.value + ": " + email.value;
+            contact.className = "listing-select";
             break;
 
         case "Puhelin":
-            const phoneNumber = document.getElementById("listing_phone").value;
-            if (phoneNumber == "")
-                return;
-            contact = contact + ": " + phoneNumber;
+            const phoneNumber = document.getElementById("listing_phone");
+            if (phoneNumber.value == "") {
+                phoneNumber.className = "listing-input-error";
+                allIsFilled = false;
+            } else {
+                phoneNumber.className = "listing-input";
+            }
+            contact = contact.value + ": " + phoneNumber.value;
+            contact.className = "listing-select";
             break;
 
-        case null:
-            return;
+        case "0":
+            contact.className = "listing-select-error";
+            allIsFilled = false;
     }
 
-    if (cond == null)
-        return;
-
-    listing.id = "listing" + objectIndex;
-    listing.title = title;
-    listing.name = "Null";
-    listing.date = time;
-    listing.desc = desc;
-    listing.category = categ;
-    listing.address = address;
-    listing.city = city;
-
-    listing.img = [];
-    for (var i of imager) {
-        listing.img.push(i);
+    if (cond.value == "0") {
+        cond.className = "listing-select-error";
+        allIsFilled = false;
+    } else {
+        cond.className = "listing-select";
     }
 
-    listing.payMethod = payMethod;
-    listing.price = price;
-    listing.contact = contact;
-    listing.shape = cond;
-    listing.show = "create";
+    if (allIsFilled) {
 
-    const listingModal = document.getElementById("add-listing-modal");
-    listingModal.style.display = "none";
+        listing.id = "listing" + objectIndex;
+        listing.title = title.value;
+        listing.name = "Null";
+        listing.date = time;
+        listing.desc = desc.value;
+        listing.category = categ.value;
+        listing.address = address.value;
+        listing.city = city.value;
 
-    addToListingStorage(listing);
+        listing.img = [];
+        for (var i of imager) {
+            listing.img.push(i);
+        }
 
-    resetAddListing();
-    clearAllListings();
-    createListing();
+        listing.payMethod = payMethod.value;
+        listing.price = price.value;
+        listing.contact = contact;
+        listing.shape = cond.value;
+        listing.show = "create";
+
+        const listingModal = document.getElementById("add-listing-modal");
+        listingModal.style.display = "none";
+
+        addToListingStorage(listing);
+
+        clearAllListings();
+        createListing();
+    } else {
+        document.getElementById("add_listing_error").style.display = "block";
+    }
 }
 
 function createOrLoadListingsOnFirstStart() {
@@ -652,12 +730,15 @@ function createGoogleMaps(x, div) {
 
     var zoom = 6;
 
-    if (object.address == "" && object.city == "Muu") {
+    if (object.city == "Muu") {
         createMapsError(div);
         return;
     }
 
     var location = findCity(object);
+
+    if (object.city == "Ulkomaalainen")
+        zoom = 4;
 
     initMap(location, zoom, div);
 }
@@ -676,7 +757,7 @@ function createMapsError(div) {
     div.appendChild(p);
 }
 
-function findCity(object) {
+function findCity(object) { // https://developers.google.com/maps/documentation/javascript/examples/map-latlng-literal
 
     var location = { lat: null, lng: null };
 
@@ -699,8 +780,17 @@ function findCity(object) {
             break;
         //Loput rikki
         case "Hyvinkää":
+            location.lat = 60.633511;
+            location.lng = 24.869645;
+            break;
         case "Hämeenlinna":
+            location.lat = 60.994590;
+            location.lng = 24.466780;
+            break;
         case "Iisalmi":
+            location.lat = 63.556733;
+            location.lng = 27.189261;
+            break;
         case "Imatra":
             location.lat = 61.192243;
             location.lng = 28.771721;
@@ -710,53 +800,172 @@ function findCity(object) {
             location.lng = 29.758586;
             break;
         case "Jyväskylä":
+            location.lat = 62.238912;
+            location.lng = 25.745847;
+            break;
         case "Järvenpää":
+            location.lat = 60.473634;
+            location.lng = 25.092372;
+            break;
         case "Kaarina":
+            location.lat = 60.407071;
+            location.lng = 22.367808;
+            break;
         case "Kajaani":
+            location.lat = 64.223328;
+            location.lng = 27.733689;
+            break;
         case "Kangasala":
+            location.lat = 61.464199;
+            location.lng = 24.066209;
+            break;
         case "Kaskinen":
+            location.lat = 62.384362;
+            location.lng = 21.222466;
+            break;
         case "Kauniainen":
+            location.lat = 60.213557;
+            location.lng = 24.713982;
+            break;
         case "Kemi":
+            location.lat = 65.732884;
+            location.lng = 24.568087;
+            break;
         case "Kemijärvi":
+            location.lat = 66.715892;
+            location.lng = 27.433173;
+            break;
         case "Kerava":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Kokkola":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Kotka":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Kouvola":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Kuopio":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Lahti":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Lappeenranta":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Lohja":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Loviisa":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Mikkeli":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Naantali":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Nokia":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Närpiö":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Oulu":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Pietarsaari":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Pori":
             location.lat = 61.486332;
             location.lng = 21.796935;
             break;
         case "Porvoo":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Raahe":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Raasepori":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Raisio":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Rauma":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Riihimäki":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Rovaniemi":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Salo":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Savonlinna":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Seinäjoki":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Tampere":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Tornio":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Turku":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Ulvila":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Vaasa":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Vantaa":
+            location.lat = 0;
+            location.lng = 0;
+            break;
         case "Varkaus":
             location.lat = 62.186014;
             location.lng = 26.000915;
-            zoom = 5;
             break;
         default:
             createMapsError(div);
@@ -764,7 +973,6 @@ function findCity(object) {
         case "Ulkomaalainen":
             location.lat = -8.581021;
             location.lng = -55.749495;
-            zoom = 4;
             break;
     }
 

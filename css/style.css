@@ -171,6 +171,10 @@ header {
     cursor: pointer;
 }
 
+.add-listing-error {
+    color: var(--alert);
+}
+
 .store_filter {
     width: 100%;
     display: block;
@@ -621,6 +625,7 @@ header {
     margin: 2% auto;
     padding: 0 10px;
     width: 60%;
+    max-width: 800px;
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
     border-radius: 10px;
@@ -648,6 +653,17 @@ header {
     border: 1px ridge var(--medium-border);
 }
 
+.listing-input-error {
+    font-size: 16px;
+    text-align: start;
+    width: 80%;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: var(--lightest-bg);
+    border: 1px ridge var(--alert);
+}
+
 .listing-input:focus {
     border-color: var(--highlight-light);
 }
@@ -658,12 +674,24 @@ header {
 
 .listing-select {
     font-size: 16px;
-    width: 30%;
+    width: 35%;
+    min-width: 160px;
     height: 30px;
     margin: 5px 0;
     padding: 4px;
     background-color: var(--lightest-bg);
     border: 1px ridge var(--medium-border);
+}
+
+.listing-select-error {
+    font-size: 16px;
+    width: 35%;
+    min-width: 160px;
+    height: 30px;
+    margin: 5px 0;
+    padding: 4px;
+    background-color: var(--lightest-bg);
+    border: 1px ridge var(--alert);
 }
 
 #listing-email, #listing-phone {

@@ -247,7 +247,7 @@
 
                         <label for="listing-cond" class="modal-label">Kunto:<br>
                             <select name="listing-cond" id="listing_cond" class="listing-select">
-                                <option value="null">Valitse...</option>
+                                <option value="0">Valitse...</option>
                                 <option value="Erinomainen">Erinomainen</option>
                                 <option value="Käytetty">Käytetty</option>
                                 <option value="Rikki">Rikki</option>
@@ -256,7 +256,7 @@
 
                         <label for="listing-categ" class="modal-label">Kategoria:<br>
                             <select name="listing-categ" id="listing_categ" class="listing-select">
-                                <option value="null">Valitse...</option>
+                                <option value="0">Valitse...</option>
                                 <option value="Kulkuneuvot">Kulkuneuvot</option>
                                 <option value="Vaatteet">Vaatteet</option>
                                 <option value="Elektroniikat">Elektroniikat</option>
@@ -277,13 +277,13 @@
                             <input type="text" name="listing-payment" id="listing_payment" class="listing-input">
                         </label><br>
 
-                        <label for="listing-address" class="modal-label">Osoite:<br>
+                        <label for="listing-address" class="modal-label">Osoite: (Vapaaehtoinen)<br>
                             <input type="text" name="listing-address" id="listing_address" class="listing-input">
                         </label><br>
 
                         <label for="listing-city" class="modal-label">Kaupunki:<br>
                             <select name="listing-city" id="listing_city" class="listing-select">
-                                <option value="null">Valitse...</option>
+                                <option value="0">Valitse...</option>
                                 <option value="Espoo">Espoo</option>
                                 <option value="Hamina">Hamina</option>
                                 <option value="Hanko">Hanko</option>
@@ -342,13 +342,15 @@
 
                         <label for="listing-contact" class="modal-label">Yhteydenotto:<br>
                             <select name="listing-contact" id="listing_contact" class="listing-select">
-                                <option value="null">Valitse...</option>
+                                <option value="0">Valitse...</option>
                                 <option value="Sähköposti">Sähköposti</option>
                                 <option value="Puhelin">Puhelin</option>
                             </select><br>
                             <input type="email" name="listing-email" id="listing_email" class="listing-input">
                             <input type="number" name="listing-phone" id="listing_phone" class="listing-input">
                         </label>
+
+                        <p class="add-listing-error" id="add_listing_error">Syötä meidät!</p>
 
                         <input type="submit" id="listing_submit" class="modal-btn" value="Valmis">
                     </form>
