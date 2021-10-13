@@ -44,9 +44,10 @@ adminCloseBtn.addEventListener('click', closeAdminSettings);
 
 // Other Events
 window.addEventListener('load', toStorageOnLoad);
+window.addEventListener('load', stayLoggedIn);
 
 
-// add info to localStorage on load
+// add admin info to localStorage on load
 function toStorageOnLoad() {
     const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin0'];
     const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin1'];
@@ -55,11 +56,28 @@ function toStorageOnLoad() {
     localStorage.setItem(admin1[3], JSON.stringify(admin1));
     localStorage.setItem(admin2[3], JSON.stringify(admin2));
     localStorage.setItem(admin3[3], JSON.stringify(admin3));
-
-    localStorage.setItem('userLogged', 'null');
-    localStorage.setItem('adminLogged', 'null');
 }
 
+// keeps admin or user logged in after a refresh of the page
+function stayLoggedIn() {
+    const getUserLogged = localStorage.getItem('userLogged');
+    const userLogged = JSON.parse(getUserLogged);
+    const getAdminLogged = localStorage.getItem('adminLogged');
+    const adminLogged = JSON.parse(getAdminLogged);
+
+    if (userLogged !== null) {
+        loginBtn.style.display = 'none';
+        regBtn.style.display = 'none';
+        logoutBtn.style.display = 'table-cell';
+        addListingBtn.style.display = 'block';
+    } else if (adminLogged !== null) {
+        loginBtn.style.display = 'none';
+        regBtn.style.display = 'none';
+        logoutBtn.style.display = 'table-cell';
+        addListingBtn.style.display = 'block';
+        adminBtn.style.display = 'table-cell';
+    }
+}
 
 // LOGIN FUNCTIONS
 
@@ -135,6 +153,7 @@ function login(event) {
 
                     // saves the info which user is logged in
                     localStorage.setItem('userLogged', JSON.stringify(userArray));
+                    localStorage.setItem('adminLogged', 'null');
 
                     break;
                 }
@@ -181,6 +200,7 @@ function login(event) {
 
                     // saves the info which admin is logged in
                     localStorage.setItem('adminLogged', JSON.stringify(adminArray));
+                    localStorage.setItem('userLogged', 'null');
 
                     break;
                 }
@@ -410,6 +430,11 @@ function closeAdminSettings() {
     resetAdminForm();
 }
 
+// resets the form in admin modal
+function resetAdminForm() {
+    document.getElementById('admin-form').reset();
+}
+
 // chooses what admin wants to remove from site
 function selectRemove() {
     const optionValue = document.getElementById('admin-select').value;
@@ -486,7 +511,4 @@ function removeListing(event) {
     }
 }
 
-// resets the form in admin modal
-function resetAdminForm() {
-    document.getElementById('admin-form').reset();
-}
+
