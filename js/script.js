@@ -1,19 +1,19 @@
 
-// Register Buttons
+// Registration
 const regBtn = document.getElementById('regis-btn');
 const regModalBtn = document.getElementById('input-reg-btn');
 const regCloseBtn = document.getElementById('reg-close-btn');
 
-// Login Buttons
+// Login
 const loginBtn = document.getElementById('login-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginRegText = document.getElementById('not-registered');
 const loginCloseBtn = document.getElementById('login-close-btn');
 
-// Logout Button
+// Logout
 const logoutBtn = document.getElementById('logout-btn');
 
-// Admin Buttons
+// Admin
 const adminBtn = document.getElementById('admin-btn');
 const adminCloseBtn = document.getElementById('admin-close-btn');
 const adminSelect = document.getElementById('admin-select');
@@ -21,7 +21,7 @@ const adminUserBtn = document.getElementById('remove-user-btn');
 const adminListingBtn = document.getElementById('remove-listing-btn');
 
 
-// Register Events
+// Registration Events
 regBtn.addEventListener('click', openReg);
 regModalBtn.addEventListener('click', regUser);
 regCloseBtn.addEventListener('click', closeReg);
@@ -42,10 +42,12 @@ adminUserBtn.addEventListener('click', removeUser);
 adminListingBtn.addEventListener('click', removeListing);
 adminCloseBtn.addEventListener('click', closeAdminSettings);
 
-// Other Events
+// Onload Events
 window.addEventListener('load', toStorageOnLoad);
 window.addEventListener('load', stayLoggedIn);
 
+
+// ONLOAD FUNCTIONS
 
 // add admin info to localStorage on load
 function toStorageOnLoad() {
@@ -435,6 +437,8 @@ function resetAdminForm() {
     document.getElementById('admin-form').reset();
 }
 
+// Admin Settings Functions
+
 // chooses what admin wants to remove from site
 function selectRemove() {
     const optionValue = document.getElementById('admin-select').value;
@@ -512,3 +516,11 @@ function removeListing(event) {
 }
 
 
+// REPORT FUNCTIONS
+
+// Report listing functions
+
+// opens listing report modal
+function openListingReport() {
+
+}
