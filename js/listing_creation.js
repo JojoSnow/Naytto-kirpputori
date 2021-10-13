@@ -283,7 +283,8 @@ function createNewListingObject() {
 }
 
 function createOrLoadListingsOnFirstStart() {
-    if (localStorage.getItem(("storageListing") + 0) == null) { // On first start, creates 5 listings
+
+    if (localStorage.getItem("listingNum") == null) { // On first start, creates 5 listings
         localStorage.setItem("listingNum", 0);
         objectIndex = 0;
 
@@ -579,113 +580,6 @@ function createImg(x, div, type) {
     }
 }
 
-function createGoogleMaps(x, div) {
-    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
-
-    var location = { lat: null, lng: null };
-    var zoom = 6;
-
-    if (object.address == "" && object.city == "Muu") {
-        createMapsError(div);
-        return;
-    }
-
-    switch (object.city) {
-        case "Espoo":
-            location.lat = 60.205238;
-            location.lng = 24.654079;
-            break;
-        case "Hamina":
-            location.lat = 60.569199;
-            location.lng = 27.193800;
-            break;
-        case "Hanko":
-            location.lat = 59.823101;
-            location.lng = 22.969290;
-            break;
-        case "Helsinki":
-            location.lat = 60.166621;
-            location.lng = 24.942961;
-            break;
-        //Loput rikki
-        case "Hyvinkää":
-        case "Hämeenlinna":
-        case "Iisalmi":
-        case "Imatra":
-        case "Joensuu":
-        case "Jyväskylä":
-        case "Järvenpää":
-        case "Kaarina":
-        case "Kajaani":
-        case "Kangasala":
-        case "Kaskinen":
-        case "Kauniainen":
-        case "Kemi":
-        case "Kemijärvi":
-        case "Kerava":
-        case "Kokkola":
-        case "Kotka":
-        case "Kouvola":
-        case "Kuopio":
-        case "Lahti":
-        case "Lappeenranta":
-        case "Lohja":
-        case "Loviisa":
-        case "Mikkeli":
-        case "Naantali":
-        case "Nokia":
-        case "Närpiö":
-        case "Oulu":
-        case "Pietarsaari":
-        case "Pori":
-        case "Porvoo":
-        case "Raahe":
-        case "Raasepori":
-        case "Raisio":
-        case "Rauma":
-        case "Riihimäki":
-        case "Rovaniemi":
-        case "Salo":
-        case "Savonlinna":
-        case "Seinäjoki":
-        case "Tampere":
-        case "Tornio":
-        case "Turku":
-        case "Ulvila":
-        case "Vaasa":
-        case "Vantaa":
-        case "Varkaus":
-            location.lat = 62.186014;
-            location.lng = 26.000915;
-            zoom = 5;
-            break;
-        default:
-            createMapsError(div);
-            return;
-        case "Ulkomaalainen":
-            location.lat = -8.581021;
-            location.lng = -55.749495;
-            zoom = 4;
-            break;
-    }
-
-    initMap(location, zoom, div);
-}
-
-function initMap(location, zoom, div) {
-    var map = new google.maps.Map(div, {
-        zoom: zoom,
-        center: location
-    });
-}
-
-function createMapsError(div) {
-    const p = document.createElement("p");
-    const pNode = document.createTextNode("Tätä tuotetta ei voi paikantaa");
-    p.appendChild(pNode);
-    div.appendChild(p);
-}
-
 function createListingUl(x, div) {
     const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
@@ -737,4 +631,128 @@ function createListingUl(x, div) {
     contactLi.className = "listing-list-item";
     contactLi.appendChild(contactNode);
     listingUl.appendChild(contactLi);
+}
+
+function createGoogleMaps(x, div) {
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
+    var zoom = 6;
+
+    if (object.address == "" && object.city == "Muu") {
+        createMapsError(div);
+        return;
+    }
+
+    var location = findCity(object);
+
+    initMap(location, zoom, div);
+}
+
+function initMap(location, zoom, div) {
+    var map = new google.maps.Map(div, {
+        zoom: zoom,
+        center: location
+    });
+}
+
+function createMapsError(div) {
+    const p = document.createElement("p");
+    const pNode = document.createTextNode("Tätä tuotetta ei voi paikantaa");
+    p.appendChild(pNode);
+    div.appendChild(p);
+}
+
+function findCity(object) {
+
+    var location = { lat: null, lng: null };
+
+    switch (object.city) {
+        case "Espoo":
+            location.lat = 60.205238;
+            location.lng = 24.654079;
+            break;
+        case "Hamina":
+            location.lat = 60.569199;
+            location.lng = 27.193800;
+            break;
+        case "Hanko":
+            location.lat = 59.823101;
+            location.lng = 22.969290;
+            break;
+        case "Helsinki":
+            location.lat = 60.166621;
+            location.lng = 24.942961;
+            break;
+        //Loput rikki
+        case "Hyvinkää":
+        case "Hämeenlinna":
+        case "Iisalmi":
+        case "Imatra":
+            location.lat = 61.192243;
+            location.lng = 28.771721;
+            break;
+        case "Joensuu":
+            location.lat = 62.600372;
+            location.lng = 29.758586;
+            break;
+        case "Jyväskylä":
+        case "Järvenpää":
+        case "Kaarina":
+        case "Kajaani":
+        case "Kangasala":
+        case "Kaskinen":
+        case "Kauniainen":
+        case "Kemi":
+        case "Kemijärvi":
+        case "Kerava":
+        case "Kokkola":
+        case "Kotka":
+        case "Kouvola":
+        case "Kuopio":
+        case "Lahti":
+        case "Lappeenranta":
+        case "Lohja":
+        case "Loviisa":
+        case "Mikkeli":
+        case "Naantali":
+        case "Nokia":
+        case "Närpiö":
+        case "Oulu":
+        case "Pietarsaari":
+        case "Pori":
+            location.lat = 61.486332;
+            location.lng = 21.796935;
+            break;
+        case "Porvoo":
+        case "Raahe":
+        case "Raasepori":
+        case "Raisio":
+        case "Rauma":
+        case "Riihimäki":
+        case "Rovaniemi":
+        case "Salo":
+        case "Savonlinna":
+        case "Seinäjoki":
+        case "Tampere":
+        case "Tornio":
+        case "Turku":
+        case "Ulvila":
+        case "Vaasa":
+        case "Vantaa":
+        case "Varkaus":
+            location.lat = 62.186014;
+            location.lng = 26.000915;
+            zoom = 5;
+            break;
+        default:
+            createMapsError(div);
+            return;
+        case "Ulkomaalainen":
+            location.lat = -8.581021;
+            location.lng = -55.749495;
+            zoom = 4;
+            break;
+    }
+
+    return location;
 }
