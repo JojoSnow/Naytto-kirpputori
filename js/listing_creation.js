@@ -417,7 +417,8 @@ function expandListing(x) {
         createDateP(x, expandDiv);
 
         const reportBtn = document.createElement("button");
-        reportBtn.innerHTML = "Ilmoita";
+        reportBtn.className = 'listing-report-btn'
+        reportBtn.innerHTML = "Ilmianna";
 
         reportBtn.addEventListener("click", openListingReport);
 
