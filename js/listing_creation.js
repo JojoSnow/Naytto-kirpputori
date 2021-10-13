@@ -495,27 +495,13 @@ function expandListing(x) {
 
         createDateP(x, expandDiv);
 
-        /*  const reportBtn = document.createElement("button");
-          reportBtn.innerHTML = "Ilmoita väärinkäytöstä";
-          reportBtn.addEventListener("click", function () {
-              reportBtn.style.display = "none";
- 
-              const reportInput = document.createElement("input");
-              reportInput.type = "text";
- 
-              const reportSendBtn = document.createElement("button");
- 
-              expandDiv.appendChild(reportInput);
-              expandDiv.appendChild(reportSendBtn);
-              reportSendBtn.addEventListener("click", function () {
-                  if (reportInput == "") {
- 
-                  } else {
- 
-                  }
-              })
-          })
-          expandDiv.appendChild(reportBtn); */
+        const reportBtn = document.createElement("button");
+        reportBtn.className = 'listing-report-btn'
+        reportBtn.innerHTML = "Ilmianna";
+
+        reportBtn.addEventListener("click", openListingReport);
+
+        expandDiv.appendChild(reportBtn);
 
         const newBtn = document.createElement("input");
         newBtn.type = "button"
