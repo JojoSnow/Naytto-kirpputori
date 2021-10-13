@@ -1,5 +1,5 @@
 const listingArray = [];
-let objectIndex = 0;
+let objectIndex = null;
 
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
@@ -33,9 +33,7 @@ function clickOutsideAddListing(event) {
     }
 }
 
-function submitListing(event) {
-    event.preventDefault();
-    // event.preventDefault() kunnes local storage toimii
+function submitListing() {
     createNewListingObject();
 }
 
@@ -85,6 +83,30 @@ function contactSelect() {
 function contactSelectDefault() {
     document.getElementById("listing_phone").style.display = 'none';
     document.getElementById("listing_email").style.display = 'none';
+}
+
+function resetAddListing() {
+    document.getElementById("listing_name").value = "";
+    document.getElementById("listing_desc").value = "";
+    document.getElementById("listing_categ").value = null;
+    document.getElementById("listing_address").value = "";
+    document.getElementById("listing_city").value = null;
+    document.getElementById("listing_payment").value = "";
+    document.getElementById("listing_price").value = "";
+    document.getElementById("listing_contact").value = null;
+    document.getElementById("listing_cond").value = null;
+    document.getElementById("listing_email").value = "";
+    document.getElementById("listing_phone").value = "";
+
+    const imageCarrier = document.getElementById("listing_img_preview");
+    while (imageCarrier.firstChild) {
+        imageCarrier.removeChild(imageCarrier.lastChild);
+    }
+
+    while (imagerX != 0) {
+        imager.splice(imagerX - 1);
+        imagerX--;
+    }
 }
 
 // creates an object of the listing 
@@ -166,7 +188,7 @@ function createListingObjectOnStart() {
             listing.shape = "Käytetty";
             break;
     }
-    listing.id = 'listing' + objectIndex;
+    listing.id = "listing" + objectIndex;
     listing.show = "create";
 
     addToListingStorage(listing);
@@ -250,8 +272,8 @@ function createNewListingObject() {
     listing.shape = cond;
     listing.show = "create";
 
-    const listingModal = document.getElementById('add-listing-modal');
-    listingModal.style.display = 'none';
+    const listingModal = document.getElementById("add-listing-modal");
+    listingModal.style.display = "none";
 
     addToListingStorage(listing);
 
@@ -261,78 +283,61 @@ function createNewListingObject() {
 }
 
 function createOrLoadListingsOnFirstStart() {
-    if (localStorage.getItem(("storageListing") + objectIndex) == null) { // On first start, creates 5 listings
+    if (localStorage.getItem(("storageListing") + 0) == null) { // On first start, creates 5 listings
+        localStorage.setItem("listingNum", 0);
+        objectIndex = 0;
 
         createListingObjectOnStart();
         createListingObjectOnStart();
         createListingObjectOnStart();
         createListingObjectOnStart();
         createListingObjectOnStart();
-
-    } else { // On second and more starts, loads all currently saved listings
-
-        while (true) {
-            const object = JSON.parse(localStorage.getItem(("storageListing") + objectIndex));
-            if (object == null) break;
-            listingArray.push(object)
-            objectIndex++;
-        }
-    }
-
+    } else
+        objectIndex = localStorage.getItem("listingNum") - 1;
+    clearAllListings();
     createListing();
 }
 
 function addToListingStorage(listing) {
-    listingArray.push(listing);
     localStorage.setItem(("storageListing") + objectIndex, JSON.stringify(listing));
     objectIndex++;
+    localStorage.setItem("listingNum", objectIndex + 1);
 }
 
-function resetAddListing() {
-    document.getElementById("listing_name").value = "";
-    document.getElementById("listing_desc").value = "";
-    document.getElementById("listing_categ").value = null;
-    document.getElementById("listing_address").value = "";
-    document.getElementById("listing_city").value = null;
-    document.getElementById("listing_payment").value = "";
-    document.getElementById("listing_price").value = "";
-    document.getElementById("listing_contact").value = null;
-    document.getElementById("listing_cond").value = null;
-    document.getElementById("listing_email").value = "";
-    document.getElementById("listing_phone").value = "";
+function clearAllListings() {
+    let x = 0;
 
-    const imageCarrier = document.getElementById("listing_img_preview");
-    while (imageCarrier.firstChild) {
-        imageCarrier.removeChild(imageCarrier.lastChild);
+    while (x < objectIndex) {
+        const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
+        if (object != null) {
+            object.show = "create"
+            localStorage.setItem(("storageListing") + x, JSON.stringify(object));
+        }
+
+        const listing = document.getElementById("listing" + x);
+
+        if (listing != null)
+            listing.remove();
+
+        x++;
     }
-
-    while (imagerX != 0) {
-        imager.splice(imagerX - 1);
-        imagerX--;
-    }
-}
-
-function createNewDiv(x, divId, divClass, div) {
-    const newDiv = document.createElement('div');
-
-    priceP.id = divId + x;
-    priceP.className = divClass;
-
-    div.appendChild(newDiv);
 }
 
 // creates the listings for the page
 function createListing() {
     let x = 0;
-    const listingList = document.getElementById('store_listing');
+    const listingList = document.getElementById("store_listing");
 
-    for (let i = 0; listingArray.length > i; i++) {
+    while (x < objectIndex) {
 
-        const listingDiv = document.createElement('div');
-        const listingInnerDiv = document.createElement('div');
-        const listingInnerImgDiv = document.createElement('div');
-        const listingInnerInfoDiv = document.createElement('div');
-        const listingInnerExpand = document.createElement('div');
+        if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) { x++; continue; }
+
+        const listingDiv = document.createElement("div");
+        const listingInnerDiv = document.createElement("div");
+        const listingInnerImgDiv = document.createElement("div");
+        const listingInnerInfoDiv = document.createElement("div");
+        const listingInnerExpand = document.createElement("div");
 
         createNewDiv(x, listingDiv, "listing", "listing-style1", listingList)
         createNewDiv(x, listingInnerDiv, "listingInner", "inner-listing", listingDiv)
@@ -348,145 +353,131 @@ function createListing() {
 
         createDateP(x, listingInnerInfoDiv);
 
-        const expandBtn = document.createElement('input');
-        expandBtn.type = 'button'
-        expandBtn.className = 'expand-btn';
+        const expandBtn = document.createElement("input");
+        expandBtn.type = "button"
+        expandBtn.className = "expand-btn";
+        expandBtn.value = x;
+
+        expandBtn.addEventListener("click", function () {
+            expandListing(expandBtn.getAttribute("value"));
+        });
 
         listingInnerExpand.appendChild(expandBtn);
 
-        listingDiv.appendChild(listingInnerDiv);
-        listingList.appendChild(listingDiv);
-
-        x++;
-    }
-    document.querySelectorAll('.expand-btn').forEach(btn => btn.addEventListener('click', expandListing));
-}
-
-function clearAllListings() {
-    let x = 0, y = listingArray.length - 1;
-
-    if (y == 0)
-        return;
-
-    for (let x = 0; listingArray.length > x; x++)
-        listingArray[x].show = "create";
-
-    while (x < y) {
-        document.getElementById("listing" + x).remove();
         x++;
     }
 }
 
 // expanding the clicked listing
-function expandListing(event) {
+function expandListing(x) {
 
-    const targetId = event.target.parentElement.parentElement.parentElement.getAttribute('id');
-    const targetInnerId = event.target.parentElement.parentElement.getAttribute('id');
-    const listingDiv = document.getElementById(targetId);
-    const listingInnerDiv = document.getElementById(targetInnerId);
+    console.log(x);
 
-    for (let x = 0; listingArray.length > x; x++)
-        if (targetId == listingArray[x].id) {
-            if (listingArray[x].show == 'create') {
+    const listingDiv = document.getElementById("listing" + x);
+    const listingInnerDiv = document.getElementById("listingInner" + x);
 
-                const expandDiv = document.createElement('div');
-                const headerDiv = document.createElement('div');
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-                createNewDiv(x, expandDiv, "listing-expand", "listing-expand", listingDiv)
-                createNewDiv(x, headerDiv, null, null, expandDiv)
+    if (object.show == "create") {
 
-                const infoDiv = document.createElement('div');
-                const imgDiv = document.createElement('div');
-                const descDiv = document.createElement('div');
+        const expandDiv = document.createElement("div");
+        const headerDiv = document.createElement("div");
 
-                createNewDiv(x, infoDiv, null, "listing-expand-info", expandDiv);
-                createNewDiv(x, imgDiv, null, "listing-expand-imgDiv", infoDiv);
-                createNewDiv(x, descDiv, null, "listing-expand-descDiv", infoDiv);
+        createNewDiv(x, expandDiv, "listing-expand", "listing-expand", listingDiv); // x, div, id, class, adult
+        createNewDiv(x, headerDiv, null, null, expandDiv);
 
-                const externalDiv = document.createElement('div');
-                const locationDiv = document.createElement('div');
-                const ulDiv = document.createElement('div');
+        const infoDiv = document.createElement("div");
+        const imgDiv = document.createElement("div");
+        const descDiv = document.createElement("div");
 
-                createNewDiv(x, externalDiv, null, "listing-expand-external", expandDiv);
-                createNewDiv(x, locationDiv, null, "listing-expand-location", externalDiv);
-                createNewDiv(x, ulDiv, null, "listing-expand-ul", externalDiv);
+        createNewDiv(x, infoDiv, null, "listing-expand-info", expandDiv);
+        createNewDiv(x, imgDiv, null, "listing-expand-imgDiv", infoDiv);
+        createNewDiv(x, descDiv, null, "listing-expand-descDiv", infoDiv);
 
-                createTitleP(x, headerDiv, 1);
+        const externalDiv = document.createElement("div");
+        const locationDiv = document.createElement("div");
+        const ulDiv = document.createElement("div");
 
-                createImg(x, imgDiv, 1);
+        createNewDiv(x, externalDiv, null, "listing-expand-external", expandDiv);
+        createNewDiv(x, locationDiv, null, "listing-expand-location", externalDiv);
+        createNewDiv(x, ulDiv, null, "listing-expand-ul", externalDiv);
 
-                createPriceP(x, descDiv);
+        createTitleP(x, headerDiv, 1);
 
-                createDescP(x, descDiv);
+        createImg(x, imgDiv, 1);
 
-                createGoogleMaps(x, locationDiv);
+        createPriceP(x, descDiv);
 
-                createListingUl(x, ulDiv);
+        createDescP(x, descDiv);
 
-                createDateP(x, expandDiv);
+        createGoogleMaps(x, locationDiv);
 
-                /*  const reportBtn = document.createElement("button");
-                  reportBtn.innerHTML = "Ilmoita väärinkäytöstä";
-                  reportBtn.addEventListener("click", function () {
-                      reportBtn.style.display = "none";
-  
-                      const reportInput = document.createElement("input");
-                      reportInput.type = "text";
-  
-                      const reportSendBtn = document.createElement("button");
-  
-                      expandDiv.appendChild(reportInput);
-                      expandDiv.appendChild(reportSendBtn);
-                      reportSendBtn.addEventListener("click", function () {
-                          if (reportInput == "") {
-  
-                          } else {
-  
-                          }
-                      })
-                  })
-                  expandDiv.appendChild(reportBtn); */
+        createListingUl(x, ulDiv);
 
-                const newBtn = document.createElement('input');
-                newBtn.type = "button"
-                newBtn.className = "expand-btn";
-                newBtn.style.backgroundImage = "url(../img/icons/angle-up-solid.svg)";
-                expandDiv.appendChild(newBtn);
+        createDateP(x, expandDiv);
 
-                newBtn.addEventListener("click", function () {
-                    listingArray[x].show = "hide"
+        /*  const reportBtn = document.createElement("button");
+          reportBtn.innerHTML = "Ilmoita väärinkäytöstä";
+          reportBtn.addEventListener("click", function () {
+              reportBtn.style.display = "none";
+ 
+              const reportInput = document.createElement("input");
+              reportInput.type = "text";
+ 
+              const reportSendBtn = document.createElement("button");
+ 
+              expandDiv.appendChild(reportInput);
+              expandDiv.appendChild(reportSendBtn);
+              reportSendBtn.addEventListener("click", function () {
+                  if (reportInput == "") {
+ 
+                  } else {
+ 
+                  }
+              })
+          })
+          expandDiv.appendChild(reportBtn); */
 
-                    expandDiv.style.display = "none";
-                    listingDiv.className = "listing-style1";
-                    listingInnerDiv.style.display = "flex";
-                })
+        const newBtn = document.createElement("input");
+        newBtn.type = "button"
+        newBtn.className = "expand-btn";
+        newBtn.style.backgroundImage = "url(../img/icons/angle-up-solid.svg)";
+        expandDiv.appendChild(newBtn);
 
-                listingInnerDiv.style.display = "none";
-                listingDiv.className = "listing-style2";
-            } else if (listingArray[x].show == "hide") {
-                listingArray[x].show = "show";
+        newBtn.addEventListener("click", function () {
+            object.show = "hide"
 
-                listingInnerDiv.style.display = "none";
-                listingDiv.className = "listing-style2";
+            expandDiv.style.display = "none";
+            listingDiv.className = "listing-style1";
+            listingInnerDiv.style.display = "flex";
+        })
 
-                expandDiv = document.getElementById('listing-expand' + x);
-                expandDiv.style.display = "block";
-            }
-            break;
-        }
+        listingInnerDiv.style.display = "none";
+        listingDiv.className = "listing-style2";
+    } else if (object.show == "hide") {
+        object.show = "show";
+
+        listingInnerDiv.style.display = "none";
+        listingDiv.className = "listing-style2";
+
+        expandDiv = document.getElementById("listing-expand" + x);
+        expandDiv.style.display = "block";
+    }
 }
 
 function createTitleP(x, div, type) {
-    const titleP = document.createElement('p');
-    const titleNode = document.createTextNode(listingArray[x].title);
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-    titleP.id = 'name' + x;
+    const titleP = document.createElement("p");
+    const titleNode = document.createTextNode(object.title);
+
+    titleP.id = "name" + x;
     switch (type) {
         case 0:
-            titleP.className = 'listing-title';
+            titleP.className = "listing-title";
             break;
         case 1:
-            titleP.className = 'listing-expand-title';
+            titleP.className = "listing-expand-title";
     }
 
     titleP.appendChild(titleNode);
@@ -501,33 +492,37 @@ function createNewDiv(x, newDiv, divId, divClass, div) {
 }
 
 function createPriceP(x, div) {
-    const priceP = document.createElement('p');
-    const priceNode = document.createTextNode("Hinta: " + listingArray[x].price + " €");
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-    priceP.id = 'price' + x;
-    priceP.className = 'listing-price';
+    const priceP = document.createElement("p");
+    const priceNode = document.createTextNode("Hinta: " + object.price + " €");
+
+    priceP.id = "price" + x;
+    priceP.className = "listing-price";
 
     priceP.appendChild(priceNode);
     div.appendChild(priceP);
 }
 
 function createDescP(x, div) {
-    const descHeading = document.createElement('p');
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
+    const descHeading = document.createElement("p");
     const descHeadingNode = document.createTextNode("Lisätietoja:");
 
-    descHeading.className = 'listing-desc-heading';
+    descHeading.className = "listing-desc-heading";
 
     descHeading.appendChild(descHeadingNode);
     div.appendChild(descHeading);
 
-    const descP = document.createElement('p');
+    const descP = document.createElement("p");
     const descNodeEmpty = document.createTextNode("Tällä tuotteella ei ole lisätietoja");
-    const descNode = document.createTextNode(listingArray[x].desc);
+    const descNode = document.createTextNode(object.desc);
 
-    descP.id = 'desc' + x;
-    descP.className = 'listing-desc';
+    descP.id = "desc" + x;
+    descP.className = "listing-desc";
 
-    if (listingArray[x].desc == '')
+    if (object.desc == "")
         descP.appendChild(descNodeEmpty);
     else
         descP.appendChild(descNode);
@@ -536,55 +531,59 @@ function createDescP(x, div) {
 }
 
 function createDateP(x, div) {
-    const dateP = document.createElement('p');
-    const dateNode = document.createTextNode(listingArray[x].date);
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-    dateP.id = 'date' + x;
-    dateP.className = 'listing-date';
+    const dateP = document.createElement("p");
+    const dateNode = document.createTextNode(object.date);
+
+    dateP.id = "date" + x;
+    dateP.className = "listing-date";
 
     dateP.appendChild(dateNode);
     div.appendChild(dateP);
 }
 
 function createImg(x, div, type) {
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
     switch (type) {
         case 0:
-            const listingImg = document.createElement('img');
+            const listingImg = document.createElement("img");
 
-            listingImg.src = listingArray[x].img[0];
-            listingImg.alt = 'kuva'
-            listingImg.id = 'img' + x;
-            listingImg.className = 'listing-img'
+            listingImg.src = object.img[0];
+            listingImg.alt = "kuva";
+            listingImg.id = "img" + x;
+            listingImg.className = "listing-img";
 
             div.appendChild(listingImg);
 
             return;
         case 1:
-            const imgDivSmall = document.createElement('div');
-            const imgDivBig = document.createElement('div');
+            const imgDivSmall = document.createElement("div");
+            const imgDivBig = document.createElement("div");
 
-            imgDivSmall.className = 'listing-expand-imgDiv-small';
-            imgDivBig.className = 'listing-expand-imgDiv-big';
+            imgDivSmall.className = "listing-expand-imgDiv-small";
+            imgDivBig.className = "listing-expand-imgDiv-big";
 
             div.appendChild(imgDivBig);
             div.appendChild(imgDivSmall);
 
-            const listingExpandBigImg = document.createElement('img');
+            const listingExpandBigImg = document.createElement("img");
 
-            listingExpandBigImg.src = listingArray[x].img[0];
-            listingExpandBigImg.alt = 'kuva';
-            listingExpandBigImg.id = 'imgBig' + x;
-            listingExpandBigImg.className = 'listing-expand-img-main';
+            listingExpandBigImg.src = object.img[0];
+            listingExpandBigImg.alt = "kuva";
+            listingExpandBigImg.id = "imgBig" + x;
+            listingExpandBigImg.className = "listing-expand-img-main";
 
             imgDivBig.appendChild(listingExpandBigImg);
 
-            for (let i = 0; listingArray[x].img.length > i; i++) {
-                const listingExpandSmallImg = document.createElement('img');
+            for (let i = 0; object.img.length > i; i++) {
+                const listingExpandSmallImg = document.createElement("img");
 
-                listingExpandSmallImg.src = listingArray[x].img[i];
-                listingExpandSmallImg.alt = 'kuva';
-                listingExpandSmallImg.className = 'listing-expand-img-small';
-                listingExpandSmallImg.addEventListener('click', function () {
+                listingExpandSmallImg.src = object.img[i];
+                listingExpandSmallImg.alt = "kuva";
+                listingExpandSmallImg.className = "listing-expand-img-small";
+                listingExpandSmallImg.addEventListener("click", function () {
                     listingExpandBigImg.src = listingExpandSmallImg.src;
                 });
 
@@ -595,7 +594,8 @@ function createImg(x, div, type) {
 }
 
 function createGoogleMaps(x, div) {
-    var object = listingArray[x];
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
     var location = { lat: null, lng: null };
     var zoom = 6;
 
@@ -701,52 +701,54 @@ function createMapsError(div) {
 }
 
 function createListingUl(x, div) {
-    const listingUl = document.createElement('ul');
-    const categoryLi = document.createElement('li');
-    const shapeLi = document.createElement('li');
-    const addressLi = document.createElement('li');
-    const cityLi = document.createElement('li');
-    const payMethodLi = document.createElement('li');
-    const nameLi = document.createElement('li');
-    const contactLi = document.createElement('li');
+    const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-    listingUl.className = 'listing-list';
+    const listingUl = document.createElement("ul");
+    const categoryLi = document.createElement("li");
+    const shapeLi = document.createElement("li");
+    const addressLi = document.createElement("li");
+    const cityLi = document.createElement("li");
+    const payMethodLi = document.createElement("li");
+    const nameLi = document.createElement("li");
+    const contactLi = document.createElement("li");
+
+    listingUl.className = "listing-list";
     div.appendChild(listingUl);
 
-    const categoryNode = document.createTextNode('Kategoria: ' + listingArray[x].category);
-    categoryLi.className = 'listing-list-item';
+    const categoryNode = document.createTextNode("Kategoria: " + object.category);
+    categoryLi.className = "listing-list-item";
     categoryLi.appendChild(categoryNode);
     listingUl.appendChild(categoryLi);
 
-    const shapeNode = document.createTextNode('Kunto: ' + listingArray[x].shape);
-    shapeLi.className = 'listing-list-item';
+    const shapeNode = document.createTextNode("Kunto: " + object.shape);
+    shapeLi.className = "listing-list-item";
     shapeLi.appendChild(shapeNode);
     listingUl.appendChild(shapeLi);
 
-    if (listingArray[x].address !== '') {
-        const addressNode = document.createTextNode('Osoite: ' + listingArray[x].address);
-        addressLi.className = 'listing-list-item';
+    if (object.address !== "") {
+        const addressNode = document.createTextNode("Osoite: " + object.address);
+        addressLi.className = "listing-list-item";
         addressLi.appendChild(addressNode);
         listingUl.appendChild(addressLi);
     }
 
-    const cityNode = document.createTextNode('Kaupunki: ' + listingArray[x].city);
-    cityLi.className = 'listing-list-item';
+    const cityNode = document.createTextNode("Kaupunki: " + object.city);
+    cityLi.className = "listing-list-item";
     cityLi.appendChild(cityNode);
     listingUl.appendChild(cityLi);
 
-    const payMethodNode = document.createTextNode('Maksutapa: ' + listingArray[x].payMethod);
-    payMethodLi.className = 'listing-list-item';
+    const payMethodNode = document.createTextNode("Maksutapa: " + object.payMethod);
+    payMethodLi.className = "listing-list-item";
     payMethodLi.appendChild(payMethodNode);
     listingUl.appendChild(payMethodLi);
 
-    const nameNode = document.createTextNode('Listauksen tekijä: ' + listingArray[x].name);
-    nameLi.className = 'listing-list-item';
+    const nameNode = document.createTextNode("Listauksen tekijä: " + object.name);
+    nameLi.className = "listing-list-item";
     nameLi.appendChild(nameNode);
     listingUl.appendChild(nameLi);
 
-    const contactNode = document.createTextNode('Yhteydenotto: ' + listingArray[x].contact);
-    contactLi.className = 'listing-list-item';
+    const contactNode = document.createTextNode("Yhteydenotto: " + object.contact);
+    contactLi.className = "listing-list-item";
     contactLi.appendChild(contactNode);
     listingUl.appendChild(contactLi);
 }
