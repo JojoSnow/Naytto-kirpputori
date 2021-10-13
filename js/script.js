@@ -20,6 +20,9 @@ const adminSelect = document.getElementById('admin-select');
 const adminUserBtn = document.getElementById('remove-user-btn');
 const adminListingBtn = document.getElementById('remove-listing-btn');
 
+// Report
+const reportCloseBtn = document.getElementById('report-close-btn');
+
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
@@ -42,6 +45,9 @@ adminUserBtn.addEventListener('click', removeUser);
 adminListingBtn.addEventListener('click', removeListing);
 adminCloseBtn.addEventListener('click', closeAdminSettings);
 
+// Report Events
+reportCloseBtn.addEventListener('click', closeReport);
+
 // Onload Events
 window.addEventListener('load', toStorageOnLoad);
 window.addEventListener('load', stayLoggedIn);
@@ -49,7 +55,7 @@ window.addEventListener('load', stayLoggedIn);
 
 // ONLOAD FUNCTIONS
 
-// add admin info to localStorage on load
+// add info to localStorage on load
 function toStorageOnLoad() {
     const admin1 = ['bunny', 'burrow@hopping.com', 'carrot!!', 'admin0'];
     const admin2 = ['catto', 'claw@attack.co.uk', 'mouse!!123', 'admin1'];
@@ -96,7 +102,7 @@ function closeLogin() {
     resetLoginForm();
 }
 
-// logs the user or admin in - alerts don't work as they should yet
+// logs the user or admin in - remove admin from doing listings
 function login(event) {
     event.preventDefault();
 
@@ -266,6 +272,7 @@ function userLogout() {
     loginBtn.style.display = 'table-cell';
     regBtn.style.display = 'table-cell';
     addListingBtn.style.display = 'none';
+    adminBtn.style.display = 'none';
 }
 
 
@@ -518,9 +525,164 @@ function removeListing(event) {
 
 // REPORT FUNCTIONS
 
+// closes the report modal
+function closeReport() {
+    document.getElementById('report-modal').style.display = 'none';
+    localStorage.removeItem('reportListingID');
+    resetReportForm();
+}
+
 // Report listing functions
 
-// opens listing report modal
-function openListingReport() {
+// opens listing report modal - add if user is logged in
+let reportModalStatus = false;
+function openListingReport(event) {
+    document.getElementById('report-modal').style.display = 'block';
+    document.getElementById('report-title').innerHTML = 'Ilmianna listaus';
 
+    if (reportModalStatus === false) {
+        createReportForm();
+    } else if (reportModalStatus) {
+        document.getElementById('report-form').style.display = 'block';
+    }
+    
+    const listingId = event.target.parentElement.parentElement.getAttribute('id');
+    localStorage.setItem('reportListingID', listingId);
+}
+
+// adds the report to local storage
+function reportListing(event) {
+    event.preventDefault();
+
+    const checked = [];
+    
+    document.querySelectorAll('.report-check-input').forEach(function checkChecked(box) {
+        if (box.checked) {
+            checked.push(box.value);
+        }
+    })
+
+    const listingId = localStorage.getItem('reportListingID');
+    const elseMore = document.getElementById('report-else-more').value;
+
+    const report = {
+        listingId: listingId,
+        violations: checked,
+        more: elseMore
+    };
+
+    // adds specific report number for each report
+    let reportNum = 0;
+    if (!(localStorage.getItem('reportNum'))) {
+        localStorage.setItem('reportNum', 0);
+        const getReportNum = localStorage.getItem('reportNum');
+        reportNum = JSON.parse(getReportNum);
+    } else {
+        const getReportNum = localStorage.getItem('reportNum');
+        reportNum = JSON.parse(getReportNum);
+    }
+
+    localStorage.setItem('report' + reportNum, JSON.stringify(report));
+
+    reportNum++;
+    localStorage.setItem('reportNum', reportNum);
+
+}
+
+// creates form in report modal
+function createReportForm() {
+    const reportMain = document.getElementById('report-main');
+
+    const reportForm = document.createElement('form');
+    reportForm.id = 'report-form';
+    reportForm.className = 'modal-form';
+
+    reportMain.appendChild(reportForm);
+
+    createReportOption('report-bot', 'bot', 'Botti');
+    createReportLabel('report-bot', 'Listauksen teki botti-tili');
+    createReportBr();
+
+    createReportOption('report-hate', 'hate', 'Vihapuhe');
+    createReportLabel('report-hate', 'Listaus sisältää vihapuhetta');
+    createReportBr();
+
+    createReportOption('report-racist', 'racist', 'Rasistinen');
+    createReportLabel('report-racist', 'Rasistista sisältöä');
+    createReportBr();
+
+    createReportOption('report-disturbing', 'disturbing', 'Häiritsevä');
+    createReportLabel('report-disturbing', 'Häiritsevää sisältöä');
+    createReportBr();
+
+    createReportOption('report-else', 'else', 'Muuta');
+    createReportLabel('report-else', 'Jotain muuta');
+    createReportBr();
+
+    const reportTextarea = document.createElement('textarea');
+    reportTextarea.id = 'report-else-more';
+    
+    reportForm.appendChild(reportTextarea);
+
+    createReportBr();
+
+    const submitReportBtn = document.createElement('input');
+    submitReportBtn.type = 'submit';
+    submitReportBtn.id = 'submit-report-btn';
+    submitReportBtn.className = 'modal-btn';
+    submitReportBtn.value = 'Ilmianna';
+
+    reportForm.appendChild(submitReportBtn);
+
+    submitReportBtn.addEventListener('click', reportListing);
+
+    reportModalStatus = true;
+}
+
+// creates report label
+function createReportLabel(labelFor, text) {
+    const reportForm = document.getElementById('report-form');
+
+    const newLabel = document.createElement('label');
+    newLabel.htmlFor = labelFor;
+    newLabel.className = 'report-check-label';
+    newLabel.innerText = text;
+
+    reportForm.appendChild(newLabel);
+}
+
+// creates report checkbox
+function createReportOption(id, name, value) {
+    const reportForm = document.getElementById('report-form');
+
+    const newCheckbox = document.createElement('input');
+    newCheckbox.type = 'checkbox';
+    newCheckbox.id = id;
+    newCheckbox.className = 'report-check-input';
+    newCheckbox.name = name;
+    newCheckbox.value = value;
+    
+    reportForm.appendChild(newCheckbox);
+}
+
+// creates report br
+function createReportBr() {
+    const reportForm = document.getElementById('report-form');
+
+    const newBr = document.createElement('br');
+
+    reportForm.appendChild(newBr);
+}
+
+// resets the report form
+function resetReportForm() {
+    document.getElementById('report-form').reset();
+}
+
+
+// Report user functions
+
+function openUserReport() {
+    document.getElementById('report-modal').style.display = 'block';
+    document.getElementById('report-title').innerHTML = 'Ilmianna käyttäjä';
 }
