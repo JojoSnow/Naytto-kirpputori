@@ -440,12 +440,11 @@ header {
 .listing-expand-location {
     padding: 10px;
     flex: 1;
+    height: 250px;
 }
 
 .listing-expand-location map {
-    width: 100%;
     border: var(--medium-border) 1px solid;
-    padding: 25px;
 }
 
 .listing-expand-ul {
