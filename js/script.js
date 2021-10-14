@@ -430,18 +430,54 @@ function openAdminSettings() {
     if (admin !== null) {
         document.getElementById('admin-modal').style.display = 'block';
     }
+
+    reportListingToAdmin();
 }
 
 // closes admins settings modal
 function closeAdminSettings() {
     const loginModal = document.getElementById('admin-modal');
     loginModal.style.display = 'none';
-    resetAdminForm();
+    resetAdminSettings();
 }
 
-// resets the form in admin modal
-function resetAdminForm() {
+// resets the admin modal
+function resetAdminSettings() {
     document.getElementById('admin-form').reset();
+
+    document.querySelectorAll('.report-div').forEach(div => div.remove());
+}
+
+// makes the listing report show
+function reportListingToAdmin() {
+    const reportsDiv = document.getElementById('listing-reports');
+    
+    for (let i = 0; localStorage.length >= i; i++) {
+        const getReport = localStorage.getItem('reportListing' + i);
+        const report = JSON.parse(getReport);
+
+        const reportDiv = document.createElement('div');
+        reportDiv.id = report.id;
+        reportDiv.className = 'report-div';
+        reportsDiv.appendChild(reportDiv);
+        
+        const newUl = document.createElement('ul');
+        newUl.id = 'listing-report-list';
+        newUl.className = 'reports-list';
+        reportDiv.appendChild(newUl);
+
+        if (report !== null) {
+
+            createListingLi('listing-report', 'ID: ' + report.id);
+
+            for (let x = 0; report.reasons.length > x; x++) {
+                createListingLi('listing-report', 'Syy: ' + report.reasons[x]);
+            }
+            
+            createListingLi('listing-report', 'Lisää: ' + report.more);
+
+        }
+    }
 }
 
 // Admin Settings Functions
@@ -534,7 +570,7 @@ function closeReport() {
 
 // Report listing functions
 
-// opens listing report modal - add if user is logged in
+// opens listing report modal - add if someone is logged in
 let reportModalStatus = false;
 function openListingReport(event) {
     document.getElementById('report-modal').style.display = 'block';
@@ -566,9 +602,9 @@ function reportListing(event) {
     const elseMore = document.getElementById('report-else-more').value;
 
     const report = {
-        listingId: listingId,
-        violations: checked,
-        more: elseMore
+        id: listingId,
+        reasons: checked,
+        more: elseMore,
     };
 
     // adds specific report number for each report
@@ -582,11 +618,40 @@ function reportListing(event) {
         reportNum = JSON.parse(getReportNum);
     }
 
-    localStorage.setItem('report' + reportNum, JSON.stringify(report));
+    localStorage.setItem('reportListing' + reportNum, JSON.stringify(report));
 
     reportNum++;
     localStorage.setItem('reportNum', reportNum);
 
+    thanksMsg();
+    reportListingToAdmin();
+
+}
+
+// thank you message for reporting
+function thanksMsg() {
+    document.getElementById('report-form').style.display = 'none';
+    document.getElementById('report-reason').style.display = 'none';
+    document.getElementById('report-explain').style.display = 'none';
+
+    const formDiv = document.getElementById('report-main');
+    const thankMsg = document.createElement('h2');
+    thankMsg.id = 'thank-msg';
+    thankMsg.className = 'thank-msg';
+    thankMsg.innerHTML = 'Kiitos ilmiannosta!';
+
+    formDiv.appendChild(thankMsg);
+}
+
+// creates a new li element
+function createListingLi (liClass, text) {
+    const reportList = document.getElementById('listing-report-list');
+
+    const newLi = document.createElement('li');
+    newLi.className = liClass;
+    newLi.innerHTML = text;
+
+    reportList.appendChild(newLi);
 }
 
 // creates form in report modal
@@ -677,7 +742,13 @@ function createReportBr() {
 // resets the report form
 function resetReportForm() {
     document.getElementById('report-form').reset();
+
+    document.getElementById('report-reason').style.display = 'block';
+    document.getElementById('report-explain').style.display = 'block';
+    document.getElementById('thank-msg').remove();
 }
+
+
 
 
 // Report user functions
