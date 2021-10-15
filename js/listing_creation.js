@@ -1,5 +1,6 @@
 const listingArray = [];
 let objectIndex = null;
+var markers = [];
 
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
@@ -37,6 +38,22 @@ function findMe(event) {
     initMapLocator(location, 5, mapDiv)
 }
 
+function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+function hideMarkers() {
+    setMapOnAll(null);
+}
+
+function deleteMarkers() {
+    hideMarkers();
+    markers = [];
+}
+
+
 function initMapLocator(location, zoom, div) {
     var map = new google.maps.Map(div, {
         zoom: zoom,
@@ -44,11 +61,11 @@ function initMapLocator(location, zoom, div) {
     });
 
     map.addListener("click", function (event) {
+        deleteMarkers();
 
         document.getElementById("btn_use_location").disabled = false;
 
         useLocator = false;
-
         locator.lat = event.latLng.lat();
         locator.lng = event.latLng.lng();
 
@@ -56,6 +73,8 @@ function initMapLocator(location, zoom, div) {
             position: locator,
             map: map,
         });
+
+        markers.push(marker);
 
         locator.lat = locator.lat.toFixed(5);
         locator.lat = Number(locator.lat)
@@ -91,6 +110,7 @@ function unUseLocation(event) {
     useLocator = false;
     locator.lat = null;
     locator.lng = null;
+    deleteMarkers();
 }
 
 var useLocator = false;
@@ -169,13 +189,14 @@ function contactSelectDefault() {
     document.getElementById("listing_email").style.display = "none";
     document.getElementById("listing_map").style.display = "none";
     document.getElementById("p_map_location").style.display = "none";
-    document.getElementById("btn_use_location").style.display = "none";
-    document.getElementById("btn_unuse_location").style.display = "none";
-    document.getElementById("btn_use_location").disabled = true;
-    document.getElementById("btn_unuse_location").disabled = true;
-    document.getElementById("locator_button").style.display = "block";
-    document.getElementById("p_map_location").className = "textMapDef";
+    useLocationBtn.style.display = "none";
+    unUseLocationBtn.style.display = "none";
+    useLocationBtn.disabled = true;
+    unUseLocationBtn.disabled = true;
+    locatorBtn.style.display = "block";
+    locatorBtn.disabled = false;
 
+    document.getElementById("p_map_location").className = "textMapDef";
     document.getElementById("p_map_location").innerText = "Paina karttaa asettaaksesi paikannin";
 
     const name = document.getElementById("listing_name");
