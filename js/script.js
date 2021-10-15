@@ -548,7 +548,7 @@ function reportListingToAdmin() {
                     createLi('listing-report-list-' + i, 'listing-report', 'Syy: ' + report.reasons[x]);
                 }
                 
-                if (report.more !== '') {
+                if (typeof report.more !== 'undefined') {
                     createLi('listing-report-list-' + i, 'listing-report', 'Lisää: ' + report.more);
                 }
 
