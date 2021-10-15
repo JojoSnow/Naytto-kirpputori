@@ -11,6 +11,7 @@
     --highlight-dark: #058c9e;
     --logo: #3cc3d4;
     --alert: #de0f00;
+    --success: #70b970;
 }
 
 * {
@@ -455,6 +456,11 @@ header {
     border: var(--medium-border) 1px solid;
 }
 
+.listing-expand-locWarning {
+    font-size: 12px;
+    color: var(--alert);
+}
+
 .listing-expand-ul {
     flex: 1;
 }
@@ -640,6 +646,11 @@ header {
 
 /* Add listing modal */
 
+.listing-locator {
+    height: 300px;
+    width: 100%;
+}
+
 .add-listing-content {
     background-color: var(--light-bg);
     margin: 2% auto;
@@ -649,6 +660,43 @@ header {
     text-align: center;
     box-shadow: 0 5px 8px 0 rgba( 0, 0, 0, 0.2), 0 7px 20px 0 rgba( 0, 0, 0, 0.17);
     border-radius: 10px;
+}
+
+.add-listing-map-buttons {
+    background-color: var(--light-bg);
+    margin: 10px 0 10px;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+.add-listing-map p {
+    float: left;
+}
+
+.add-listing-map-buttons button {
+    background-color: var(--light-bg);
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--medium-border);
+    margin-right: 5px;
+    display: inline;
+    float: left;
+}
+
+.textMapDef {
+    font-size: 18px;
+    float: left;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.textMapSuccess {
+    font-size: 18px;
+    color: var(--success);
+    float: left;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .add-listing-main {

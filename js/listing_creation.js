@@ -1,11 +1,15 @@
 const listingArray = [];
 let objectIndex = null;
+var markers = [];
 
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
 const addListingSelect = document.getElementById('listing_contact');
 const addListingImgBtn = document.getElementById('listing_img');
 const addListingSubmit = document.getElementById('listing_submit');
+const locatorBtn = document.getElementById("locator_button");
+const useLocationBtn = document.getElementById("btn_use_location");
+const unUseLocationBtn = document.getElementById("btn_unuse_location");
 
 window.addEventListener("load", createOrLoadListingsOnFirstStart);
 addListingBtn.addEventListener('click', openAddListing);
@@ -13,6 +17,104 @@ addListingCloseBtn.addEventListener('click', closeAddListing);
 addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
 addListingSubmit.addEventListener('click', submitListing);
+locatorBtn.addEventListener("click", findMe);
+useLocationBtn.addEventListener("click", useLocation);
+unUseLocationBtn.addEventListener("click", unUseLocation);
+
+function findMe(event) {
+    event.preventDefault();
+
+    document.getElementById("locator_button").disabled = true;
+    document.getElementById("p_map_location").style.display = "block";
+    document.getElementById("btn_use_location").style.display = "block";
+    document.getElementById("btn_unuse_location").style.display = "block";
+    document.getElementById("locator_button").style.display = "none";
+
+    const mapDiv = document.getElementById("listing_map");
+    mapDiv.style.display = "block"
+
+    var location = { lat: 62.349609, lng: 26.162455 };
+
+    initMapLocator(location, 5, mapDiv)
+}
+
+function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+function hideMarkers() {
+    setMapOnAll(null);
+}
+
+function deleteMarkers() {
+    hideMarkers();
+    markers = [];
+}
+
+
+function initMapLocator(location, zoom, div) {
+    var map = new google.maps.Map(div, {
+        zoom: zoom,
+        center: location
+    });
+
+    map.addListener("click", function (event) {
+        deleteMarkers();
+
+        document.getElementById("btn_use_location").disabled = false;
+
+        useLocator = false;
+        locator.lat = event.latLng.lat();
+        locator.lng = event.latLng.lng();
+
+        const marker = new google.maps.Marker({
+            position: locator,
+            map: map,
+        });
+
+        markers.push(marker);
+
+        locator.lat = locator.lat.toFixed(5);
+        locator.lat = Number(locator.lat)
+
+        locator.lng = locator.lng.toFixed(5);
+        locator.lng = Number(locator.lat)
+
+        console.log(locator);
+
+        document.getElementById("p_map_location").innerText = "Lat = " + locator.lat + ", Lng = " + locator.lng;
+    })
+}
+
+function useLocation(event) {
+    event.preventDefault();
+    if (locator.lat == null || locator.lng == null) {
+        document.getElementById("p_map_location").innerText = "Paina karttaa asettaaksesi paikannin";
+    } else {
+        useLocator = true;
+        document.getElementById("p_map_location").innerText = "Tallennettu! " + locator.lat + ", " + locator.lng;
+        document.getElementById("p_map_location").className = "textMapSuccess";
+        document.getElementById("btn_use_location").disabled = true;
+        document.getElementById("btn_unuse_location").disabled = false;
+    }
+}
+
+function unUseLocation(event) {
+    event.preventDefault();
+    document.getElementById("p_map_location").innerText = "Paina karttaa asettaaksesi paikannin";
+    document.getElementById("btn_use_location").disabled = true;
+    document.getElementById("btn_unuse_location").disabled = true;
+    document.getElementById("p_map_location").className = "textMapDef";
+    useLocator = false;
+    locator.lat = null;
+    locator.lng = null;
+    deleteMarkers();
+}
+
+var useLocator = false;
+var locator = { lat: null, lng: null };
 
 // add listing functions
 function openAddListing() {
@@ -83,9 +185,19 @@ function contactSelect() {
 
 function contactSelectDefault() {
     document.getElementById("add_listing_error").style.display = "none";
-
     document.getElementById("listing_phone").style.display = "none";
     document.getElementById("listing_email").style.display = "none";
+    document.getElementById("listing_map").style.display = "none";
+    document.getElementById("p_map_location").style.display = "none";
+    useLocationBtn.style.display = "none";
+    unUseLocationBtn.style.display = "none";
+    useLocationBtn.disabled = true;
+    unUseLocationBtn.disabled = true;
+    locatorBtn.style.display = "block";
+    locatorBtn.disabled = false;
+
+    document.getElementById("p_map_location").className = "textMapDef";
+    document.getElementById("p_map_location").innerText = "Paina karttaa asettaaksesi paikannin";
 
     const name = document.getElementById("listing_name");
     name.value = "";
@@ -161,6 +273,7 @@ function createListingObjectOnStart() {
             listing.price = 5;
             listing.contact = "Sähköposti";
             listing.shape = "Käytetty";
+            listing.location = { lat: 61.198177, lng: 28.783296 };
             break;
         case 1:
             listing.title = "Pölynimuri";
@@ -175,6 +288,7 @@ function createListingObjectOnStart() {
             listing.price = 20;
             listing.contact = "Sähköposti";
             listing.shape = "Käytetty";
+            listing.location = { lat: null, lng: null };
             break;
         case 2:
             listing.title = "Harry Potter kirja-kokoelma";
@@ -189,6 +303,7 @@ function createListingObjectOnStart() {
             listing.price = 5000;
             listing.contact = "Sähköposti";
             listing.shape = "Erinomainen";
+            listing.location = { lat: null, lng: null };
             break;
         case 3:
             listing.title = "Entinen kitara";
@@ -203,6 +318,7 @@ function createListingObjectOnStart() {
             listing.price = 20;
             listing.contact = "Sähköposti";
             listing.shape = "Rikki";
+            listing.location = { lat: null, lng: null };
             break;
         case 4:
             listing.title = "Kotini";
@@ -219,6 +335,7 @@ function createListingObjectOnStart() {
             listing.price = 499;
             listing.contact = "Puhelin";
             listing.shape = "Käytetty";
+            listing.location = { lat: null, lng: null };
             break;
     }
     listing.id = "listing" + objectIndex;
@@ -244,8 +361,6 @@ function createNewListingObject() {
     var cond = document.getElementById("listing_cond");
 
     var allIsFilled = true;
-
-    //Lisää function toimittomuuden syyt tekijälle
 
     if (title.value == "") {
         title.className = "listing-input-error";
@@ -347,6 +462,12 @@ function createNewListingObject() {
         listing.contact = contact;
         listing.shape = cond.value;
         listing.show = "create";
+
+        if (useLocator)
+            listing.location = locator
+        else {
+            listing.location = { lat: null, lng: null };
+        }
 
         const listingModal = document.getElementById("add-listing-modal");
         listingModal.style.display = "none";
@@ -450,8 +571,6 @@ function createListing() {
 // expanding the clicked listing
 function expandListing(x) {
 
-    console.log(x);
-
     const listingDiv = document.getElementById("listing" + x);
     const listingInnerDiv = document.getElementById("listingInner" + x);
 
@@ -475,10 +594,12 @@ function expandListing(x) {
 
         const externalDiv = document.createElement("div");
         const locationDiv = document.createElement("div");
+        const locatorWarningDiv = document.createElement("div");
         const ulDiv = document.createElement("div");
 
         createNewDiv(x, externalDiv, null, "listing-expand-external", expandDiv);
         createNewDiv(x, locationDiv, null, "listing-expand-location", externalDiv);
+        createNewDiv(x, locatorWarningDiv, "locWarning", "listing-expand-locWarning", externalDiv);
         createNewDiv(x, ulDiv, null, "listing-expand-ul", externalDiv);
 
         createTitleP(x, headerDiv, 1);
@@ -726,26 +847,40 @@ function createListingUl(x, div) {
 function createGoogleMaps(x, div) {
     const object = JSON.parse(localStorage.getItem(("storageListing") + x));
 
-    var zoom = 6;
+    var zoom = 8;
 
-    if (object.city == "Muu") {
-        createMapsError(div);
-        return;
-    }
-
-    var location = findCity(object);
+    var city = findCity(object);
 
     if (object.city == "Ulkomaalainen")
         zoom = 4;
 
-    initMap(location, zoom, div);
+    marker = { lat: object.location.lat, lng: object.location.lng };
+
+    if (marker.lat == null || marker.lng == null) {
+        const warningDiv = document.getElementById("locWarning" + x);
+        const warningP = document.createElement("p");
+        const warningNode = document.createTextNode("Aluetta ei pystytty paikantamaan");
+        warningP.appendChild(warningNode);
+        warningDiv.appendChild(warningP);
+    }
+
+    initMapFinder(city, zoom, div, marker);
 }
 
-function initMap(location, zoom, div) {
-    var map = new google.maps.Map(div, {
+function initMapFinder(city, zoom, div, markPos) {
+    const map = new google.maps.Map(div, {
         zoom: zoom,
-        center: location
+        center: city
     });
+
+    console.log(markPos);
+
+    if (markPos.lat != null || markPos.lng != null) {
+        const marker = new google.maps.Marker({
+            position: markPos,
+            map: map,
+        });
+    }
 }
 
 function createMapsError(div) {
@@ -965,10 +1100,11 @@ function findCity(object) { // https://developers.google.com/maps/documentation/
             location.lat = 62.186014;
             location.lng = 26.000915;
             break;
-        default:
-            createMapsError(div);
-            return;
         case "Ulkomaalainen":
+            location.lat = -8.581021;
+            location.lng = -55.749495;
+            break;
+        default:
             location.lat = -8.581021;
             location.lng = -55.749495;
             break;
