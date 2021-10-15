@@ -596,8 +596,20 @@ function expandListing(x) {
         createDateP(x, expandDiv);
 
         const reportBtn = document.createElement("button");
-        reportBtn.className = 'listing-report-btn'
+        reportBtn.id = 'listing-report-btn';
+        reportBtn.className = 'listing-report-btn';
         reportBtn.innerHTML = "Ilmianna";
+
+        const getAdmin = localStorage.getItem('adminLogged');
+        const admin = JSON.parse(getAdmin);
+        const getUser = localStorage.getItem('userLogged');
+        const user = JSON.parse(getUser);
+
+        if (admin === null && user === null) {
+            reportBtn.style.display = 'none';
+        } else if (admin !== null || user !== null) {
+            reportBtn.style.display = 'inline-block';
+        }
 
         reportBtn.addEventListener("click", openListingReport);
 

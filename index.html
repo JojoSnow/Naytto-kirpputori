@@ -49,6 +49,8 @@
 
         </header>
 
+    <div id="main">
+        
         <section id="login-modal" class="modal">
             <div id="login-content" class="modal-content">
 
@@ -134,13 +136,8 @@
                     <p id="reports-title" class="modal-label">Raportit</p>
                     <div id="reports">
 
-
-                        <div id="user-reports" class="report-div">
+                        <div id="user-reports" class="admin-report-div">
                             <p class="reports-list-title">Käyttäjät</p>
-                            <ul id="user-report-list" class="reports-list">
-                                <li class="user-report">ID:</li>
-                                <li class="user-report">Rike:</li>
-                            </ul>
                             <ul id="user-report-list" class="reports-list">
                                 <li class="user-report">ID:</li>
                                 <li class="user-report">Rike:</li>
@@ -148,18 +145,8 @@
 
                         </div>
 
-                        <div id="listing-reports" class="report-div">
+                        <div id="listing-reports" class="admin-report-div">
                             <p class="reports-list-title">Listaukset</p>
-                            <ul id="listing-report-list" class="reports-list">
-                                <li class="listing-report">ID:</li>
-                                <li class="listing-report">Rike:</li>
-                            </ul>
-                            <ul id="listing-report-list" class="reports-list">
-                                <li class="listing-report">ID:</li>
-                                <li class="listing-report">Rike:</li>
-                            </ul>
-
-
                         </div>
                     </div>
 
@@ -476,6 +463,27 @@
             </div>
 
         </section>
+
+        <section id="report-modal" class="modal">
+            <div id="report-content" class="modal-content">
+
+                <div id="report-header" class="modal-header">
+                    <span id="report-close-btn" class="modal-close-btn">&times;</span>
+                    <h2 id="report-title"></h2>
+                </div>
+
+                <div id="report-main" class="modal-main">
+                    <p id="report-reason" class="modal-label">Ilmiannon syy:</p>
+                    <p id="report-explain" class="report-alert"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
 
         <!--Add #container more padding-bottom if you want the footer further away-->
         <footer>
