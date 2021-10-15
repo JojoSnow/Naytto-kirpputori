@@ -32,6 +32,11 @@ body {
     /* Add if you want the footer further way */
 }
 
+#main {
+    width: 70%;
+    margin: auto;
+}
+
 /* Header */
 
 header {
@@ -114,7 +119,6 @@ header {
 
 .info {
     height: 400px;
-    width: 80%;
     position: relative;
     margin: 40px auto;
 }
@@ -149,7 +153,6 @@ header {
 /* Storefront */
 
 .store {
-    width: 80%;
     margin: auto;
 }
 
@@ -502,6 +505,23 @@ header {
     display: none;
 }
 
+.listing-report-btn {
+    color: var(--light-text);
+    margin: auto;
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 0.5px solid var(--medium-border);
+    border-radius: 5px;
+    background-color: var(--highlight-light);
+    float: right;
+}
+
+.listing-report-btn:hover {
+    cursor: pointer;
+    background-color: var(--highlight-medium);
+    color: var(--light-text);
+}
+
 /* LOGIN & REGISTRATION MODALS */
 
 .modal {
@@ -737,7 +757,7 @@ header {
     display: flex;
 }
 
-.report-div {
+.admin-report-div {
     width: 50%;
     margin: 5px 5px 5px 0;
 }
@@ -749,7 +769,7 @@ header {
 .reports-list {
     list-style-type: square;
     padding-left: 17px;
-    margin: 10px 0;
+    margin: 10px 0 0 0;
 }
 
 #admin-form {
@@ -759,6 +779,40 @@ header {
 .selected-div {
     display: none;
 }
+
+/* Report Modal */
+
+#report-main {
+    text-align: left;
+    margin-left: 10px;
+}
+
+#report-reason {
+    margin: 15px 0 10px 0; 
+}
+
+.report-alert {
+    display: none;
+    font-size: 14px;
+    color: var(--alert);
+}
+
+.report-check-input {
+    margin: 7px;
+}
+
+#report-else-more {
+    margin: 10px;
+    width: 70%;
+    min-height: 40px;
+    height: 40px;
+}
+
+.thank-msg {
+    text-align: center;
+    margin: 40px auto;
+}
+
 
 /* ------- ABOUT US ------- */
 

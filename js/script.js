@@ -234,8 +234,8 @@ function loginSuccess() {
 
     loginModalBtn.style.display = 'none';
 
-    // closes the login modal after 2 seconds of a successful login -- maybe an animation for closing?
-    setTimeout(closeLogin, 2000);
+    // closes the login modal after 1,5 seconds of a successful login -- maybe an animation for closing?
+    setTimeout(closeLogin, 1500);
 }
 
 // resets the login form when it is closed
@@ -415,8 +415,8 @@ function regSuccess() {
     success.innerHTML = 'Rekisteröityminen onnistui!';
     regModalBtn.style.display = 'none';
 
-    // closes the registration modal after 2 seconds of a successful registration
-    setTimeout(closeReg, 2000);
+    // closes the registration modal after 1,5 seconds of a successful registration
+    setTimeout(closeReg, 1500);
 }
 
 
@@ -445,39 +445,7 @@ function closeAdminSettings() {
 function resetAdminSettings() {
     document.getElementById('admin-form').reset();
 
-    document.querySelectorAll('.report-div').forEach(div => div.remove());
-}
-
-// makes the listing report show
-function reportListingToAdmin() {
-    const reportsDiv = document.getElementById('listing-reports');
-    
-    for (let i = 0; localStorage.length >= i; i++) {
-        const getReport = localStorage.getItem('reportListing' + i);
-        const report = JSON.parse(getReport);
-
-        const reportDiv = document.createElement('div');
-        reportDiv.id = report.id;
-        reportDiv.className = 'report-div';
-        reportsDiv.appendChild(reportDiv);
-        
-        const newUl = document.createElement('ul');
-        newUl.id = 'listing-report-list';
-        newUl.className = 'reports-list';
-        reportDiv.appendChild(newUl);
-
-        if (report !== null) {
-
-            createListingLi('listing-report', 'ID: ' + report.id);
-
-            for (let x = 0; report.reasons.length > x; x++) {
-                createListingLi('listing-report', 'Syy: ' + report.reasons[x]);
-            }
-            
-            createListingLi('listing-report', 'Lisää: ' + report.more);
-
-        }
-    }
+    document.querySelectorAll('.reports-list').forEach(list => list.remove());
 }
 
 // Admin Settings Functions
@@ -558,6 +526,48 @@ function removeListing(event) {
     }
 }
 
+// makes the listing reports show in admin settings
+function reportListingToAdmin() {
+    const reportsDiv = document.getElementById('listing-reports');
+    
+    for (let i = 0; localStorage.length >= i; i++) {
+        const getReport = localStorage.getItem('reportListing' + i);
+        const report = JSON.parse(getReport);
+
+        if (report !== null) {
+            if (Object.keys(report).length !== 0) {
+                
+                const newUl = document.createElement('ul');
+                newUl.id = 'listing-report-list-' + i;
+                newUl.className = 'reports-list';
+                reportsDiv.appendChild(newUl);
+
+                createLi('listing-report-list-' + i, 'listing-report', 'ID: ' + report.id);
+
+                for (let x = 0; report.reasons.length > x; x++) {
+                    createLi('listing-report-list-' + i, 'listing-report', 'Syy: ' + report.reasons[x]);
+                }
+                
+                if (report.more !== '') {
+                    createLi('listing-report-list-' + i, 'listing-report', 'Lisää: ' + report.more);
+                }
+
+            }
+        }
+    }
+}
+
+// creates a new li element
+function createLi (listId, liClass, text) {
+    const reportList = document.getElementById(listId);
+
+    const newLi = document.createElement('li');
+    newLi.className = liClass;
+    newLi.innerHTML = text;
+
+    reportList.appendChild(newLi);
+}
+
 
 // REPORT FUNCTIONS
 
@@ -591,6 +601,7 @@ function reportListing(event) {
     event.preventDefault();
 
     const checked = [];
+    let report = {};
     
     document.querySelectorAll('.report-check-input').forEach(function checkChecked(box) {
         if (box.checked) {
@@ -599,32 +610,49 @@ function reportListing(event) {
     })
 
     const listingId = localStorage.getItem('reportListingID');
-    const elseMore = document.getElementById('report-else-more').value;
 
-    const report = {
-        id: listingId,
-        reasons: checked,
-        more: elseMore,
-    };
+    if (checked.length !== 0) {
 
-    // adds specific report number for each report
-    let reportNum = 0;
-    if (!(localStorage.getItem('reportNum'))) {
-        localStorage.setItem('reportNum', 0);
-        const getReportNum = localStorage.getItem('reportNum');
-        reportNum = JSON.parse(getReportNum);
+        if (document.getElementById('report-else').checked) {
+            const elseMore = document.getElementById('report-else-more').value;
+
+            if (elseMore !== '') {
+                report = {
+                    id: listingId,
+                    reasons: checked,
+                    more: elseMore
+                };
+            }
+        } else {
+            report = {
+                id: listingId,
+                reasons: checked
+            };
+        }
+
+        // adds specific report number for each report
+        let reportNum = 0;
+        if (!(localStorage.getItem('reportNum'))) {
+            localStorage.setItem('reportNum', 0);
+            const getReportNum = localStorage.getItem('reportNum');
+            reportNum = JSON.parse(getReportNum);
+        } else {
+            const getReportNum = localStorage.getItem('reportNum');
+            reportNum = JSON.parse(getReportNum);
+        }
+
+        localStorage.setItem('reportListing' + reportNum, JSON.stringify(report));
+
+        reportNum++;
+        localStorage.setItem('reportNum', reportNum);
+
+        thanksMsg();
+        reportListingToAdmin();
+
     } else {
-        const getReportNum = localStorage.getItem('reportNum');
-        reportNum = JSON.parse(getReportNum);
+        document.getElementById('report-explain').innerHTML = 'Valitse ainakin yksi vaihtoehto';
+        document.getElementById('report-explain').style.display = 'block';
     }
-
-    localStorage.setItem('reportListing' + reportNum, JSON.stringify(report));
-
-    reportNum++;
-    localStorage.setItem('reportNum', reportNum);
-
-    thanksMsg();
-    reportListingToAdmin();
 
 }
 
@@ -641,17 +669,11 @@ function thanksMsg() {
     thankMsg.innerHTML = 'Kiitos ilmiannosta!';
 
     formDiv.appendChild(thankMsg);
-}
 
-// creates a new li element
-function createListingLi (liClass, text) {
-    const reportList = document.getElementById('listing-report-list');
-
-    const newLi = document.createElement('li');
-    newLi.className = liClass;
-    newLi.innerHTML = text;
-
-    reportList.appendChild(newLi);
+    setTimeout(function close() {
+        document.getElementById('thank-msg').remove();
+        closeReport();
+    }, 1500)
 }
 
 // creates form in report modal
@@ -688,9 +710,16 @@ function createReportForm() {
     reportTextarea.id = 'report-else-more';
     
     reportForm.appendChild(reportTextarea);
+    reportTextarea.style.display = 'none';
 
-    createReportBr();
-
+    document.getElementById('report-else').addEventListener('change', function showTextarea() {
+        if (this.checked) {
+            reportTextarea.style.display = 'block';
+        } else {
+            reportTextarea.style.display = 'none';
+        }
+    });
+    
     const submitReportBtn = document.createElement('input');
     submitReportBtn.type = 'submit';
     submitReportBtn.id = 'submit-report-btn';
@@ -743,11 +772,10 @@ function createReportBr() {
 function resetReportForm() {
     document.getElementById('report-form').reset();
 
+    document.getElementById('report-else-more').style.display = 'none';
     document.getElementById('report-reason').style.display = 'block';
-    document.getElementById('report-explain').style.display = 'block';
-    document.getElementById('thank-msg').remove();
+    document.getElementById('report-explain').style.display = 'none';
 }
-
 
 
 
