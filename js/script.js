@@ -501,15 +501,17 @@ function removeUser(event) {
 function removeListing(event) {
     event.preventDefault();
 
-    for (let i = 0; localStorage.length >= i; i++) {        
+    const listingId = document.getElementById('listing-id').value;
+
+    // removes the chosen listing from the listings and from local storage
+    for (let i = 0; 50 > i; i++) {        
         const getListing = localStorage.getItem('storageListing' + i);
         const listingObject = JSON.parse(getListing);
-        const listingId = document.getElementById('listing-id').value;
-        // removes objects by their id value
+        
         if (listingObject !== null) {
             if (listingId === listingObject.id) {
                 localStorage.removeItem('storageListing' + i);
-
+                
                 document.getElementById(listingObject.id).remove();
 
                 document.getElementById('listing-id').style.borderColor = '#a0a0a0';
@@ -521,6 +523,19 @@ function removeListing(event) {
                 document.getElementById('listing-id').style.borderColor = '#de0f00';
                 document.getElementById('listing-id-alert').style.display = 'block';
                 document.getElementById('listing-id-alert').innerHTML = 'Listaus ID on virheellinen';
+            }
+        }
+    }
+
+    // removes the chosen listing reports from local storage and admin settings
+    for (let x = 0; 50 > x; x++) {
+        const getReport = localStorage.getItem('reportListing' + x);
+        const report = JSON.parse(getReport);
+
+        if (report !== null) {
+            if (report.id === listingId) {
+                localStorage.removeItem('reportListing' + x);
+                document.getElementById('reportListing' + x).remove();
             }
         }
     }
@@ -538,18 +553,18 @@ function reportListingToAdmin() {
             if (Object.keys(report).length !== 0) {
                 
                 const newUl = document.createElement('ul');
-                newUl.id = 'listing-report-list-' + i;
+                newUl.id = report.key;
                 newUl.className = 'reports-list';
                 reportsDiv.appendChild(newUl);
 
-                createLi('listing-report-list-' + i, 'listing-report', 'ID: ' + report.id);
+                createLi(report.key, 'listing-report', 'ID: ' + report.id);
 
                 for (let x = 0; report.reasons.length > x; x++) {
-                    createLi('listing-report-list-' + i, 'listing-report', 'Syy: ' + report.reasons[x]);
+                    createLi(report.key, 'listing-report', 'Syy: ' + report.reasons[x]);
                 }
                 
                 if (typeof report.more !== 'undefined') {
-                    createLi('listing-report-list-' + i, 'listing-report', 'Lisää: ' + report.more);
+                    createLi(report.key, 'listing-report', 'Lisää: ' + report.more);
                 }
 
             }
@@ -613,23 +628,6 @@ function reportListing(event) {
 
     if (checked.length !== 0) {
 
-        if (document.getElementById('report-else').checked) {
-            const elseMore = document.getElementById('report-else-more').value;
-
-            if (elseMore !== '') {
-                report = {
-                    id: listingId,
-                    reasons: checked,
-                    more: elseMore
-                };
-            }
-        } else {
-            report = {
-                id: listingId,
-                reasons: checked
-            };
-        }
-
         // adds specific report number for each report
         let reportNum = 0;
         if (!(localStorage.getItem('reportNum'))) {
@@ -641,13 +639,37 @@ function reportListing(event) {
             reportNum = JSON.parse(getReportNum);
         }
 
+        if (document.getElementById('report-else').checked) {
+            const elseMore = document.getElementById('report-else-more').value;
+
+            if (elseMore !== '') {
+                report = {
+                    id: listingId,
+                    reasons: checked,
+                    more: elseMore,
+                    key: 'reportListing' + reportNum
+                };
+            }  else {
+                report = {
+                    id: listingId,
+                    reasons: checked,
+                    key: 'reportListing' + reportNum
+                };
+            }
+        } else {
+            report = {
+                id: listingId,
+                reasons: checked,
+                key: 'reportListing' + reportNum
+            };
+        }
+
         localStorage.setItem('reportListing' + reportNum, JSON.stringify(report));
 
         reportNum++;
         localStorage.setItem('reportNum', reportNum);
 
         thanksMsg();
-        reportListingToAdmin();
 
     } else {
         document.getElementById('report-explain').innerHTML = 'Valitse ainakin yksi vaihtoehto';
@@ -775,13 +797,4 @@ function resetReportForm() {
     document.getElementById('report-else-more').style.display = 'none';
     document.getElementById('report-reason').style.display = 'block';
     document.getElementById('report-explain').style.display = 'none';
-}
-
-
-
-// Report user functions
-
-function openUserReport() {
-    document.getElementById('report-modal').style.display = 'block';
-    document.getElementById('report-title').innerHTML = 'Ilmianna käyttäjä';
 }
