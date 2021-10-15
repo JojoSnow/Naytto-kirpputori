@@ -80,7 +80,7 @@ function initMapLocator(location, zoom, div) {
         locator.lat = Number(locator.lat)
 
         locator.lng = locator.lng.toFixed(5);
-        locator.lng = Number(locator.lat)
+        locator.lng = Number(locator.lng)
 
         console.log(locator);
 
@@ -969,132 +969,132 @@ function findCity(object) { // https://developers.google.com/maps/documentation/
             location.lng = 27.433173;
             break;
         case "Kerava":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.403383;
+            location.lng = 25.104175;
             break;
         case "Kokkola":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 63.838928;
+            location.lng = 23.133657;
             break;
         case "Kotka":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.467162;
+            location.lng = 26.945404;
             break;
         case "Kouvola":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.869906;
+            location.lng = 26.701903;
             break;
         case "Kuopio":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 62.892206;
+            location.lng = 27.678394;
             break;
         case "Lahti":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.982351;
+            location.lng = 25.661290;
             break;
         case "Lappeenranta":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.058119;
+            location.lng = 28.187490;
             break;
         case "Lohja":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.252292;
+            location.lng = 24.068770;
             break;
         case "Loviisa":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.456350;
+            location.lng = 26.227232;
             break;
         case "Mikkeli":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.687430;
+            location.lng = 27.273005;
             break;
         case "Naantali":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.468748;
+            location.lng = 22.029149;
             break;
         case "Nokia":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.478014;
+            location.lng = 23.509858;
             break;
         case "Närpiö":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 62.477515;
+            location.lng = 21.336766;
             break;
         case "Oulu":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 65.011793;
+            location.lng = 25.472112;
             break;
         case "Pietarsaari":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 63.665913;
+            location.lng = 22.699698;
             break;
         case "Pori":
             location.lat = 61.486332;
-            location.lng = 21.796935;
+            location.lng = 21.796934;
             break;
         case "Porvoo":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.395159;
+            location.lng = 25.660761;
             break;
         case "Raahe":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 64.679620;
+            location.lng = 24.470728;
             break;
         case "Raasepori":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 59.980913;
+            location.lng = 23.443507;
             break;
         case "Raisio":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.487759;
+            location.lng = 22.164681;
             break;
         case "Rauma":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.128775;
+            location.lng = 21.503906;
             break;
         case "Riihimäki":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.738525;
+            location.lng = 24.772740;
             break;
         case "Rovaniemi":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 66.496973;
+            location.lng = 25.718899;
             break;
         case "Salo":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.384344;
+            location.lng = 23.128398;
             break;
         case "Savonlinna":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.868899;
+            location.lng = 28.879824;
             break;
         case "Seinäjoki":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 62.795249;
+            location.lng = 22.844504;
             break;
         case "Tampere":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.497885;
+            location.lng = 23.760054;
             break;
         case "Tornio":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 65.845555;
+            location.lng = 24.146198;
             break;
         case "Turku":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.451123;
+            location.lng = 22.267514;
             break;
         case "Ulvila":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 61.433227;
+            location.lng = 21.883293;
             break;
         case "Vaasa":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 63.095613;
+            location.lng = 21.615825;
             break;
         case "Vantaa":
-            location.lat = 0;
-            location.lng = 0;
+            location.lat = 60.309054;
+            location.lng = 25.036531;
             break;
         case "Varkaus":
             location.lat = 62.186014;

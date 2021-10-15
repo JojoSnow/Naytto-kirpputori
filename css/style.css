@@ -675,6 +675,7 @@ header {
 }
 
 .add-listing-map-buttons button {
+    font-size: 16px;
     background-color: var(--light-bg);
     padding: 5px;
     border-radius: 5px;
@@ -682,6 +683,7 @@ header {
     margin-right: 5px;
     display: inline;
     float: left;
+    height: 30px;
 }
 
 .textMapDef {
