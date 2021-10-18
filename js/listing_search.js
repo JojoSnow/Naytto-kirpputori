@@ -1,13 +1,24 @@
 const searchButton = document.getElementById('search_button');
 
+let amountQ = 0;
+let amountW = 0;
+let amountE = 0;
 searchButton.addEventListener('click', searchListings);
 
 function searchListings(event) {
     event.preventDefault();
 
-    for (let x = 0; listingArray.length > x; x++) {
+    let x = 0;
+
+    while (x < objectIndex) {
+        if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) {
+            x++;
+            continue;
+        }
+
         const listing = document.getElementById("listing" + x);
-        const object = listingArray[x];
+        const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+
         var statement = true;
 
         const finCheck = document.getElementById("fin_checkbox")
@@ -86,11 +97,15 @@ function searchListings(event) {
         }
 
         //Final
-        if (statement)
+        if (statement) {
             openListingAfterSearch(listing);
-        else
+            amountE--;
+        } else {
             closeListingAfterSearch(listing)
+        }
+        x++;
     }
+    updateListingAmountInfo();
 }
 
 function closeListingAfterSearch(listing) {
@@ -99,4 +114,37 @@ function closeListingAfterSearch(listing) {
 
 function openListingAfterSearch(listing) {
     listing.style.display = "block";
+}
+
+function updateListingAmountInfo() {
+    let x = 0;
+
+    amountQ = objectIndex;
+    amountW = 0;
+    amountE = objectIndex;
+
+    while (x < objectIndex) {
+        if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) {
+            x++;
+            amountQ--;
+            amountE--;
+            continue;
+        }
+
+        const object = JSON.parse(localStorage.getItem(("storageListing") + x));
+        const listing = document.getElementById("listing" + x);
+
+        if (object.price == 0)
+
+            amountW++;
+
+        if (listing.style.display == "block")
+
+            amountE--;
+
+        x++;
+    }
+    document.getElementById("listingCounterAll").innerText = "Ilmoituksia: " + amountQ;
+    document.getElementById("listingCounterFree").innerText = "Ilmaisia: " + amountW;
+    document.getElementById("listingCounterFiltered").innerText = "Suodatettu: " + amountE;
 }

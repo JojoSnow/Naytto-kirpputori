@@ -566,6 +566,7 @@ function createListing() {
 
         x++;
     }
+    updateListingAmountInfo()
 }
 
 // expanding the clicked listing
