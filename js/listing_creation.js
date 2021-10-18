@@ -1,6 +1,7 @@
 const listingArray = [];
 let objectIndex = null;
 var markers = [];
+var listingAddLocatorMap
 
 const addListingBtn = document.getElementById('add-listing-btn');
 const addListingCloseBtn = document.getElementById('listing-close-btn');
@@ -8,6 +9,7 @@ const addListingSelect = document.getElementById('listing_contact');
 const addListingImgBtn = document.getElementById('listing_img');
 const addListingSubmit = document.getElementById('listing_submit');
 const locatorBtn = document.getElementById("locator_button");
+const currentLocationBtn = document.getElementById("current_location_finder");
 const useLocationBtn = document.getElementById("btn_use_location");
 const unUseLocationBtn = document.getElementById("btn_unuse_location");
 
@@ -18,8 +20,55 @@ addListingSelect.addEventListener('click', contactSelect);
 addListingImgBtn.addEventListener('change', addListingImg);
 addListingSubmit.addEventListener('click', submitListing);
 locatorBtn.addEventListener("click", findMe);
+currentLocationBtn.addEventListener("click", getMyCurrentLocation);
 useLocationBtn.addEventListener("click", useLocation);
 unUseLocationBtn.addEventListener("click", unUseLocation);
+
+function getMyCurrentLocation(event) {
+    event.preventDefault();
+
+    if (navigator.geolocation) {
+        // timeout at 30000 milliseconds (30 seconds)
+        var options = { timeout: 30000 };
+        navigator.geolocation.getCurrentPosition
+            (showLocation, errorHandler, options);
+    } else {
+        alert("Sorry, browser does not support geolocation!");
+    }
+}
+
+function errorHandler(err) {
+    if (err.code == 1) {
+        alert("Error: Access is denied!");
+    } else if (err.code == 2) {
+        alert("Error: Position is unavailable!");
+    }
+}
+
+function showLocation(position) {
+
+    locator = { lat: position.coords.latitude, lng: position.coords.longitude };
+    document.getElementById("p_map_location").innerText = "Lat = " + locator.lat + ", Lng = " + locator.lng;
+
+    deleteMarkers();
+
+    const marker = new google.maps.Marker({
+        position: locator,
+        map: listingAddLocatorMap,
+    });
+
+    markers.push(marker);
+
+    locator.lat = locator.lat.toFixed(5);
+    locator.lat = Number(locator.lat)
+
+    locator.lng = locator.lng.toFixed(5);
+    locator.lng = Number(locator.lng)
+
+    console.log(locator);
+
+    useLocationBtn.disabled = false;
+}
 
 function findMe(event) {
     event.preventDefault();
@@ -28,6 +77,7 @@ function findMe(event) {
     document.getElementById("p_map_location").style.display = "block";
     document.getElementById("btn_use_location").style.display = "block";
     document.getElementById("btn_unuse_location").style.display = "block";
+    document.getElementById("current_location_finder").style.display = "block";
     document.getElementById("locator_button").style.display = "none";
 
     const mapDiv = document.getElementById("listing_map");
@@ -38,9 +88,9 @@ function findMe(event) {
     initMapLocator(location, 5, mapDiv)
 }
 
-function setMapOnAll(map) {
+function setMapOnAll(setMarker) {
     for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
+        markers[i].setMap(setMarker);
     }
 }
 
@@ -55,12 +105,12 @@ function deleteMarkers() {
 
 
 function initMapLocator(location, zoom, div) {
-    var map = new google.maps.Map(div, {
+    listingAddLocatorMap = new google.maps.Map(div, {
         zoom: zoom,
         center: location
     });
 
-    map.addListener("click", function (event) {
+    listingAddLocatorMap.addListener("click", function (event) {
         deleteMarkers();
 
         document.getElementById("btn_use_location").disabled = false;
@@ -71,7 +121,7 @@ function initMapLocator(location, zoom, div) {
 
         const marker = new google.maps.Marker({
             position: locator,
-            map: map,
+            map: listingAddLocatorMap,
         });
 
         markers.push(marker);
@@ -189,6 +239,7 @@ function contactSelectDefault() {
     document.getElementById("listing_email").style.display = "none";
     document.getElementById("listing_map").style.display = "none";
     document.getElementById("p_map_location").style.display = "none";
+    document.getElementById("current_location_finder").style.display = "none";
     useLocationBtn.style.display = "none";
     unUseLocationBtn.style.display = "none";
     useLocationBtn.disabled = true;

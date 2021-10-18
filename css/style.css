@@ -684,7 +684,7 @@ header {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid var(--medium-border);
-    margin-right: 5px;
+    margin: 5px;
     display: inline;
     float: left;
     height: 30px;
