@@ -121,13 +121,12 @@ function updateListingAmountInfo() {
 
     amountQ = objectIndex;
     amountW = 0;
-    amountE = objectIndex;
+    amountE = 0;
 
     while (x < objectIndex) {
         if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) {
             x++;
             amountQ--;
-            amountE--;
             continue;
         }
 
@@ -138,9 +137,9 @@ function updateListingAmountInfo() {
 
             amountW++;
 
-        if (listing.style.display == "block")
+        if (listing.style.display == "none")
 
-            amountE--;
+            amountE++;
 
         x++;
     }
