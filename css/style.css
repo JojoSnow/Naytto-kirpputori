@@ -293,14 +293,8 @@ header {
     background-color: var(--light-bg);
     float: left;
     width: 350px;
-    height: 160px;
-}
-
-.listing-title {
-    font-family: fantasy;
-    text-transform: capitalize;
-    font-size: larger;
-    display: inline;
+    height: 135px;
+    border-radius: 8px;
 }
 
 .inner-listing {
@@ -324,6 +318,16 @@ header {
     flex: 1;
     display: block;
     float: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inner-listing-info .listing-title {
+    font-family: fantasy;
+    text-transform: capitalize;
+    font-size: larger;
+    display: inline;
+    white-space: nowrap;
 }
 
 .inner-listing-info .listing-price {
@@ -358,8 +362,8 @@ header {
     border: 1px solid var(--medium-border);
     background-color: var(--light-bg);
     width: 100%;
-    max-width: 900px;
     float: left;
+    border-radius: 18px;
 }
 
 .listing-expand {
@@ -707,6 +711,13 @@ header {
     padding: 10px 50px;
 }
 
+.listing-img-preview {
+    min-height: 100px;
+    border: 1px solid var(--medium-border);
+    max-width: 80%;
+    background-color: var(--light-bg);
+}
+
 .listing-img-preview img {
     width: 100px;
     height: 100px;
@@ -838,7 +849,7 @@ header {
 }
 
 #report-reason {
-    margin: 15px 0 10px 0; 
+    margin: 15px 0 10px 0;
 }
 
 .report-alert {
@@ -862,7 +873,6 @@ header {
     text-align: center;
     margin: 40px auto;
 }
-
 
 /* ------- ABOUT US ------- */
 
