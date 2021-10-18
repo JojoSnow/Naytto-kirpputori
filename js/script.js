@@ -454,18 +454,21 @@ function resetAdminSettings() {
 function selectRemove() {
     const optionValue = document.getElementById('admin-select').value;
 
+    const listingDiv = document.getElementById('remove-listing-div');
+    const userDiv = document.getElementById('remove-user-div');
+
     switch (optionValue) {
         case 'remove-user':
-            document.getElementById('remove-user-div').style.display = 'block';
-            document.getElementById('remove-listing-div').style.display = 'none';
+            userDiv.style.display = 'block';
+            listingDiv.style.display = 'none';
             return;
         case 'remove-listing':
-            document.getElementById('remove-listing-div').style.display = 'block';
-            document.getElementById('remove-user-div').style.display = 'none';
+            listingDiv.style.display = 'block';
+            userDiv.style.display = 'none';
             return;
         default: 
-            document.getElementById('remove-user-div').style.display = 'none';
-            document.getElementById('remove-listing-div').style.display = 'none';
+            userDiv.style.display = 'none';
+            listingDiv.style.display = 'none';
             return;
     }
 }
@@ -474,10 +477,21 @@ function selectRemove() {
 function removeUser(event) {
     event.preventDefault();
 
-    for (let i = 0; localStorage.length >= i; i++) {        
+    const getUserNum = localStorage.getItem('userNum');
+    const userNum = JSON.parse(getUserNum);
+    let iLength = 0;
+
+    if (localStorage.length < userNum) {
+        iLength = userNum;
+    } else {
+        iLength = localStorage.length;
+    }
+
+    for (let i = 0; iLength >= i; i++) {        
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
         const userId = document.getElementById('user-id').value;
+        const userAlert = document.getElementById('remove-user-alert');
 
         if (userArray !== null) {
             if (userId === userArray[3]) {
@@ -486,6 +500,9 @@ function removeUser(event) {
                 document.getElementById('user-id').style.borderColor = '#a0a0a0';
                 document.getElementById('user-id-alert').style.display = 'none';
                 document.getElementById('user-id-alert').innerHTML = '';
+                userAlert.style.display = 'block';
+                userAlert.innerHTML = 'Käyttäjä poistettu';
+                setTimeout(() => {userAlert.style.display = 'none'}, 2000);
 
                 break;
             } else {
@@ -493,6 +510,10 @@ function removeUser(event) {
                 document.getElementById('user-id-alert').style.display = 'block';
                 document.getElementById('user-id-alert').innerHTML = 'Käyttäjä ID on virheellinen';
             }
+        } else {
+            document.getElementById('user-id').style.borderColor = '#de0f00';
+            document.getElementById('user-id-alert').style.display = 'block';
+            document.getElementById('user-id-alert').innerHTML = 'Käyttäjä ID on virheellinen';
         }
     }
 }
@@ -501,12 +522,27 @@ function removeUser(event) {
 function removeListing(event) {
     event.preventDefault();
 
+    const getListingNum = localStorage.getItem('listingNum');
+    const listingNum = JSON.parse(getListingNum);
+    let iLength = 0;
+
+    if (localStorage.length < listingNum) {
+        iLength = listingNum;
+    } else {
+        iLength = localStorage.length;
+    }
+
+    console.log(iLength);
+
     const listingId = document.getElementById('listing-id').value;
+    const listingAlert = document.getElementById('remove-listing-alert');
 
     // removes the chosen listing from the listings and from local storage
-    for (let i = 0; 50 > i; i++) {        
+    for (let i = 0; iLength > i; i++) {        
         const getListing = localStorage.getItem('storageListing' + i);
         const listingObject = JSON.parse(getListing);
+
+        console.log(listingObject);
         
         if (listingObject !== null) {
             if (listingId === listingObject.id) {
@@ -517,6 +553,9 @@ function removeListing(event) {
                 document.getElementById('listing-id').style.borderColor = '#a0a0a0';
                 document.getElementById('listing-id-alert').style.display = 'none';
                 document.getElementById('listing-id-alert').innerHTML = '';
+                listingAlert.style.display = 'block';
+                listingAlert.innerHTML = 'Listaus poistettu';
+                setTimeout(() => {listingAlert.style.display = 'none'}, 2000);
 
                 break;
             } else {
@@ -524,11 +563,15 @@ function removeListing(event) {
                 document.getElementById('listing-id-alert').style.display = 'block';
                 document.getElementById('listing-id-alert').innerHTML = 'Listaus ID on virheellinen';
             }
+        } else {
+            document.getElementById('listing-id').style.borderColor = '#de0f00';
+            document.getElementById('listing-id-alert').style.display = 'block';
+            document.getElementById('listing-id-alert').innerHTML = 'Listaus ID on virheellinen';
         }
     }
 
     // removes the chosen listing reports from local storage and admin settings
-    for (let x = 0; 50 > x; x++) {
+    for (let x = 0; iLength > x; x++) {
         const getReport = localStorage.getItem('reportListing' + x);
         const report = JSON.parse(getReport);
 
