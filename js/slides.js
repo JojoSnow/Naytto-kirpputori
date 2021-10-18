@@ -1,6 +1,6 @@
-let slideIndex = 0;
+window.addEventListener('load', showSlides);
 
-showSlides();
+let slideIndex = 0;
 
 // sliding for info images -- have a better animation
 function showSlides() {
@@ -8,10 +8,18 @@ function showSlides() {
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = 'none';
     }
+    
     slideIndex++;
+
     if (slideIndex > slides.length) {
         slideIndex = 1;
     }
+
     slides[slideIndex - 1].style.display = 'block';
+
     setTimeout(showSlides, 7000);
+    
 }
+
+
+
