@@ -990,7 +990,7 @@ header {
     font-style: italic;
 }
 
-/* Footer - stays at the bottom */
+/* FOOTER - stays at the bottom */
 
 footer {
     width: 100%;
@@ -1044,10 +1044,20 @@ footer {
 }
 
 
-/* TABLET SIZE */
-@media only screen and (max-width: 768px) {
+/* LAPTOP/TABLET SIZE */
+@media only screen and (max-width: 900px) {
 
-    /* Header */
+    #container {
+        line-height: 1.2;
+        padding-bottom: 150px;
+        /* Add if you want the footer further way */
+    }
+    
+    #main {
+        width: 90%;
+    }
+
+    /* HEADER */
 
     header {
         margin: 10px 0;
@@ -1080,7 +1090,6 @@ footer {
         font-size: 14px;
     }
 
-
     /* Registration */
 
     .regButton {
@@ -1089,6 +1098,40 @@ footer {
 
     #logout-btn, #admin-btn {
         display: none;
+    }
+
+    #container {
+        padding-bottom: 150px;
+        /* Add if you want the footer further way */
+    }
+    
+    #main {
+        width: 85%;
+    }
+
+
+
+    /* FOOTER - stays at the bottom */
+
+    footer {
+        height: 70px;
+    }
+
+    .footer_items {
+        width: 80%;
+    }
+
+    .footer-link-list {
+        margin-bottom: 0;
+    }
+
+    #footer-about {
+        font-size: 13px;
+    }
+
+    #copyright {
+        font-size: 11px;
+        margin: 45px 8px 10px 8px;
     }
 
 }
