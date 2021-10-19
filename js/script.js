@@ -23,10 +23,6 @@ const adminListingBtn = document.getElementById('remove-listing-btn');
 // Report
 const reportCloseBtn = document.getElementById('report-close-btn');
 
-// Other
-const mainpageBtn = document.getElementById('front-page');
-const aboutPageBtn = document.getElementById('')
-
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
