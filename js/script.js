@@ -23,6 +23,10 @@ const adminListingBtn = document.getElementById('remove-listing-btn');
 // Report
 const reportCloseBtn = document.getElementById('report-close-btn');
 
+// Other
+const mainpageBtn = document.getElementById('front-page');
+const aboutPageBtn = document.getElementById('')
+
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
@@ -46,7 +50,10 @@ adminListingBtn.addEventListener('click', removeListing);
 adminCloseBtn.addEventListener('click', closeAdminSettings);
 
 // Report Events
-reportCloseBtn.addEventListener('click', closeReport);
+if (reportCloseBtn !== null) {
+    reportCloseBtn.addEventListener('click', closeReport);
+}
+
 
 // Onload Events
 window.addEventListener('load', toStorageOnLoad);
@@ -77,12 +84,10 @@ function stayLoggedIn() {
         loginBtn.style.display = 'none';
         regBtn.style.display = 'none';
         logoutBtn.style.display = 'table-cell';
-        addListingBtn.style.display = 'block';
     } else if (adminLogged !== null) {
         loginBtn.style.display = 'none';
         regBtn.style.display = 'none';
         logoutBtn.style.display = 'table-cell';
-        addListingBtn.style.display = 'block';
         adminBtn.style.display = 'table-cell';
     }
 }
@@ -157,14 +162,14 @@ function login(event) {
                 if (loginEmail === userArray[1] && loginPassword === userArray[2]) {
                     loginSuccess();
 
+                    // saves the info which user is logged in
+                    localStorage.setItem('userLogged', JSON.stringify(userArray));
+                    localStorage.setItem('adminLogged', 'null');
+
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'table-cell';
                     addListingBtn.style.display = 'block';
-
-                    // saves the info which user is logged in
-                    localStorage.setItem('userLogged', JSON.stringify(userArray));
-                    localStorage.setItem('adminLogged', 'null');
 
                     break;
                 }
