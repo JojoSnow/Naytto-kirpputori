@@ -36,7 +36,7 @@ loginModalBtn.addEventListener('click', login);
 loginCloseBtn.addEventListener('click', closeLogin);
 
 // Logout Events
-logoutBtn.addEventListener('click', userLogout);
+logoutBtn.addEventListener('click', logout);
 
 // Admin Events
 adminBtn.addEventListener('click', openAdminSettings);
@@ -93,6 +93,9 @@ function stayLoggedIn() {
 function openLogin() {
     const loginModal = document.getElementById('login-modal');
     loginModal.style.display = 'block';
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('not-registered').style.display = 'block';
+    document.getElementById('login-header').style.display = 'block';
 }
 
 // closes the login modal
@@ -203,7 +206,7 @@ function login(event) {
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'table-cell';
-                    addListingBtn.style.display = 'block';
+                    addListingBtn.style.display = 'none';
                     adminBtn.style.display = 'table-cell';
 
                     // saves the info which admin is logged in
@@ -265,7 +268,7 @@ function fromLoginToReg() {
 // LOGOUT FUNCTIONS
 
 // logs the user or admin out
-function userLogout() {
+function logout() {
     localStorage.setItem('userLogged', 'null');
     localStorage.setItem('adminLogged', 'null');
     logoutBtn.style.display = 'none';
@@ -273,6 +276,15 @@ function userLogout() {
     regBtn.style.display = 'table-cell';
     addListingBtn.style.display = 'none';
     adminBtn.style.display = 'none';
+
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('not-registered').style.display = 'none';
+    document.getElementById('login-header').style.display = 'none';
+
+    document.getElementById('login-modal').style.display = 'block';
+    document.getElementById('login-success').style.display = 'block';
+    document.getElementById('login-success').innerText = 'Sinut on kirjattu ulos!';
+    setTimeout(closeLogin, 2000);
 }
 
 
@@ -446,6 +458,12 @@ function resetAdminSettings() {
     document.getElementById('admin-form').reset();
 
     document.querySelectorAll('.reports-list').forEach(list => list.remove());
+    document.getElementById('remove-user-div').style.display = 'none';
+    document.getElementById('remove-listing-div').style.display = 'none';
+    document.getElementById('user-id-alert').style.display = 'none';
+    document.getElementById('listing-id-alert').style.display = 'none';
+    document.getElementById('user-id').style.borderColor = '#a0a0a0';
+    document.getElementById('listing-id').style.borderColor = '#a0a0a0';
 }
 
 // Admin Settings Functions
@@ -531,8 +549,6 @@ function removeListing(event) {
     } else {
         iLength = localStorage.length;
     }
-
-    console.log(iLength);
 
     const listingId = document.getElementById('listing-id').value;
     const listingAlert = document.getElementById('remove-listing-alert');
