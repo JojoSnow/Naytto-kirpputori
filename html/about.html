@@ -29,16 +29,18 @@
 
                 <div class="registration">
 
+                    <button id="admin-btn" class="regButton">Asetukset</button>
+                    <button id="logout-btn" class="regButton">Kirjaudu ulos</button>
                     <button id="login-btn" class="regButton">Kirjaudu sisään</button>
                     <button id="regis-btn" class="regButton">Rekisteröidy</button>
 
                 </div>
 
                 <ul class="navbar">
-                    <a href="../index.html" class="navbar_link_inactive">
+                    <a href="../index.html" class="navbar_link_active">
                         <li>Etusivu</li>
                     </a>
-                    <a href="?" class="navbar_link_active">
+                    <a href="#" class="navbar_link_inactive">
                         <li>Tietoa meistä</li>
                     </a>
                 </ul>
@@ -50,12 +52,12 @@
         <section id="login-modal" class="modal">
             <div id="login-content" class="modal-content">
 
-                <div class="modal-header">
+                <div id="login-header" class="modal-header">
                     <span id="login-close-btn" class="modal-close-btn">&times;</span>
-                    <h2>Kirjaudu sisään</h2>
+                    <h2 id="login-title">Kirjaudu sisään</h2>
                 </div>
 
-                <div id="reg-main" class="modal-main">
+                <div id="login-main" class="modal-main">
                     <form id="login-form" class="modal-form">
 
                         <label for="login-username" id="login-name" class="modal-label">Käyttäjätunnus<br>
@@ -70,9 +72,8 @@
                         <p id="login-password-alert" class="modal-alert"></p>
 
                         <input type="submit" value="Kirjaudu" id="input-login-btn" class="modal-btn">
-
-                        <p id="login-success" class="modal-success"></p>
                     </form>
+                    <p id="login-success" class="modal-success"></p>
 
                     <p id="not-registered" class="modal-question">Etkö ole rekisteröitynyt?</p>
                 </div>
@@ -121,6 +122,64 @@
             </div>
         </section>
 
+
+        <section id="admin-modal" class="modal">
+            <div id="admin-content" class="modal-content">
+
+                <div id="admin-header" class="modal-header">
+                    <span id="admin-close-btn" class="modal-close-btn">&times;</span>
+                    <h2 id="admin-title">Ylläpitäjän asetukset</h2>
+                </div>
+
+                <div id="admin-main" class="modal-main">
+                    <p id="reports-title" class="modal-label">Raportit</p>
+                    <div id="reports">
+
+                        <div id="listing-reports" class="admin-report-div">
+                            <p class="reports-list-title">Listaukset</p>
+                        </div>
+                    </div>
+
+                    <form id="admin-form">
+                        <label for="admin-select" class="modal-label">Poista...<br>
+                            <select name="admin-select" id="admin-select" class="listing-select">
+                                <option value="select">Valitse...</option>
+                                <option value="remove-user">Käyttäjä</option>
+                                <option value="remove-listing">Listaus</option>
+                            </select>
+                        </label>
+
+                        <div id="remove-user-div" class="selected-div">
+                            <label for="userID" class="modal-label">Käyttäjän ID:<br>
+                                <input name="userID" type="text" id="user-id" class="listing-input">
+                            </label><br>
+                            <p id="user-id-alert" class="modal-alert"></p>
+
+                            <input type="submit" value="Poista käyttäjä" id="remove-user-btn" class="modal-btn">
+
+                            <p id="remove-user-alert" class="modal-alert"></p>
+                        </div>
+
+                        <div id="remove-listing-div" class="selected-div">
+                            <label for="listingID" class="modal-label">Listauksen ID:<br>
+                                <input type="text" name="listingID" id="listing-id" class="listing-input">
+                            </label><br>
+                            <p id="listing-id-alert" class="modal-alert"></p>
+
+                            <input type="submit" value="Poista listaus" id="remove-listing-btn" class="modal-btn">
+
+                            <p id="remove-listing-alert" class="modal-alert"></p>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="reg-cr">&copy; Tukiainen & Mieskolainen</p>
+                </div>
+            </div>
+        </section>
+
         <section id="about-us">
             <!-- about the story of the company -->
             <div class="lifetime-story">
@@ -143,24 +202,6 @@
                 </div>
 
                 <div class="story">
-                    <img src="../img/business/aboutus-stock.jpg" alt="yup" class="story-img">
-                    <div>
-                        <h1 class="story-title">Historia</h1>
-                        <p class="story-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolor
-                            cupiditate mollitia inventore, assumenda atque corporis rerum molestias fugit voluptatem ea
-                            veniam!
-                            Nostrum amet aut distinctio repellendus eius similique quod? Lorem ipsum, dolor sit amet
-                            consectetur
-                            adipisicing elit. Culpa doloribus fugiat iste animi reprehenderit dignissimos expedita
-                            dolorem
-                            molestiae placeat ipsum modi delectus omnis fugit corrupti commodi impedit officia
-                            consequatur
-                            unde,
-                            autem velit ex architecto sapiente blanditiis? Perspiciatis magnam beatae quas?</p>
-                    </div>
-                </div>
-
-                <div class="story">
                     <div>
                         <h1 class="story-title">Tänään ja tulevaisuudessa</h1>
                         <p class="story-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolor
@@ -177,129 +218,138 @@
                     </div>
                     <img src="../img/business/aboutus-stock.jpg" alt="yup" class="story-img">
                 </div>
-            </div>
-            <!-- about the people working at the company -->
+                <!-- about the people working at the company -->
 
-            <div class="person">
-                <div class="bio">
-                    <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
-                    <div class="about-person">
-                        <h2 class="person-title">Maija Meikäläinen</h2>
+                <div class="person">
+                    <div class="bio">
+                        <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
+                        <div class="about-person">
+                            <h2 class="person-title">Maija Meikäläinen</h2>
 
-                        <p class="person-job">Työntekijä</p>
+                            <p class="person-job">Työntekijä</p>
 
-                        <p class="person-desc">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
-                            id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem sed
-                            provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur esse
-                            veritatis quod expedita quasi iusto minima.</p>
+                            <p class="person-desc">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
+                                id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem
+                                sed
+                                provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur
+                                esse
+                                veritatis quod expedita quasi iusto minima.</p>
+                        </div>
+                    </div>
+                    <div class="person-get-contact">
+                        <p class="person-contact-default">Ota yhteyttä!</p>
+                        <p class="person-contact-phone">Puhelin: 0400000000</p>
+                        <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
                     </div>
                 </div>
-                <div class="person-get-contact">
-                    <p class="person-contact-default">Ota yhteyttä!</p>
-                    <p class="person-contact-phone">Puhelin: 0400000000</p>
-                    <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
-                </div>
-            </div>
 
-            <div class="person">
-                <div class="bio">
-                    <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
-                    <div class="about-person">
-                        <h2 class="person-title">Matti Meikäläinen</h2>
+                <div class="person">
+                    <div class="bio">
+                        <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
+                        <div class="about-person">
+                            <h2 class="person-title">Matti Meikäläinen</h2>
 
-                        <p class="person-job">Työntekijä</p>
+                            <p class="person-job">Työntekijä</p>
 
-                        <p class="person-desc">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
-                            id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem sed
-                            provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur esse
-                            veritatis quod expedita quasi iusto minima.</p>
+                            <p class="person-desc">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
+                                id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem
+                                sed
+                                provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur
+                                esse
+                                veritatis quod expedita quasi iusto minima.</p>
+                        </div>
+                    </div>
+                    <div class="person-get-contact">
+                        <p class="person-contact-default">Ota yhteyttä!</p>
+                        <p class="person-contact-phone">Puhelin: 0400000000</p>
+                        <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
                     </div>
                 </div>
-                <div class="person-get-contact">
-                    <p class="person-contact-default">Ota yhteyttä!</p>
-                    <p class="person-contact-phone">Puhelin: 0400000000</p>
-                    <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
-                </div>
-            </div>
 
-            <div class="person">
-                <div class="bio">
-                    <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
-                    <div class="about-person">
-                        <h2 class="person-title">John Doe</h2>
+                <div class="person">
+                    <div class="bio">
+                        <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
+                        <div class="about-person">
+                            <h2 class="person-title">John Doe</h2>
 
-                        <p class="person-job">Työntekijä</p>
+                            <p class="person-job">Työntekijä</p>
 
-                        <p class="person-desc">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
-                            id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem sed
-                            provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur esse
-                            veritatis quod expedita quasi iusto minima.</p>
+                            <p class="person-desc">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
+                                id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem
+                                sed
+                                provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur
+                                esse
+                                veritatis quod expedita quasi iusto minima.</p>
+                        </div>
+                    </div>
+                    <div class="person-get-contact">
+                        <p class="person-contact-default">Ota yhteyttä!</p>
+                        <p class="person-contact-phone">Puhelin: 0400000000</p>
+                        <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
                     </div>
                 </div>
-                <div class="person-get-contact">
-                    <p class="person-contact-default">Ota yhteyttä!</p>
-                    <p class="person-contact-phone">Puhelin: 0400000000</p>
-                    <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
-                </div>
-            </div>
 
-            <div class="person">
-                <div class="bio">
-                    <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
-                    <div class="about-person">
-                        <h2 class="person-title">Jane Doe</h2>
+                <div class="person">
+                    <div class="bio">
+                        <img src="../img/people/business-woman.jpg" alt="ihminen kuva" class="person-img">
+                        <div class="about-person">
+                            <h2 class="person-title">Jane Doe</h2>
 
-                        <p class="person-job">Työntekijä</p>
+                            <p class="person-job">Työntekijä</p>
 
-                        <p class="person-desc">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
-                            id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem sed
-                            provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur esse
-                            veritatis quod expedita quasi iusto minima.</p>
+                            <p class="person-desc">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur pariatur
+                                id reiciendis debitis, cupiditate eaque? Pariatur eos ut placeat beatae facere dolorem
+                                sed
+                                provident, enim labore, doloribus ullam laboriosam maxime natus voluptatem aspernatur
+                                esse
+                                veritatis quod expedita quasi iusto minima.</p>
+                        </div>
+                    </div>
+                    <div class="person-get-contact">
+                        <p class="person-contact-default">Ota yhteyttä!</p>
+                        <p class="person-contact-phone">Puhelin: 0400000000</p>
+                        <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
                     </div>
                 </div>
-                <div class="person-get-contact">
-                    <p class="person-contact-default">Ota yhteyttä!</p>
-                    <p class="person-contact-phone">Puhelin: 0400000000</p>
-                    <p class="person-contact-email">Sähköposti: klokg@osmye.com</p>
-                </div>
-            </div>
 
-            <div id="about-store" class="about-store">
-                <!-- how the store operates -->
-                <div id="about-store-div" class="column1">
-                    <h2 class="store-title">Kaupasta</h2>
-                    <p class="store-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolor
-                        cupiditate mollitia inventore, assumenda atque corporis rerum molestias fugit voluptatem ea
-                        veniam! Nostrum amet aut distinctio repellendus eius similique quod? Lorem ipsum, dolor sit amet
-                        consectetur adipisicing elit. Culpa doloribus fugiat iste animi reprehenderit dignissimos
-                        expedita dolorem molestiae placeat ipsum modi delectus omnis fugit corrupti commodi impedit
-                        officia consequatur unde, autem velit ex architecto sapiente blanditiis? Perspiciatis magnam
-                        beatae quas?</p>
-                </div>
-                <!-- reviews from clients -->
-                <div id="store-reviews" class="column2">
-                    <div class="review-div">
-                        <p class="review">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fuga?"</p>
-                        <figcaption class="review-writer">&mdash; Elisa</figcaption>
+                <div id="about-store" class="about-store">
+                    <!-- how the store operates -->
+                    <div id="about-store-div" class="column1">
+                        <h2 class="store-title">Kaupasta</h2>
+                        <p class="store-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolor
+                            cupiditate mollitia inventore, assumenda atque corporis rerum molestias fugit voluptatem ea
+                            veniam! Nostrum amet aut distinctio repellendus eius similique quod? Lorem ipsum, dolor sit
+                            amet
+                            consectetur adipisicing elit. Culpa doloribus fugiat iste animi reprehenderit dignissimos
+                            expedita dolorem molestiae placeat ipsum modi delectus omnis fugit corrupti commodi impedit
+                            officia consequatur unde, autem velit ex architecto sapiente blanditiis? Perspiciatis magnam
+                            beatae quas?</p>
                     </div>
-                    <div class="review-div">
-                        <p class="review">"Lorem, ipsum dolor sit amet consectetur adipisicing elit."</p>
-                        <figcaption class="review-writer">&mdash; Helsingin Sanomat</figcaption>
-                    </div>
-                    <div class="review-div">
-                        <p class="review">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ipsum quae
-                            non, ut doloremque nulla dolorem distinctio deserunt totam reprehenderit."</p>
-                        <figcaption class="review-writer">&mdash; Henna</figcaption>
-                    </div>
+                    <!-- reviews from clients -->
+                    <div id="store-reviews" class="column2">
+                        <div class="review-div">
+                            <p class="review">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, fuga?"
+                            </p>
+                            <figcaption class="review-writer">&mdash; Elisa</figcaption>
+                        </div>
+                        <div class="review-div">
+                            <p class="review">"Lorem, ipsum dolor sit amet consectetur adipisicing elit."</p>
+                            <figcaption class="review-writer">&mdash; Helsingin Sanomat</figcaption>
+                        </div>
+                        <div class="review-div">
+                            <p class="review">"Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ipsum quae
+                                non, ut doloremque nulla dolorem distinctio deserunt totam reprehenderit."</p>
+                            <figcaption class="review-writer">&mdash; Henna</figcaption>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
 
-            <div class="about-news"></div>
+                <div class="about-news"></div>
 
         </section>
 
