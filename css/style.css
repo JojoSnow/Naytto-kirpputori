@@ -8,7 +8,7 @@
     --medium-text: #858585;
     --highlight-light: #35b4c5;
     --highlight-medium: #009baf;
-    --highlight-dark: #058c9e;
+    --highlight-dark: #057483;
     --logo: #3cc3d4;
     --alert: #de0f00;
     --success: #70b970;
@@ -44,7 +44,7 @@ header {
     width: 100%;
     display: block;
     background-color: white;
-    border-bottom: 1px ridge var(--highlight-medium);
+    border-bottom: 1px ridge var(--highlight-dark);
 }
 
 .header_items {
@@ -281,7 +281,7 @@ header {
     border: none;
     border-radius: 3px;
     color: var(--lightest-bg);
-    background-color: #ff4c4c;
+    background-color: var(--highlight-light);
 }
 
 .store_counter {
@@ -828,18 +828,14 @@ header {
     text-align: left;
     margin: 10px;
     padding: 10px 50px;
+    overflow-wrap: break-word;
 }
 
 #reports-title {
     margin: 5px 0;
 }
 
-#reports {
-    display: flex;
-}
-
 .admin-report-div {
-    width: 50%;
     margin: 5px 5px 5px 0;
 }
 
@@ -1060,6 +1056,7 @@ footer {
     /* HEADER */
 
     header {
+        height: 50px;
         margin: 10px 0;
     }
 
@@ -1107,6 +1104,20 @@ footer {
     
     #main {
         width: 85%;
+    }
+
+    /* MODALS */
+
+    .modal-btn {
+        margin: 5px auto;
+    }
+
+    /* Admin modal */
+
+    #admin-main {
+        text-align: left;
+        padding: 5px 20px;
+        overflow-wrap: break-word;
     }
 
 
