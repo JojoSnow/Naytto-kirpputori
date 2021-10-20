@@ -911,9 +911,31 @@ header {
     padding: 20px 0 50px 0;
 }
 
+.separatist {
+    padding: 5px;
+}
+
 .story {
     display: flex;
     padding: 10px 0 10px 0;
+}
+
+.story img {
+    border: 1px solid var(--medium-border);
+    max-height: 350px;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 1050px) {
+    .story {
+        display: block;
+    }
+    .story img {
+        width: 50%;
+        margin: 0 auto;
+        min-width: 280px;
+    }
 }
 
 .story-title {
@@ -922,6 +944,7 @@ header {
 
 .story-desc {
     margin: 20px 50px;
+    font-size: large;
 }
 
 /* Person */
@@ -952,15 +975,19 @@ header {
 
 .person-title {
     margin: 0;
+    font-size: xx-large;
 }
 
 .person-job {
     color: var(--medium-text);
+    margin: 20px;
 }
 
 .person-desc {
     margin: 0;
     padding: 10px 30px;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .person-get-contact {
@@ -971,6 +998,7 @@ header {
     border: 1px solid #DADADA;
     background-color: var(--lightest-bg);
     border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .person-contact-default {
@@ -1037,6 +1065,20 @@ header {
     display: flex;
     border-top: 1px solid var(--highlight-dark);
     padding: 30px 0;
+}
+
+.about-store button {
+    padding: 20px;
+    font-size: larger;
+    border: 1px solid var(--medium-border);
+    border-radius: 4px;
+    color: #333333;
+    background: #fdfdfd;
+}
+
+.about-store button:hover {
+    background-color: #f1f1f1;
+    transition: 0.35s;
 }
 
 /* About store - Column 1 */
