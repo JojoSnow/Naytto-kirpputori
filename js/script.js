@@ -9,6 +9,7 @@ const loginBtn = document.getElementById('login-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginRegText = document.getElementById('not-registered');
 const loginCloseBtn = document.getElementById('login-close-btn');
+addListingBtn = document.getElementById('add-listing-btn');
 
 // Logout
 const logoutBtn = document.getElementById('logout-btn');
@@ -23,6 +24,9 @@ const adminListingBtn = document.getElementById('remove-listing-btn');
 // Report
 const reportCloseBtn = document.getElementById('report-close-btn');
 
+// Responsive Navbar
+const navbarBtn = document.getElementById('resp-btn');
+const closeNavbarBtn = document.getElementById('navbar-close-btn');
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
@@ -50,6 +54,12 @@ if (reportCloseBtn !== null) {
     reportCloseBtn.addEventListener('click', closeReport);
 }
 
+// Responsive Events
+navbarBtn.addEventListener('click', openRespNavbar);
+navbarBtn.addEventListener('mouseenter', respNavOnHover);
+navbarBtn.addEventListener('mouseleave', respNavOffHover);
+closeNavbarBtn.addEventListener('click', closeRespNavbar);
+window.addEventListener('resize', normalHeaderOn);
 
 // Onload Events
 window.addEventListener('load', toStorageOnLoad);
@@ -79,12 +89,12 @@ function stayLoggedIn() {
     if (userLogged !== null) {
         loginBtn.style.display = 'none';
         regBtn.style.display = 'none';
-        logoutBtn.style.display = 'table-cell';
+        logoutBtn.style.display = 'block';
     } else if (adminLogged !== null) {
         loginBtn.style.display = 'none';
         regBtn.style.display = 'none';
-        logoutBtn.style.display = 'table-cell';
-        adminBtn.style.display = 'table-cell';
+        logoutBtn.style.display = 'block';
+        adminBtn.style.display = 'block';
     }
 }
 
@@ -97,6 +107,8 @@ function openLogin() {
     document.getElementById('login-form').style.display = 'block';
     document.getElementById('not-registered').style.display = 'block';
     document.getElementById('login-header').style.display = 'block';
+
+    respNavOff();
 }
 
 // closes the login modal
@@ -164,9 +176,10 @@ function login(event) {
 
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
-                    logoutBtn.style.display = 'table-cell';
-                    addListingBtn.style.display = 'block';
-
+                    logoutBtn.style.display = 'block';
+                    if (addListingBtn !== null) {
+                        addListingBtn.style.display = 'block';
+                    }
                     break;
                 }
                 
@@ -206,9 +219,11 @@ function login(event) {
 
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
-                    logoutBtn.style.display = 'table-cell';
-                    addListingBtn.style.display = 'none';
-                    adminBtn.style.display = 'table-cell';
+                    logoutBtn.style.display = 'block';
+                    if (addListingBtn !== null) {
+                        addListingBtn.style.display = 'none';
+                    }
+                    adminBtn.style.display = 'block';
 
                     // saves the info which admin is logged in
                     localStorage.setItem('adminLogged', JSON.stringify(adminArray));
@@ -273,9 +288,11 @@ function logout() {
     localStorage.setItem('userLogged', 'null');
     localStorage.setItem('adminLogged', 'null');
     logoutBtn.style.display = 'none';
-    loginBtn.style.display = 'table-cell';
-    regBtn.style.display = 'table-cell';
-    addListingBtn.style.display = 'none';
+    loginBtn.style.display = 'block';
+    regBtn.style.display = 'block';
+    if (addListingBtn !== null) {
+        addListingBtn.style.display = 'none';
+    }
     adminBtn.style.display = 'none';
 
     document.getElementById('login-form').style.display = 'none';
@@ -286,6 +303,8 @@ function logout() {
     document.getElementById('login-success').style.display = 'block';
     document.getElementById('login-success').innerText = 'Sinut on kirjattu ulos!';
     setTimeout(closeLogin, 2000);
+
+    respNavOff();
 }
 
 
@@ -295,6 +314,8 @@ function logout() {
 function openReg() {
     const regModal = document.getElementById('reg-modal');
     regModal.style.display = 'block';
+
+    respNavOff();
 }
 
 // closes the registration modal
@@ -445,6 +466,7 @@ function openAdminSettings() {
     }
 
     reportListingToAdmin();
+    respNavOff();
 }
 
 // closes admins settings modal
@@ -857,4 +879,64 @@ function resetReportForm() {
     document.getElementById('report-else-more').style.display = 'none';
     document.getElementById('report-reason').style.display = 'block';
     document.getElementById('report-explain').style.display = 'none';
+}
+
+
+// RESPONSIVE NAVBAR
+
+
+let navOpen = false;
+// opens sidenav header links and closes if pressed a second time
+function openRespNavbar() {
+    const navDiv = document.getElementById('header-links');
+    navDiv.style.display = 'block';
+    navDiv.style.height = '100%';
+
+    closeNavbarBtn.style.display = 'block';
+
+    if (navOpen === true) {
+        closeRespNavbar();
+        respNavOffHover();
+    } else {
+        navOpen = true;
+    }
+}
+
+// closes header links
+function closeRespNavbar() {
+    const navDiv = document.getElementById('header-links');
+    navDiv.style.display = 'none';
+    closeNavbarBtn.style.display = 'none';
+    navOpen = false;
+}
+
+// three lines change color when mouse enters
+function respNavOnHover() {
+    const threeLines = document.querySelectorAll('.three-lines');
+    threeLines.forEach(line => line.style.backgroundColor = '#35b4c5');
+}
+
+// three lines change color back to normal when mouse leaves
+function respNavOffHover() {
+    const threeLines = document.querySelectorAll('.three-lines');
+    threeLines.forEach(line => line.style.backgroundColor = '#067d8d');
+}
+
+// shows the normal header when window is big enough
+function normalHeaderOn() {
+    if (window.innerWidth > 917) {
+        const navDiv = document.getElementById('header-links');
+        navDiv.style.display = 'block';
+        navDiv.style.height = '0';
+        closeNavbarBtn.style.display = 'none';
+    }
+}
+
+// closes if sidenavbar window is less than 900px
+function respNavOff() {
+    if (window.innerWidth < 917) {
+        const navDiv = document.getElementById('header-links');
+        navDiv.style.display = 'none';
+        closeNavbarBtn.style.display = 'none';
+    }
 }
