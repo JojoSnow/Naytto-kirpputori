@@ -108,6 +108,8 @@ header {
 
 .header_logo img {
     float: left;
+    height: 40px;
+    height: 40px;
 }
 
 /* Registration */
@@ -158,8 +160,12 @@ header {
 }
 
 @keyframes fade {
-    from {opacity: .7}
-    to {opacity: 1;}
+    from {
+        opacity: .7
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .carousel-img {
@@ -906,7 +912,7 @@ header {
 
 #about-us {
     font-family: Arial, Helvetica, sans-serif;
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
     padding: 0;
     text-align: center;
@@ -915,8 +921,35 @@ header {
 
 /* Story */
 
-.story {
+.lifetime-story {
     padding: 20px 0 50px 0;
+}
+
+.separatist {
+    padding: 5px;
+}
+
+.story {
+    display: flex;
+    padding: 10px 0 10px 0;
+}
+
+.story img {
+    border: 1px solid var(--medium-border);
+    max-height: 350px;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 1050px) {
+    .story {
+        display: block;
+    }
+    .story img {
+        width: 50%;
+        margin: 0 auto;
+        min-width: 280px;
+    }
 }
 
 .story-title {
@@ -925,34 +958,119 @@ header {
 
 .story-desc {
     margin: 20px 50px;
+    font-size: large;
 }
 
 /* Person */
 
 .person {
-    display: flex;
-    padding: 30px 0;
+    padding: 10px 0;
     border-top: 1px solid var(--highlight-dark);
 }
 
+.bio {
+    display: flex;
+    margin: 20px;
+}
+
 .person-img {
-    width: 25%;
-    height: 100%;
-    margin-left: 40px;
+    width: 30%;
+    margin-left: 15px;
+    max-width: 300px;
+    min-width: 225px;
+    border: 1px solid #DADADA;
+    border-radius: 20px;
 }
 
 .about-person {
     margin: 20px 0;
-    width: 75%;
+    width: 70%;
 }
 
 .person-title {
-    margin: 0 50px;
+    margin: 0;
+    font-size: xx-large;
+}
+
+.person-job {
+    color: var(--medium-text);
+    margin: 20px;
 }
 
 .person-desc {
     margin: 0;
-    padding: 30px 50px;
+    padding: 10px 30px;
+    font-size: large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.person-get-contact {
+    width: 75%;
+    max-width: 500px;
+    margin: 0 auto;
+    height: 75px;
+    border: 1px solid #DADADA;
+    background-color: var(--lightest-bg);
+    border-radius: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.person-contact-default {
+    margin: 6px 0 0 auto;
+    font-weight: bold;
+}
+
+.person-contact-phone {
+    display: inline;
+    float: left;
+    margin: 20px 12px 0;
+}
+
+.person-contact-email {
+    display: inline;
+    float: right;
+    margin: 20px 6px 0;
+}
+
+@media screen and (max-width: 1050px) {
+    .bio {
+        display: block;
+    }
+    .about-person {
+        margin: 0 auto;
+        width: 100%;
+    }
+    .person-img {
+        width: 40%;
+        margin: 0 auto;
+    }
+    .person-title {
+        margin: 0 auto;
+    }
+    .person-desc {
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .person-get-contact {
+        width: 280px;
+        height: 100px;
+    }
+    .person-contact-default {
+        padding: 10px;
+    }
+    .person-contact-phone {
+        display: block;
+        float: none;
+        margin: 0 5px 5px auto;
+    }
+    .person-contact-email {
+        display: block;
+        float: none;
+        margin: 0 5px 5px auto;
+    }
 }
 
 /*About store*/
@@ -961,6 +1079,20 @@ header {
     display: flex;
     border-top: 1px solid var(--highlight-dark);
     padding: 30px 0;
+}
+
+.about-store button {
+    padding: 20px;
+    font-size: larger;
+    border: 1px solid var(--medium-border);
+    border-radius: 4px;
+    color: #333333;
+    background: #fdfdfd;
+}
+
+.about-store button:hover {
+    background-color: #f1f1f1;
+    transition: 0.35s;
 }
 
 /* About store - Column 1 */
@@ -1053,23 +1185,21 @@ footer {
 }
 
 
-/* SMALL TABLET/PHONE SIZE */
+/* RESPONSIVE */
 @media only screen and (max-width: 900px) {
 
     #container {
         padding-bottom: 150px;
         /* Add if you want the footer further way */
     }
-    
     #main {
         width: 92%;
     }
-
     /* HEADER */
 
     header {
     }
-
+    
     .header_items {
         display: block;
         width: 90%;
@@ -1081,12 +1211,10 @@ footer {
     .header_logo {
         margin-top: 10px;
     }
-
     .header_logo h1 {
         font-size: 30px;
         margin: 0 15px;
     }
-
     .header_logo img {
         height: 40px;
     }
@@ -1145,7 +1273,6 @@ footer {
     .navbar_link_inactive {
         color: black;
     }
-
     /* Registration */
 
     .registration {
@@ -1170,39 +1297,28 @@ footer {
     }
     
     /* MODALS */
-
     .modal-btn {
         margin: 5px auto;
     }
-
     /* Admin modal */
-
     #admin-main {
         text-align: left;
         padding: 5px 20px;
         overflow-wrap: break-word;
     }
-
-
-
     /* FOOTER - stays at the bottom */
-
     footer {
         height: 70px;
     }
-
     .footer_items {
         width: 80%;
     }
-
     .footer-link-list {
         margin-bottom: 0;
     }
-
     #footer-about {
         font-size: 13px;
     }
-
     #copyright {
         font-size: 11px;
         margin: 45px 8px 10px 8px;
