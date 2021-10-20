@@ -23,6 +23,9 @@ const adminListingBtn = document.getElementById('remove-listing-btn');
 // Report
 const reportCloseBtn = document.getElementById('report-close-btn');
 
+// Responsive Navbar
+const navbarBtn = document.getElementById('resp-btn');
+const closeNavbarBtn = document.getElementById('navbar-close-btn');
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
@@ -50,6 +53,9 @@ if (reportCloseBtn !== null) {
     reportCloseBtn.addEventListener('click', closeReport);
 }
 
+// Navbar Events
+navbarBtn.addEventListener('click', openRespNavbar);
+closeNavbarBtn.addEventListener('click', closeRespNavbar);
 
 // Onload Events
 window.addEventListener('load', toStorageOnLoad);
@@ -858,3 +864,21 @@ function resetReportForm() {
     document.getElementById('report-reason').style.display = 'block';
     document.getElementById('report-explain').style.display = 'none';
 }
+
+
+// RESPONSIVE NAVBAR
+
+// opens header links
+function openRespNavbar() {
+    const navDiv = document.getElementById('header-links');
+    navDiv.style.display = 'block';
+    closeNavbarBtn.style.display = 'block';
+}
+
+// closes header links
+function closeRespNavbar() {
+    const navDiv = document.getElementById('header-links');
+    navDiv.style.display = 'none';
+    closeNavbarBtn.style.display = 'none';
+}
+

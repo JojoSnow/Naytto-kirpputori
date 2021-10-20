@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kirpputori</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/icons/favicon/favicon.ico">
 
 </head>
 
@@ -18,6 +19,12 @@
 
             <div class="header_items">
 
+                <div id="resp-btn">
+                    <div class="three-lines"></div>
+                    <div class="three-lines"></div>
+                    <div class="three-lines"></div>
+                </div>
+
                 <div class="header_logo">
 
                     <img src="../img/empty.jpg" alt="logo">
@@ -26,23 +33,25 @@
 
                 </div>
 
-                <div class="registration">
+                <div id="header-links">
 
-                    <button id="admin-btn" class="regButton">Asetukset</button>
-                    <button id="logout-btn" class="regButton">Kirjaudu ulos</button>
-                    <button id="login-btn" class="regButton">Kirjaudu sisään</button>
-                    <button id="regis-btn" class="regButton">Rekisteröidy</button>
+                    <ul class="navbar">
+                        <li><a href="../index.html" class="navbar_link_inactive">
+                            Etusivu
+                        </a></li>
+                        <li><a href="#" class="navbar_link_active">
+                            Tietoa meistä
+                        </a></li>
+                    </ul>
+
+                    <ul class="registration">
+                        <li id="admin-btn" class="regButton">Asetukset</li>
+                        <li id="logout-btn" class="regButton">Kirjaudu ulos</li>
+                        <li id="login-btn" class="regButton">Kirjaudu sisään</li>
+                        <li id="regis-btn" class="regButton">Rekisteröidy</li>
+                    </ul>
 
                 </div>
-
-                <ul class="navbar">
-                    <a href="../index.html" class="navbar_link_active">
-                        <li>Etusivu</li>
-                    </a>
-                    <a href="#" class="navbar_link_inactive">
-                        <li>Tietoa meistä</li>
-                    </a>
-                </ul>
 
             </div>
 
