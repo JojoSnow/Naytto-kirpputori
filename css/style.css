@@ -968,6 +968,7 @@ header {
     min-width: 225px;
     border: 1px solid #DADADA;
     border-radius: 20px;
+    height: 400px;
 }
 
 .about-person {
