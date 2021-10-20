@@ -23,6 +23,7 @@ body {
     padding: 0;
     background-color: var(--lightest-bg);
     font-family: Arial, Helvetica, sans-serif;
+    display: block;
 }
 
 #container {
@@ -196,7 +197,7 @@ header {
 }
 
 .add-listing-btn {
-    display: block;
+    display: none;
     color: var(--light-text);
     margin: 30px auto 0 auto;
     padding: 10px 20px;
@@ -1193,16 +1194,16 @@ footer {
         /* Add if you want the footer further way */
     }
     #main {
-        width: 92%;
+        width: 85%;
     }
     /* HEADER */
 
     header {
+        
     }
     
     .header_items {
         display: block;
-        width: 90%;
         height: 100%;
         margin: 0 auto;
         clear: both;
@@ -1222,7 +1223,7 @@ footer {
     #resp-btn {
         display: block;
         float: right;
-        margin: 18px 5px;
+        margin: 18px 0;
         cursor: pointer;
     }
 
