@@ -1222,7 +1222,7 @@ footer {
         font-size: 11px;
         margin: 45px 8px 10px 8px;
     }
-    /* Store - listings and filters*/
+    /* Store - listings and filters */
     .store_counter {
         display: flex;
         text-align: center;
@@ -1256,7 +1256,9 @@ footer {
         display: inline-block;
     }
     .listing-expand-imgDiv {
+        width: 100%;
         flex: 0;
+        float: none;
     }
     .listing-expand-descDiv {
         float: left;
@@ -1274,16 +1276,56 @@ footer {
     .listing-expand-imgDiv-big {
         max-width: 450px;
         margin: 0 auto;
-        float: left;
     }
     .listing-expand-imgDiv-small {
         overflow-y: none;
         height: auto;
+        margin: 0 auto;
+        float: none;
         max-width: 450px;
         min-width: 350px;
     }
     .listing-expand-img-small {
         width: 33.333%;
+    }
+    /* Filters */
+    .store_filter select {
+        height: 35px;
+        font-size: 18px;
+    }
+    .store_filter select option {
+        padding: 5px;
+    }
+    .store_filter input {
+        height: 35px;
+        font-size: 18px;
+    }
+    .store_filter label {
+        font-size: larger;
+    }
+    .divCheckbox input {
+        width: 22px;
+        height: 22px;
+    }
+    .divSearch button {
+        width: 60px;
+        height: 50px;
+        border-radius: 10px;
+        font-size: large;
+    }
+    /* Reporting */
+    .modal-main {
+        font-size: 20px;
+    }
+    .report-check-input {
+        width: 22px;
+        height: 22px;
+    }
+    .listing-report-btn {
+        width: 120px;
+        height: 50px;
+        border-radius: 10px;
+        font-size: larger;
     }
 }
 
