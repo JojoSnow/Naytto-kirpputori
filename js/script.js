@@ -9,7 +9,7 @@ const loginBtn = document.getElementById('login-btn');
 const loginModalBtn = document.getElementById('input-login-btn');
 const loginRegText = document.getElementById('not-registered');
 const loginCloseBtn = document.getElementById('login-close-btn');
-addListingBtn = document.getElementById('add-listing-btn');
+const openAddListingBtn = document.getElementById('add-listing-btn');
 
 // Logout
 const logoutBtn = document.getElementById('logout-btn');
@@ -27,6 +27,7 @@ const reportCloseBtn = document.getElementById('report-close-btn');
 // Responsive Navbar
 const navbarBtn = document.getElementById('resp-btn');
 const closeNavbarBtn = document.getElementById('navbar-close-btn');
+
 
 // Registration Events
 regBtn.addEventListener('click', openReg);
@@ -66,6 +67,7 @@ window.addEventListener('load', toStorageOnLoad);
 window.addEventListener('load', stayLoggedIn);
 
 
+
 // ONLOAD FUNCTIONS
 
 // add info to localStorage on load
@@ -97,6 +99,7 @@ function stayLoggedIn() {
         adminBtn.style.display = 'block';
     }
 }
+
 
 // LOGIN FUNCTIONS
 
@@ -177,8 +180,8 @@ function login(event) {
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'block';
-                    if (addListingBtn !== null) {
-                        addListingBtn.style.display = 'block';
+                    if (openAddListingBtn !== null) {
+                        openAddListingBtn.style.display = 'block';
                     }
                     break;
                 }
@@ -220,8 +223,8 @@ function login(event) {
                     loginBtn.style.display = 'none';
                     regBtn.style.display = 'none';
                     logoutBtn.style.display = 'block';
-                    if (addListingBtn !== null) {
-                        addListingBtn.style.display = 'none';
+                    if (openAddListingBtn !== null) {
+                        openAddListingBtn.style.display = 'none';
                     }
                     adminBtn.style.display = 'block';
 
@@ -290,8 +293,8 @@ function logout() {
     logoutBtn.style.display = 'none';
     loginBtn.style.display = 'block';
     regBtn.style.display = 'block';
-    if (addListingBtn !== null) {
-        addListingBtn.style.display = 'none';
+    if (openAddListingBtn !== null) {
+        openAddListingBtn.style.display = 'none';
     }
     adminBtn.style.display = 'none';
 
@@ -884,7 +887,6 @@ function resetReportForm() {
 
 // RESPONSIVE NAVBAR
 
-
 let navOpen = false;
 // opens sidenav header links and closes if pressed a second time
 function openRespNavbar() {
@@ -932,7 +934,7 @@ function normalHeaderOn() {
     }
 }
 
-// closes if sidenavbar window is less than 900px
+// closes sidenavbar if window is less than 900px
 function respNavOff() {
     if (window.innerWidth < 917) {
         const navDiv = document.getElementById('header-links');
