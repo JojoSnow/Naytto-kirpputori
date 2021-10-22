@@ -1908,8 +1908,6 @@ function initMapFinder(city, zoom, div, markPos) {
         center: city
     });
 
-    console.log(markPos);
-
     if (markPos.lat != null || markPos.lng != null) {
         const marker = new google.maps.Marker({
             position: markPos,
