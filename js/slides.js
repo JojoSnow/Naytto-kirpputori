@@ -2,7 +2,7 @@ window.addEventListener('load', showSlides);
 
 let slideIndex = 0;
 
-// sliding for info images -- have a better animation
+// carousel for info images
 function showSlides() {
     let slides = document.querySelectorAll('.slides');
     for (let i = 0; i < slides.length; i++) {
