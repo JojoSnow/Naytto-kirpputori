@@ -941,8 +941,7 @@ header {
 .person-img {
     width: 30%;
     margin-left: 15px;
-    max-width: 300px;
-    min-width: 225px;
+    min-width: 300px;
     border: 1px solid #DADADA;
     border-radius: 20px;
     height: 400px;
@@ -1413,9 +1412,39 @@ footer {
         margin: 0 auto;
         width: 100%;
     }
+
+    /*About store*/
+
+    .about-store {
+        display: block;
+    }
+
+    /* About store - Column 1 */
+
+    .column1 {
+        width: 100%;
+    }
+
+    /* Reviews - Column 2 */
+
+    .column2 {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .review-div {
+        margin: 20px 10px;
+    }
 }
 
 @media screen and (max-width: 750px) {
+    #about-us {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+        line-height: 1.4;
+    }
     .person-get-contact {
         width: 280px;
         height: 100px;
@@ -1436,6 +1465,7 @@ footer {
     .store_filter {
         padding: 18px;
     }
+
 }
 
 @media screen and (max-width: 500px) {
@@ -1466,11 +1496,22 @@ footer {
         height: 16px;
         margin: 0 auto;
     }
+    .story-desc {
+        margin: 20px 15px;
+    }
+
     .info-title {
         font-size: 25px;
     }
     .info-text-p {
         font-size: 18px;
+    }
+    .person-img {
+        min-width: 250px;
+        height: 350px;
+    }
+    .person-desc {
+        padding: 10px;
     }
 }
 
