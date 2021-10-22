@@ -84,8 +84,6 @@ function searchListings(event) {
                 const categInput = document.getElementById("search_categ").value;
 
                 if (categInput != "null") {
-                    console.log(object.categ);
-                    console.log(categInput);
                     if (object.category != categInput)
                         statement = false;
                 }
