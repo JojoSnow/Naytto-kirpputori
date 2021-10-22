@@ -30,7 +30,7 @@ function searchListings(event) {
         if (statement) {
 
             const freeCheck = document.getElementById("free_checkbox")
-            const priceInput = document.getElementById("search_price_input").value
+            const priceInput = Number(document.getElementById("search_price_input").value)
             const priceSelect = document.getElementById("search_price_select").value
 
             //Price
@@ -53,26 +53,25 @@ function searchListings(event) {
 
                     break;
                 case "2": // 10%
-                    var low = object.price - (object.price / 10);
-                    var high = object.price + (object.price / 10);
+                    var dampener = Math.round(priceInput / 10);
+                    var low = priceInput - dampener;
+                    var high = priceInput + dampener;
 
-                    if (object.price > high && object.price < low)
+                    if (!(object.price <= high && object.price >= low))
 
                         statement = false;
 
                     break;
                 case "3": // 20%
-                    var low = object.price - ((object.price / 10) * 2);
-                    var high = object.price + ((object.price / 10) * 2);
+                    var dampener = Math.round(priceInput / 10);
+                    var low = priceInput - (dampener * 2);
+                    var high = priceInput + (dampener * 2);
 
-                    console.log(low); console.log(high);
-
-                    if (object.price > high && object.price < low)
+                    if (!(object.price <= high && object.price >= low))
 
                         statement = false;
 
                     break;
-
                 case null: // Un-used
 
                     break;
