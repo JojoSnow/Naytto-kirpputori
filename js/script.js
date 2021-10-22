@@ -126,7 +126,7 @@ function stayLoggedIn() {
         logoutBtn.style.display = 'block';
         createAddListingBtn();
     }
-    
+
     if (adminLogged !== null) {
         const openAddListingBtn = document.getElementById('add-listing-btn');
         loginBtn.style.display = 'none';
@@ -187,7 +187,7 @@ function login(event) {
     for (let i = 0; localStorage.length >= i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
-        
+
         const getAdmin = localStorage.getItem('admin' + i);
         const adminArray = JSON.parse(getAdmin);
 
@@ -236,10 +236,10 @@ function login(event) {
                     createAddListingBtn();
                     break;
                 }
-                
-            } 
+
+            }
         }
-        
+
         if (adminArray !== null && userEmail === false) {
             // checks if it's user or admin logging in
             if (adminArray[3].includes('admin')) {
@@ -288,13 +288,13 @@ function login(event) {
                 }
             }
         }
-        
+
         if (userEmail === true && userPassword === false) {
             break;
         } else if (adminEmail === true && adminPassword === false) {
             break;
         }
-    }    
+    }
 }
 
 // tells the user or admin if login has been successful
@@ -390,7 +390,7 @@ function regUser(event) {
     const regPassword = document.getElementById('input-reg-password').value;
 
     checkRegInfo(regName, regEmail, regPassword);
-  
+
     // makes an identifying number for the user
     let userNum = 0;
     if (!(localStorage.getItem('userNum'))) {
@@ -563,7 +563,7 @@ function selectRemove() {
             listingDiv.style.display = 'block';
             userDiv.style.display = 'none';
             return;
-        default: 
+        default:
             userDiv.style.display = 'none';
             listingDiv.style.display = 'none';
             return;
@@ -584,7 +584,7 @@ function removeUser(event) {
         iLength = localStorage.length;
     }
 
-    for (let i = 0; iLength >= i; i++) {        
+    for (let i = 0; iLength >= i; i++) {
         const getUser = localStorage.getItem('user' + i);
         const userArray = JSON.parse(getUser);
         const userId = document.getElementById('user-id').value;
@@ -599,7 +599,7 @@ function removeUser(event) {
                 document.getElementById('user-id-alert').innerHTML = '';
                 userAlert.style.display = 'block';
                 userAlert.innerHTML = 'Käyttäjä poistettu';
-                setTimeout(() => {userAlert.style.display = 'none'}, 2000);
+                setTimeout(() => { userAlert.style.display = 'none' }, 2000);
 
                 break;
             } else {
@@ -633,16 +633,16 @@ function removeListing(event) {
     const listingAlert = document.getElementById('remove-listing-alert');
 
     // removes the chosen listing from the listings and from local storage
-    for (let i = 0; iLength > i; i++) {        
+    for (let i = 0; iLength > i; i++) {
         const getListing = localStorage.getItem('storageListing' + i);
         const listingObject = JSON.parse(getListing);
 
         console.log(listingObject);
-        
+
         if (listingObject !== null) {
             if (listingId === listingObject.id) {
                 localStorage.removeItem('storageListing' + i);
-                
+
                 document.getElementById(listingObject.id).remove();
 
                 document.getElementById('listing-id').style.borderColor = '#a0a0a0';
@@ -650,7 +650,7 @@ function removeListing(event) {
                 document.getElementById('listing-id-alert').innerHTML = '';
                 listingAlert.style.display = 'block';
                 listingAlert.innerHTML = 'Listaus poistettu';
-                setTimeout(() => {listingAlert.style.display = 'none'}, 2000);
+                setTimeout(() => { listingAlert.style.display = 'none' }, 2000);
 
                 break;
             } else {
@@ -682,14 +682,14 @@ function removeListing(event) {
 // makes the listing reports show in admin settings
 function reportListingToAdmin() {
     const reportsDiv = document.getElementById('listing-reports');
-    
+
     for (let i = 0; localStorage.length >= i; i++) {
         const getReport = localStorage.getItem('reportListing' + i);
         const report = JSON.parse(getReport);
 
         if (report !== null) {
             if (Object.keys(report).length !== 0) {
-                
+
                 const newUl = document.createElement('ul');
                 newUl.id = report.key;
                 newUl.className = 'reports-list';
@@ -700,7 +700,7 @@ function reportListingToAdmin() {
                 for (let x = 0; report.reasons.length > x; x++) {
                     createLi(report.key, 'listing-report', 'Syy: ' + report.reasons[x]);
                 }
-                
+
                 if (typeof report.more !== 'undefined') {
                     createLi(report.key, 'listing-report', 'Lisää: ' + report.more);
                 }
@@ -711,7 +711,7 @@ function reportListingToAdmin() {
 }
 
 // creates a new li element
-function createLi (listId, liClass, text) {
+function createLi(listId, liClass, text) {
     const reportList = document.getElementById(listId);
 
     const newLi = document.createElement('li');
@@ -744,7 +744,7 @@ function openListingReport(event) {
     } else if (reportModalStatus) {
         document.getElementById('report-form').style.display = 'block';
     }
-    
+
     const listingId = event.target.parentElement.parentElement.getAttribute('id');
     localStorage.setItem('reportListingID', listingId);
 }
@@ -755,7 +755,7 @@ function reportListing(event) {
 
     const checked = [];
     let report = {};
-    
+
     document.querySelectorAll('.report-check-input').forEach(function checkChecked(box) {
         if (box.checked) {
             checked.push(box.value);
@@ -787,7 +787,7 @@ function reportListing(event) {
                     more: elseMore,
                     key: 'reportListing' + reportNum
                 };
-            }  else {
+            } else {
                 report = {
                     id: listingId,
                     reasons: checked,
@@ -868,7 +868,7 @@ function createReportForm() {
 
     const reportTextarea = document.createElement('textarea');
     reportTextarea.id = 'report-else-more';
-    
+
     reportForm.appendChild(reportTextarea);
     reportTextarea.style.display = 'none';
 
@@ -879,7 +879,7 @@ function createReportForm() {
             reportTextarea.style.display = 'none';
         }
     });
-    
+
     const submitReportBtn = document.createElement('input');
     submitReportBtn.type = 'submit';
     submitReportBtn.id = 'submit-report-btn';
@@ -915,7 +915,7 @@ function createReportOption(id, name, value) {
     newCheckbox.className = 'report-check-input';
     newCheckbox.name = name;
     newCheckbox.value = value;
-    
+
     reportForm.appendChild(newCheckbox);
 }
 
@@ -1400,10 +1400,9 @@ function clearAllListings() {
 
 // creates the listings for the page
 function createListing() {
-    let x = 0;
     const listingList = document.getElementById("store_listing");
 
-    while (x < objectIndex) {
+    for (let x = 0; x < objectIndex; x++) {
 
         if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) { x++; continue; }
 
@@ -1430,15 +1429,12 @@ function createListing() {
         const expandBtn = document.createElement("input");
         expandBtn.type = "button"
         expandBtn.className = "expand-btn";
-        expandBtn.value = x;
 
         expandBtn.addEventListener("click", function () {
-            expandListing(expandBtn.getAttribute("value"));
+            expandListing(x);
         });
 
         listingInnerExpand.appendChild(expandBtn);
-
-        x++;
     }
     updateListingAmountInfo()
 }
