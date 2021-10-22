@@ -1446,6 +1446,11 @@ footer {
     .listing-expand-ul ul {
         list-style-type: none;
     }
+    /*INFO*/
+    
+    .info-title {
+        margin: 20px 0;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -1456,6 +1461,13 @@ footer {
         width: 16px;
         height: 16px;
         margin: 0 auto;
+    }
+
+    .info-title {
+        font-size: 25px;
+    }   
+    .info-text-p {
+        font-size: 18px;
     }
 }
 
