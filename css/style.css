@@ -1116,40 +1116,51 @@ footer {
     float: left;
 }
 
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 900px) {
+
     #container {
         padding-bottom: 150px;
         /* Add if you want the footer further way */
     }
+
     #main {
         width: 85%;
     }
+
     /* HEADER */
+
     .header_items {
         display: block;
         height: 100%;
         margin: 0 auto;
         clear: both;
     }
+
     .header_logo {
         margin-top: 10px;
     }
+
     .header_logo h1 {
         font-size: 30px;
         margin: 0 15px;
     }
+
     .header_logo img {
         height: 40px;
     }
+
     #resp-btn {
         display: block;
         float: right;
         margin: 18px 0;
         cursor: pointer;
     }
+
     /* Navbar */
+
     #header-links {
         display: none;
         height: 100%;
@@ -1162,132 +1173,177 @@ footer {
         overflow-x: hidden;
         border-right: solid 2px var(--highlight-dark);
     }
+
     #navbar-close-btn {
         float: none;
         margin: 10px 0 0 210px;
         color: var(--darker-bg);
     }
+
     #navbar-close-btn:hover {
         color: var(--dark-bg);
     }
+
     .navbar {
         margin: 0;
     }
+
     .navbar li a {
         float: none;
         display: block;
         font-size: 18px;
         margin: 11px 15px;
     }
+
     .navbar li a:hover {
         color: var(--highlight-medium);
     }
+
     .navbar_link_active {
         color: var(--light-text);
     }
+
     .navbar_link_inactive {
         color: black;
     }
+
     /* Registration */
+
     .registration {
         padding-left: 20px;
         margin: 0;
         padding-top: 20px;
     }
+
     .regButton {
         float: none;
         display: block;
         font-size: 16px;
         margin: 11px 15px;
     }
+
     .regButton:hover {
         color: var(--highlight-medium);
     }
+
     #logout-btn, #admin-btn {
         display: none;
     }
+
     /* MODALS */
+
     .modal-btn {
         margin: 5px auto;
     }
+
     /* Admin modal */
+
     #admin-main {
         text-align: left;
         padding: 5px 20px;
         overflow-wrap: break-word;
     }
+
+    /* INFO */
+
+    .info-title {
+        margin: 40px 0 30px 0;
+    }
+
     /* FOOTER - stays at the bottom */
+
     footer {
         height: 70px;
     }
+
     .footer_items {
         width: 80%;
     }
+
     .footer-link-list {
         margin-bottom: 0;
     }
+
     #footer-about {
         font-size: 13px;
     }
+
     #copyright {
         font-size: 11px;
         margin: 45px 8px 10px 8px;
     }
+
     /* Store - listings and filters */
+
     .store_counter {
         display: flex;
         text-align: center;
     }
+
     .store_counter p {
         flex: 1;
         font-size: larger;
     }
+
     .listing-style1 {
         width: 100%;
         min-width: 400px;
         margin: 6px auto;
     }
+
     .expand-btn {
         width: 50px;
         height: 50px;
     }
+
     .inner-listing-info {
         flex: 6;
     }
+
     .inner-listing-info p {
         margin: 18px;
     }
+
     .listing-style2 {
         padding: 10px 15px;
     }
+
     .listing-expand-title {
         margin: 10px;
     }
+
     .listing-expand-info {
         display: inline-block;
     }
+
     .listing-expand-imgDiv {
         width: 100%;
         flex: 0;
         float: none;
     }
+
     .listing-expand-descDiv {
         float: left;
         flex: 0;
     }
+
     .listing-expand-external {
         display: block;
     }
+
     .listing-expand-location {
         flex: 0;
     }
+
     .listing-expand-ul {
         flex: 0;
     }
+
     .listing-expand-imgDiv-big {
         max-width: 450px;
         margin: 0 auto;
     }
+
     .listing-expand-imgDiv-small {
         overflow-y: none;
         height: auto;
@@ -1296,75 +1352,78 @@ footer {
         max-width: 450px;
         min-width: 350px;
     }
+
     .listing-expand-img-small {
         width: 33.333%;
     }
+
     /* Filters */
+
     .store_filter select {
         height: 35px;
         font-size: 18px;
     }
+
     .store_filter select option {
         padding: 5px;
     }
+
     .store_filter input {
         height: 35px;
         font-size: 18px;
     }
+
     .store_filter label {
         font-size: larger;
     }
+    
     .divCheckbox input {
         width: 22px;
         height: 22px;
     }
+
     .divSearch button {
         width: 60px;
         height: 50px;
         border-radius: 10px;
         font-size: large;
     }
-    /* Reporting */
-    .modal-main {
-        font-size: 20px;
-    }
-    .report-check-input {
-        width: 22px;
-        height: 22px;
-    }
-    .listing-report-btn {
-        width: 120px;
-        height: 50px;
-        border-radius: 10px;
-        font-size: larger;
-    }
+
+
 }
 
 /* About us only ↓ */
 
 @media only screen and (max-width: 1050px) {
+
     .story {
         display: block;
     }
+
     .story img {
         width: 50%;
         margin: 0 auto;
         min-width: 280px;
     }
+
     .bio {
         display: block;
     }
+
     .about-person {
         margin: 0 auto;
         width: 100%;
     }
+
     .person-img {
         width: 40%;
         margin: 0 auto;
     }
+
     .person-title {
         margin: 0 auto;
     }
+
     .person-desc {
         margin: 0 auto;
         width: 100%;
@@ -1372,18 +1431,22 @@ footer {
 }
 
 @media screen and (max-width: 750px) {
+
     .person-get-contact {
         width: 280px;
         height: 100px;
     }
+
     .person-contact-default {
         padding: 10px;
     }
+
     .person-contact-phone {
         display: block;
         float: none;
         margin: 0 5px 5px auto;
     }
+
     .person-contact-email {
         display: block;
         float: none;
