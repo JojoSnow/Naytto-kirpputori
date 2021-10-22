@@ -8,9 +8,7 @@ searchButton.addEventListener('click', searchListings);
 function searchListings(event) {
     event.preventDefault();
 
-    let x = 0;
-
-    while (x < objectIndex) {
+    for (let x = 0; x < objectIndex; x++) {
         if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) {
             x++;
             continue;
@@ -23,8 +21,11 @@ function searchListings(event) {
 
         const finCheck = document.getElementById("fin_checkbox")
 
-        if (finCheck.checked && object.city == "Ulkomaalainen")
+        if (finCheck.checked && object.city == "Ulkomaalainen") {
+
             statement = false;
+
+        }
 
         if (statement) {
 
@@ -33,9 +34,11 @@ function searchListings(event) {
             const priceSelect = document.getElementById("search_price_select").value
 
             //Price
-            if (freeCheck.checked && object.price != 0)
+            if (freeCheck.checked && object.price != 0) {
 
                 statement = false;
+
+            }
 
             switch (priceSelect) {
 
@@ -78,20 +81,24 @@ function searchListings(event) {
             if (statement) {
 
                 //Category
-                const categInput = document.getElementById("search_categ").value
+                const categInput = document.getElementById("search_categ").value;
 
-                if (categInput == null && object.categ != categInput)
-
-                    statement = false;
+                if (categInput != "null") {
+                    console.log(object.categ);
+                    console.log(categInput);
+                    if (object.category != categInput)
+                        statement = false;
+                }
 
                 if (statement) {
 
                     //Condition
-                    const condInput = document.getElementById("search_cond").value
+                    const condInput = document.getElementById("search_cond").value;
 
-                    if (condInput == null && object.shape != condInput)
-
-                        statement = false;
+                    if (condInput != "null") {
+                        if (object.shape != condInput)
+                            statement = false;
+                    }
                 }
             }
         }
@@ -103,7 +110,6 @@ function searchListings(event) {
         } else {
             closeListingAfterSearch(listing)
         }
-        x++;
     }
     updateListingAmountInfo();
 }
