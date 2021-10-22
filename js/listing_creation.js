@@ -594,10 +594,9 @@ function clearAllListings() {
 
 // creates the listings for the page
 function createListing() {
-    let x = 0;
     const listingList = document.getElementById("store_listing");
 
-    while (x < objectIndex) {
+    for (let x = 0; x < objectIndex; x++) {
 
         if (JSON.parse(localStorage.getItem(("storageListing") + x)) == null) { x++; continue; }
 
@@ -624,15 +623,12 @@ function createListing() {
         const expandBtn = document.createElement("input");
         expandBtn.type = "button"
         expandBtn.className = "expand-btn";
-        expandBtn.value = x;
 
         expandBtn.addEventListener("click", function () {
-            expandListing(expandBtn.getAttribute("value"));
+            expandListing(x);
         });
 
         listingInnerExpand.appendChild(expandBtn);
-
-        x++;
     }
     updateListingAmountInfo()
 }
