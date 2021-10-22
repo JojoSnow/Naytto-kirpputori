@@ -1336,6 +1336,11 @@ footer {
         font-size: medium;
     }
     /* Add listing */
+    .add-listing-btn {
+        margin: 12px auto;
+        padding: 8px 18px;
+        font-size: 18px;
+    }
     .add-listing-map p {
         font-size: 16px;
     }
@@ -1447,7 +1452,6 @@ footer {
         list-style-type: none;
     }
     /*INFO*/
-    
     .info-title {
         margin: 20px 0;
     }
@@ -1462,10 +1466,9 @@ footer {
         height: 16px;
         margin: 0 auto;
     }
-
     .info-title {
         font-size: 25px;
-    }   
+    }
     .info-text-p {
         font-size: 18px;
     }
