@@ -281,23 +281,15 @@ header {
 
 .divSearch {
     display: block;
-    position: relative;
-    float: right;
-    flex: 0.5;
-    padding: 10px;
-}
-
-.divSearch div {
-    position: relative;
+    padding: 8px;
+    width: 100%;
 }
 
 .divSearch button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
     width: 60px;
     height: 35px;
     border: none;
+    margin: 0 auto;
     border-radius: 3px;
     color: var(--lightest-bg);
     background-color: var(--highlight-light);
@@ -402,7 +394,7 @@ header {
     background-color: var(--light-bg);
     width: 100%;
     float: left;
-    border-radius: 18px;
+    border-radius: 8px;
 }
 
 .listing-expand {
@@ -1112,7 +1104,7 @@ footer {
         /* Add if you want the footer further way */
     }
     #main {
-        width: 85%;
+        width: 90%;
     }
     /* HEADER */
     .header_items {
@@ -1228,12 +1220,12 @@ footer {
     }
     .store_counter p {
         flex: 1;
-        font-size: larger;
+        font-size: medium;
     }
     .listing-style1 {
         width: 100%;
-        min-width: 400px;
-        margin: 6px auto;
+        margin: 4px auto;
+        padding: 12px;
     }
     .expand-btn {
         width: 50px;
@@ -1246,7 +1238,10 @@ footer {
         margin: 18px;
     }
     .listing-style2 {
-        padding: 10px 15px;
+        padding: 5px;
+    }
+    .listing-desc {
+        font-size: 14px;
     }
     .listing-expand-title {
         margin: 10px;
@@ -1261,6 +1256,7 @@ footer {
     }
     .listing-expand-descDiv {
         float: left;
+        padding: 2px;
         flex: 0;
     }
     .listing-expand-external {
@@ -1282,35 +1278,34 @@ footer {
         margin: 0 auto;
         float: none;
         max-width: 450px;
-        min-width: 350px;
     }
     .listing-expand-img-small {
         width: 33.333%;
     }
     /* Filters */
     .store_filter select {
-        height: 35px;
-        font-size: 18px;
+        height: 30px;
+        font-size: 14px;
     }
     .store_filter select option {
         padding: 5px;
     }
     .store_filter input {
-        height: 35px;
+        height: 30px;
         font-size: 18px;
     }
     .store_filter label {
-        font-size: larger;
+        font-size: large;
     }
     .divCheckbox input {
         width: 22px;
         height: 22px;
     }
     .divSearch button {
-        width: 60px;
-        height: 50px;
-        border-radius: 10px;
-        font-size: large;
+        width: 50px;
+        height: 30px;
+        border-radius: 6px;
+        font-size: medium;
     }
     /* Reporting */
     .modal-main {
@@ -1321,10 +1316,14 @@ footer {
         height: 22px;
     }
     .listing-report-btn {
-        width: 120px;
-        height: 50px;
+        width: 100px;
+        height: 40px;
         border-radius: 10px;
         font-size: larger;
+    }
+    /* About us */
+    #about-us {
+        width: 92%;
     }
 }
 
@@ -1376,6 +1375,35 @@ footer {
         display: block;
         float: none;
         margin: 0 5px 5px auto;
+    }
+    .store_filter {
+        padding: 18px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .listing-style1 {
+        min-width: none;
+        font-size: small;
+        margin: 1px auto;
+    }
+    .listing-style2 {
+        min-width: none;
+        margin: 1px auto;
+    }
+    .listing-expand-ul ul {
+        list-style-type: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .divCheckbox {
+        font-size: medium;
+    }
+    .divCheckbox input {
+        width: 16px;
+        height: 16px;
+        margin: 0 auto;
     }
 }
 
