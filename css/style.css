@@ -1146,7 +1146,7 @@ footer {
         display: none;
         height: 100%;
         width: 250px;
-        background-color: var(--medium-border);
+        background-color: lightgrey;
         position: fixed;
         z-index: 1;
         left: 0;
@@ -1172,10 +1172,10 @@ footer {
         margin: 11px 15px;
     }
     .navbar li a:hover {
-        color: var(--highlight-medium);
+        color: var(--highlight-dark);
     }
     .navbar_link_active {
-        color: var(--light-text);
+        color: var(--highlight-light);
     }
     .navbar_link_inactive {
         color: black;
@@ -1193,7 +1193,7 @@ footer {
         margin: 11px 15px;
     }
     .regButton:hover {
-        color: var(--highlight-medium);
+        color: var(--highlight-dark);
     }
     #logout-btn, #admin-btn {
         display: none;
