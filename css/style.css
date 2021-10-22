@@ -194,11 +194,12 @@ header {
 
 .info-title {
     white-space: normal;
-    margin: 35px 0 30px 0;
+    margin: 50px 0 30px 0;
 }
 
 .info-text-p {
     white-space: normal;
+    margin: 20px;
 }
 
 /* Storefront */
