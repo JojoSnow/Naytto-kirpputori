@@ -307,6 +307,11 @@ header {
     background-color: var(--highlight-light);
 }
 
+.divSearch button:hover {
+    background-color: var(--highlight-dark);
+    cursor: pointer;
+}
+
 .store_counter {
     display: block;
     border-bottom: 1px black solid;
