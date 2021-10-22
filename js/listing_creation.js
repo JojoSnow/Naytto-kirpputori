@@ -649,9 +649,9 @@ function expandListing(x) {
         const locatorWarningDiv = document.createElement("div");
         const ulDiv = document.createElement("div");
 
+        createNewDiv(x, locatorWarningDiv, "locWarning", "listing-expand-locWarning", expandDiv);
         createNewDiv(x, externalDiv, null, "listing-expand-external", expandDiv);
         createNewDiv(x, locationDiv, null, "listing-expand-location", externalDiv);
-        createNewDiv(x, locatorWarningDiv, "locWarning", "listing-expand-locWarning", externalDiv);
         createNewDiv(x, ulDiv, null, "listing-expand-ul", externalDiv);
 
         createTitleP(x, headerDiv, 1);
