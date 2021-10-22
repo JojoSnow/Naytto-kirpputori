@@ -1392,6 +1392,15 @@ footer {
 
 }
 
+@media only screen and (max-width: 500px) {
+
+    /*INFO*/
+    
+    .info-title {
+        margin: 20px 0;
+    }
+}
+
 /* About us only ↓ */
 
 @media only screen and (max-width: 1050px) {
