@@ -12,6 +12,7 @@ const locatorBtn = document.getElementById("locator_button");
 const currentLocationBtn = document.getElementById("current_location_finder");
 const useLocationBtn = document.getElementById("btn_use_location");
 const unUseLocationBtn = document.getElementById("btn_unuse_location");
+const removePicturesBtn = document.getElementById("remove_pictures_btn");
 
 window.addEventListener("load", createOrLoadListingsOnFirstStart);
 addListingBtn.addEventListener('click', openAddListing);
@@ -23,6 +24,7 @@ locatorBtn.addEventListener("click", findMe);
 currentLocationBtn.addEventListener("click", getMyCurrentLocation);
 useLocationBtn.addEventListener("click", useLocation);
 unUseLocationBtn.addEventListener("click", unUseLocation);
+removePicturesBtn.addEventListener("click", removePictures);
 
 function getMyCurrentLocation(event) {
     event.preventDefault();
@@ -205,6 +207,7 @@ function addListingImg() {
         const div = document.getElementById("listing_img_preview");
         div.appendChild(listingImgPreview);
         imagerX++;
+        document.getElementById("listing_img").value = "";
     });
 }
 
@@ -293,6 +296,20 @@ function contactSelectDefault() {
     const phone = document.getElementById("listing_phone");
     phone.value = "";
     phone.className = "listing-input";
+
+    const imageCarrier = document.getElementById("listing_img_preview");
+    while (imageCarrier.firstChild) {
+        imageCarrier.removeChild(imageCarrier.lastChild);
+    }
+
+    while (imagerX != 0) {
+        imager.splice(imagerX - 1);
+        imagerX--;
+    }
+}
+
+function removePictures(event) {
+    event.preventDefault();
 
     const imageCarrier = document.getElementById("listing_img_preview");
     while (imageCarrier.firstChild) {

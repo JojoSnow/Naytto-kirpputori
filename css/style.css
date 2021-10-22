@@ -687,7 +687,7 @@ header {
     float: left;
 }
 
-.add-listing-map-buttons button {
+.add-listing-generic-button {
     font-size: 16px;
     background-color: var(--light-bg);
     padding: 5px;
