@@ -1115,7 +1115,6 @@ footer {
         width: 85%;
     }
     /* HEADER */
-    
     .header_items {
         display: block;
         height: 100%;
@@ -1196,37 +1195,28 @@ footer {
         display: none;
     }
     /* MODALS */
-    
     .modal-btn {
         margin: 5px auto;
     }
-
     /* Admin modal */
-
     #admin-main {
         text-align: left;
         padding: 5px 20px;
         overflow-wrap: break-word;
     }
-
     /* FOOTER - stays at the bottom */
-
     footer {
         height: 70px;
     }
-
     .footer_items {
         width: 80%;
     }
-
     .footer-link-list {
         margin-bottom: 0;
     }
-
     #footer-about {
         font-size: 13px;
     }
-
     #copyright {
         font-size: 11px;
         margin: 45px 8px 10px 8px;
