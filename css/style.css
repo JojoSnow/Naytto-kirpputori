@@ -939,7 +939,7 @@ header {
 }
 
 .person-img {
-    width: 30%;
+    width: 300px;
     margin-left: 15px;
     min-width: 300px;
     border: 1px solid #DADADA;
