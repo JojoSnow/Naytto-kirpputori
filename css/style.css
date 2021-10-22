@@ -802,8 +802,9 @@ header {
     border-radius: 5px;
     background-color: var(--dark-bg);
     display: inline-block;
-    padding: 5px 10px;
-    margin: 10px;
+    padding: 5px 8px;
+    margin: 8px;
+    width: 152px;
 }
 
 .custom-file-input:hover {
@@ -1245,6 +1246,7 @@ footer {
     .expand-btn {
         width: 50px;
         height: 50px;
+        margin: 8px;
     }
     .inner-listing-info {
         flex: 6;
@@ -1268,6 +1270,7 @@ footer {
         width: 100%;
         flex: 0;
         float: none;
+        padding: 2px;
     }
     .listing-expand-descDiv {
         float: left;
@@ -1297,6 +1300,15 @@ footer {
     .listing-expand-img-small {
         width: 33.333%;
     }
+    .listing-expand-info .listing-price {
+        font-size: larger;
+    }
+    .listing-style2 .expand-btn {
+        margin: 10px;
+    }
+    .listing-style2 .listing-date {
+        margin: 10px;
+    }
     /* Filters */
     .store_filter select {
         height: 30px;
@@ -1313,14 +1325,56 @@ footer {
         font-size: large;
     }
     .divCheckbox input {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
     }
     .divSearch button {
         width: 50px;
         height: 30px;
         border-radius: 6px;
         font-size: medium;
+    }
+    /* Add listing */
+    .add-listing-map p {
+        font-size: 16px;
+    }
+    .add-listing-main {
+        margin: 6px;
+        padding: 10px 15px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* Add listing */
+    .add-listing-content {
+        width: 95%;
+    }
+    .add-listing-generic-button {
+        font-size: 16px;
+        padding: 3px;
+        height: auto;
+    }
+    .listing-select {
+        width: 90%;
+    }
+    .listing-input {
+        width: 90%;
+    }
+    .modal-label {
+        font-size: 18px;
+    }
+    .listing-img-preview {
+        max-width: 90%;
+    }
+    .add-listing-map p {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    /*INFO*/
+    .info-title {
+        margin: 20px 0;
     }
 }
 
